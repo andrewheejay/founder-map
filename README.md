@@ -116,7 +116,7 @@ The site is static: `npm run build` writes `dist/`.
 - GitHub Pages: `.github/workflows/pages.yml` builds on every push to `main` and deploys with the Pages actions. In the repository settings, set Pages "Source" to "GitHub Actions". The workflow sets `BASE_PATH=/<repo-name>/` so asset URLs work on a project site; for a user or organization site, or a custom domain, set `BASE_PATH=/`.
 - Vercel: build command `npm run build`, output directory `dist`, no environment variables needed.
 
-Add the deploy URL here once it exists.
+Live site: https://andrewheejay.github.io/founder-map/ (GitHub Pages, deployed by the workflow above from `main` of https://github.com/andrewheejay/founder-map).
 
 ## Acceptance
 
