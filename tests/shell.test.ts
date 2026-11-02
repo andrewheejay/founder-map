@@ -165,6 +165,11 @@ describe('phone layout', () => {
     expect(body(b, '.tab')).toMatch(/flex: 1 1 0/)
     expect(body(b, '.drawer .chip')).toMatch(/min-height: var\(--space-controlHPhone\)/)
   })
+
+  it('the native select fills its 44px label so the whole row is the tap target', () => {
+    const body = (selector: string) => rules(css).find((r) => r.selector === selector)?.body.replace(/\s+/g, ' ') ?? ''
+    expect(body('.select select')).toMatch(/align-self: stretch/)
+  })
 })
 
 describe('badge bar target size', () => {

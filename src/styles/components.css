@@ -503,6 +503,7 @@ button.chip:hover {
 
 .select select {
   flex: 1;
+  align-self: stretch; /* the select, not just its label, is the 40px (46px on phones) target */
   min-width: 0;
   border: 0;
   background: transparent;
