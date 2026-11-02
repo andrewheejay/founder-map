@@ -1,0 +1,110 @@
+/* generated from design/tokens.json by scripts/tokens.ts; do not edit */
+:root {
+  --color-page: #F4F5F7;
+  --color-surface: #FFFFFF;
+  --color-ink: #111418;
+  --color-muted: #5B6471;
+  --color-hairline: #E3E6EA;
+  --color-accent: #2457D6;
+  --color-accentTint: #EAF0FC;
+  --color-tableHead: #F9FAFB;
+  --color-link: #AEB6C0;
+  --color-hubStroke: #2A313B;
+  --path-big_tech_engineer: #2457D6;
+  --path-repeat_founder: #0E7C5B;
+  --path-business_operator: #B8304A;
+  --path-young_builder: #B45E0A;
+  --path-academic: #6F3BB5;
+  --status-active-bg: #E3F3EC;
+  --status-active-text: #0A5C44;
+  --status-role_changed-bg: #FBEEDC;
+  --status-role_changed-text: #7A3E05;
+  --status-left-bg: #F1F2F4;
+  --status-left-text: #5B6471;
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-base: 14px;
+  --text-title: 17px;
+  --text-subtitle: 12px;
+  --text-cardTitle: 20px;
+  --text-eyebrow: 11px;
+  --text-body: 13px;
+  --text-label: 11px;
+  --text-control: 13px;
+  --text-tableCell: 13px;
+  --text-tableHead: 11px;
+  --text-legend: 12px;
+  --text-mapFounder: 12.5px;
+  --text-mapCompany: 13px;
+  --text-mapHub: 10.5px;
+  --text-mapCluster: 13px;
+  --leading-base: 1.45;
+  --tracking-title: -0.01em;
+  --tracking-eyebrow: 0.08em;
+  --tracking-label: 0.06em;
+  --tracking-cluster: 0.08em;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-segment: 6px;
+  --radius-chip: 999px;
+  --space-pageMax: 1440px;
+  --space-pagePad: 32px;
+  --space-headerH: 64px;
+  --space-gap: 20px;
+  --space-cardPad: 20px;
+  --space-controlH: 40px;
+  --space-controlHPhone: 44px;
+  --space-sideW: 320px;
+  --space-zoomBtn: 36px;
+  --map-hullFillOpacity: 0.06;
+  --map-hullStrokeOpacity: 0.28;
+  --map-hullStrokeWidth: 1.2;
+  --map-labelStroke: 3.4;
+  --map-ringWidth: 2.2;
+  --map-dimOpacity: 0.32;
+  --map-filteredOpacity: 0.07;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --color-page: #0F1216;
+  --color-surface: #171B21;
+  --color-ink: #E6E9EE;
+  --color-muted: #99A2AE;
+  --color-hairline: #2A3038;
+  --color-accent: #6F95F6;
+  --color-accentTint: #1E2A44;
+  --color-tableHead: #1C2128;
+  --color-link: #6B7480;
+  --color-hubStroke: #C9D0D8;
+  --path-big_tech_engineer: #6F95F6;
+  --path-repeat_founder: #3BBD8B;
+  --path-business_operator: #EF6C89;
+  --path-young_builder: #F29A4B;
+  --path-academic: #B489EC;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-page: #0F1216;
+    --color-surface: #171B21;
+    --color-ink: #E6E9EE;
+    --color-muted: #99A2AE;
+    --color-hairline: #2A3038;
+    --color-accent: #6F95F6;
+    --color-accentTint: #1E2A44;
+    --color-tableHead: #1C2128;
+    --color-link: #6B7480;
+    --color-hubStroke: #C9D0D8;
+    --path-big_tech_engineer: #6F95F6;
+    --path-repeat_founder: #3BBD8B;
+    --path-business_operator: #EF6C89;
+    --path-young_builder: #F29A4B;
+    --path-academic: #B489EC;
+    color-scheme: dark;
+  }
+}
