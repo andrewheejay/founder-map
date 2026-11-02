@@ -45,4 +45,9 @@ describe('filters', () => {
     ])
     expect(activeChips(F({ q: 'ray' }))[0]).toEqual({ category: 'Search', label: '“ray”', remove: 'q' })
   })
+  it('whitespace-only search is not an active filter and the chip label is trimmed', () => {
+    expect(activeFilterCount(F({ q: '   ' }))).toBe(0)
+    expect(activeChips(F({ q: '   ' }))).toEqual([])
+    expect(activeChips(F({ q: '  ray ' }))).toEqual([{ category: 'Search', label: '“ray”', remove: 'q' }])
+  })
 })

@@ -39,6 +39,7 @@ export function drawerHTML(graph: Graph): string {
   return `<div class="drawer">${group('Path', paths)}${group('Badges', badges)}${group('Big tech employer', employers)}${group('More', more)}${group('Map layers', layers)}</div>`
 }
 
+const has = (set: ReadonlySet<string>, v: string): boolean => set.has(v)
 const pressed = (root: ParentNode, selector: string, attr: string, on: (v: string) => boolean) => {
   for (const el of root.querySelectorAll<HTMLElement>(selector)) el.setAttribute('aria-pressed', String(on(el.getAttribute(attr) ?? '')))
 }
@@ -54,9 +55,9 @@ const setHidden = (root: ParentNode, id: string, hidden: boolean) => {
 /** Mirror the state into every toolbar, drawer, view, and tab control. */
 export function syncControls(root: ParentNode, s: State): void {
   const f = s.filters
-  pressed(root, '[data-path]', 'data-path', (v) => f.paths.has(v as never))
-  pressed(root, '[data-cluster]', 'data-cluster', (v) => f.paths.has(v as never))
-  pressed(root, '[data-badge]', 'data-badge', (v) => f.badges.has(v as never))
+  pressed(root, '[data-path]', 'data-path', (v) => has(f.paths, v))
+  pressed(root, '[data-cluster]', 'data-cluster', (v) => has(f.paths, v))
+  pressed(root, '[data-badge]', 'data-badge', (v) => has(f.badges, v))
   pressed(root, '[data-employer]', 'data-employer', (v) => f.employers.has(v))
   pressed(root, '[data-layer]', 'data-layer', (v) => s.layers[v as keyof Layers])
   pressed(root, '[data-fund]', 'data-fund', (v) => v === f.fund)

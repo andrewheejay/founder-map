@@ -23,7 +23,7 @@ export const matchedFounders = (graph: Graph, filters: Filters): Set<FounderNode
 export const matchedCompanies = (graph: Graph, matched: Set<FounderNode>): CompanyNode[] => graph.companies.filter((c) => c.members.some((m) => matched.has(m)))
 
 export const activeFilterCount = (f: Filters): number =>
-  (f.fund !== 'all' ? 1 : 0) + (f.q ? 1 : 0) + f.paths.size + f.badges.size + f.employers.size + (f.school ? 1 : 0) + (f.vertical ? 1 : 0) + (f.status ? 1 : 0) + (f.oss ? 1 : 0)
+  (f.fund !== 'all' ? 1 : 0) + (searchTokens(f.q).length ? 1 : 0) + f.paths.size + f.badges.size + f.employers.size + (f.school ? 1 : 0) + (f.vertical ? 1 : 0) + (f.status ? 1 : 0) + (f.oss ? 1 : 0)
 
 export interface Chip {
   category: string
@@ -36,7 +36,8 @@ export interface Chip {
 export function activeChips(f: Filters): Chip[] {
   const chips: Chip[] = []
   if (f.fund !== 'all') chips.push({ category: 'Fund', label: FUND_LABEL[f.fund], remove: 'fund' })
-  if (f.q) chips.push({ category: 'Search', label: `“${f.q}”`, remove: 'q' })
+  const q = f.q.trim()
+  if (q) chips.push({ category: 'Search', label: `“${q}”`, remove: 'q' })
   for (const p of PATH_ORDER) if (f.paths.has(p)) chips.push({ category: 'Path', label: PATHS[p].name, remove: `path:${p}` })
   for (const b of BADGE_ORDER) if (f.badges.has(b)) chips.push({ category: 'Badge', label: BADGE_LABEL[b], remove: `badge:${b}` })
   for (const e of BIG_TECH) if (f.employers.has(e)) chips.push({ category: 'Employer', label: e, remove: `employer:${e}` })

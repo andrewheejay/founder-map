@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { DEFAULT_FILTERS, DEFAULT_STATE, clearFilters, createStore, escapeClears, hoverFocusAllowed, removeFilter, toggleBadgePath, toggleOss, togglePath, toggleSelect } from '../src/state'
+import { DEFAULT_FILTERS, DEFAULT_STATE, clearFilters, createStore, escapeClears, hoverFocusAllowed, removeFilter, toggleBadge, toggleBadgePath, toggleEmployer, toggleOss, togglePath, toggleSelect } from '../src/state'
+import type { BadgeKey, PathKey } from '../src/types'
 import { DEFAULT_SORT, toggleSort } from '../src/state'
 
 describe('state', () => {
@@ -44,6 +45,24 @@ describe('state', () => {
     expect(removeFilter(many, 'fund').fund).toBe('all')
     expect(removeFilter(many, 'school').school).toBe('')
     expect(clearFilters()).toEqual(DEFAULT_FILTERS)
+  })
+  it('reducers never mutate their input sets', () => {
+    const paths = new Set<PathKey>(['academic'])
+    const badges = new Set<BadgeKey>(['prior_exit'])
+    const employers = new Set(['Google'])
+    const f = { ...DEFAULT_FILTERS, paths, badges, employers }
+    togglePath(f, 'academic')
+    toggleBadge(f, 'prior_exit')
+    toggleEmployer(f, 'Google')
+    toggleBadgePath(f, 'prior_exit', 'repeat_founder')
+    removeFilter(f, 'path:academic')
+    removeFilter(f, 'badge:prior_exit')
+    removeFilter(f, 'employer:Google')
+    expect([...paths]).toEqual(['academic'])
+    expect([...badges]).toEqual(['prior_exit'])
+    expect([...employers]).toEqual(['Google'])
+    expect(f.paths).toBe(paths)
+    expect(DEFAULT_FILTERS.paths.size).toBe(0)
   })
 })
 
