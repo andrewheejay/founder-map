@@ -1,0 +1,695 @@
+{
+ "viewBox": [
+  0,
+  0,
+  1100,
+  840
+ ],
+ "note": "Positions from the v3 force layout (D3 forceSimulation, 500 ticks, then fit to 1100x840 with 76px margin). Ship these as static positions; re-run the simulation only when data changes.",
+ "nodes": {
+  "e:foundationdb": {
+   "x": 564.2,
+   "y": 469.0
+  },
+  "e:apple": {
+   "x": 475.2,
+   "y": 387.2
+  },
+  "e:google": {
+   "x": 477.8,
+   "y": 463.5
+  },
+  "s:carnegie-mellon": {
+   "x": 540.7,
+   "y": 405.5
+  },
+  "e:visual-sciences": {
+   "x": 582.4,
+   "y": 538.0
+  },
+  "s:harvard": {
+   "x": 659.0,
+   "y": 272.9
+  },
+  "s:uc-berkeley": {
+   "x": 479.9,
+   "y": 155.8
+  },
+  "o:ray": {
+   "x": 564.6,
+   "y": 220.2
+  },
+  "e:databricks": {
+   "x": 493.1,
+   "y": 288.2
+  },
+  "e:conviva": {
+   "x": 472.8,
+   "y": 279.7
+  },
+  "s:mit": {
+   "x": 332.7,
+   "y": 272.7
+  },
+  "e:twitter": {
+   "x": 380.2,
+   "y": 336.3
+  },
+  "e:lyft": {
+   "x": 417.6,
+   "y": 319.4
+  },
+  "e:microsoft": {
+   "x": 362.7,
+   "y": 630.7
+  },
+  "e:amazon": {
+   "x": 286.6,
+   "y": 358.5
+  },
+  "o:envoy": {
+   "x": 371.9,
+   "y": 289.8
+  },
+  "o:kubernetes": {
+   "x": 207.6,
+   "y": 480.4
+  },
+  "o:sigstore": {
+   "x": 172.5,
+   "y": 392.6
+  },
+  "o:slsa": {
+   "x": 174.2,
+   "y": 457.8
+  },
+  "o:tekton": {
+   "x": 245.8,
+   "y": 558.2
+  },
+  "o:distroless": {
+   "x": 216.5,
+   "y": 524.1
+  },
+  "e:lawrence-livermore": {
+   "x": 249.4,
+   "y": 516.1
+  },
+  "e:vmware": {
+   "x": 271.0,
+   "y": 318.4
+  },
+  "o:knative": {
+   "x": 218.4,
+   "y": 301.2
+  },
+  "s:michigan": {
+   "x": 535.9,
+   "y": 542.6
+  },
+  "e:careevolution": {
+   "x": 381.6,
+   "y": 522.7
+  },
+  "e:facebook": {
+   "x": 504.6,
+   "y": 381.3
+  },
+  "o:graphql": {
+   "x": 334.4,
+   "y": 598.4
+  },
+  "s:maryland": {
+   "x": 939.2,
+   "y": 448.8
+  },
+  "s:unc": {
+   "x": 941.2,
+   "y": 470.7
+  },
+  "e:deloitte": {
+   "x": 924.8,
+   "y": 432.2
+  },
+  "e:squarespace": {
+   "x": 930.2,
+   "y": 489.7
+  },
+  "e:rjmetrics": {
+   "x": 869.6,
+   "y": 384.0
+  },
+  "s:drexel": {
+   "x": 906.0,
+   "y": 287.2
+  },
+  "e:8tracks": {
+   "x": 888.1,
+   "y": 300.0
+  },
+  "e:stitch": {
+   "x": 871.4,
+   "y": 314.3
+  },
+  "s:sydney": {
+   "x": 501.7,
+   "y": 616.6
+  },
+  "e:nicta": {
+   "x": 511.0,
+   "y": 596.7
+  },
+  "e:tailscale": {
+   "x": 556.3,
+   "y": 717.5
+  },
+  "o:go": {
+   "x": 525.0,
+   "y": 679.8
+  },
+  "e:admob": {
+   "x": 606.1,
+   "y": 714.7
+  },
+  "e:paypal": {
+   "x": 509.3,
+   "y": 716.2
+  },
+  "s:penn": {
+   "x": 931.4,
+   "y": 303.1
+  },
+  "e:bessemer": {
+   "x": 913.7,
+   "y": 316.1
+  },
+  "e:segment": {
+   "x": 818.7,
+   "y": 300.0
+  },
+  "e:rancher-labs": {
+   "x": 889.7,
+   "y": 223.9
+  },
+  "e:trustpilot": {
+   "x": 667.5,
+   "y": 735.2
+  },
+  "e:optonaut": {
+   "x": 633.6,
+   "y": 758.0
+  },
+  "s:stanford": {
+   "x": 718.3,
+   "y": 416.9
+  },
+  "e:bleacher-report": {
+   "x": 704.3,
+   "y": 461.9
+  },
+  "e:palantir": {
+   "x": 650.8,
+   "y": 399.2
+  },
+  "e:blend": {
+   "x": 718.5,
+   "y": 478.6
+  },
+  "s:moscow-state": {
+   "x": 291.4,
+   "y": 504.3
+  },
+  "s:ufrj": {
+   "x": 282.4,
+   "y": 484.3
+  },
+  "e:uber": {
+   "x": 466.0,
+   "y": 519.3
+  },
+  "o:cadence": {
+   "x": 236.9,
+   "y": 405.9
+  },
+  "s:gik-institute": {
+   "x": 279.1,
+   "y": 452.4
+  },
+  "e:coil": {
+   "x": 335.0,
+   "y": 496.0
+  },
+  "s:columbia": {
+   "x": 439.1,
+   "y": 598.9
+  },
+  "e:bloomberg": {
+   "x": 375.9,
+   "y": 554.2
+  },
+  "e:bittorrent": {
+   "x": 354.0,
+   "y": 552.0
+  },
+  "s:univ-of-washington": {
+   "x": 750.7,
+   "y": 116.7
+  },
+  "e:kiip": {
+   "x": 779.8,
+   "y": 77.2
+  },
+  "o:vagrant": {
+   "x": 927.5,
+   "y": 147.8
+  },
+  "e:zoox": {
+   "x": 763.8,
+   "y": 241.1
+  },
+  "e:cresta": {
+   "x": 761.7,
+   "y": 219.3
+  },
+  "e:plaid": {
+   "x": 751.7,
+   "y": 182.6
+  },
+  "s:nyu": {
+   "x": 538.4,
+   "y": 595.9
+  },
+  "e:factset": {
+   "x": 554.3,
+   "y": 580.8
+  },
+  "e:yieldmo": {
+   "x": 534.3,
+   "y": 617.5
+  },
+  "e:akamai": {
+   "x": 576.1,
+   "y": 577.7
+  },
+  "s:univ-of-oregon": {
+   "x": 877.8,
+   "y": 113.6
+  },
+  "e:beyondtrust": {
+   "x": 695.2,
+   "y": 703.7
+  },
+  "s:williams": {
+   "x": 746.2,
+   "y": 470.8
+  },
+  "s:oxford": {
+   "x": 757.6,
+   "y": 452.0
+  },
+  "e:white-house": {
+   "x": 747.8,
+   "y": 492.7
+  },
+  "e:lindsay-goldberg": {
+   "x": 777.8,
+   "y": 443.4
+  },
+  "e:nsa": {
+   "x": 503.6,
+   "y": 419.2
+  },
+  "o:trusted-data-format": {
+   "x": 542.9,
+   "y": 336.7
+  },
+  "s:minnesota": {
+   "x": 429.7,
+   "y": 581.8
+  },
+  "e:pinterest": {
+   "x": 416.6,
+   "y": 479.5
+  },
+  "e:expedia": {
+   "x": 464.5,
+   "y": 617.4
+  },
+  "e:samsung": {
+   "x": 473.0,
+   "y": 597.1
+  },
+  "s:edhec": {
+   "x": 734.5,
+   "y": 602.3
+  },
+  "e:trilogy": {
+   "x": 732.0,
+   "y": 624.2
+  },
+  "e:betweenmarkets": {
+   "x": 723.7,
+   "y": 583.2
+  },
+  "e:reddwerks": {
+   "x": 717.4,
+   "y": 640.5
+  },
+  "e:k9-ventures": {
+   "x": 862.8,
+   "y": 601.1
+  },
+  "s:yale": {
+   "x": 689.1,
+   "y": 226.7
+  },
+  "e:atrium": {
+   "x": 694.6,
+   "y": 205.4
+  },
+  "e:goldman-sachs": {
+   "x": 780.2,
+   "y": 436.8
+  },
+  "e:ironclad": {
+   "x": 605.1,
+   "y": 361.3
+  },
+  "e:nova-credit": {
+   "x": 734.8,
+   "y": 315.4
+  },
+  "c:antithesis": {
+   "x": 529.4,
+   "y": 489.5
+  },
+  "c:anyscale": {
+   "x": 499.1,
+   "y": 186.4
+  },
+  "c:bitdrift": {
+   "x": 325.8,
+   "y": 343.8
+  },
+  "c:chainguard": {
+   "x": 240.3,
+   "y": 451.0
+  },
+  "c:dagster": {
+   "x": 322.7,
+   "y": 557.5
+  },
+  "c:dbt": {
+   "x": 901.0,
+   "y": 353.2
+  },
+  "c:exe-dev": {
+   "x": 578.8,
+   "y": 651.3
+  },
+  "c:hightouch": {
+   "x": 927.2,
+   "y": 237.0
+  },
+  "c:prisma": {
+   "x": 666.1,
+   "y": 764
+  },
+  "c:sourcegraph": {
+   "x": 685.8,
+   "y": 404.6
+  },
+  "c:temporal": {
+   "x": 259.9,
+   "y": 473.9
+  },
+  "c:tigerbeetle": {
+   "x": 413.7,
+   "y": 469.0
+  },
+  "c:trunk": {
+   "x": 389.9,
+   "y": 579.8
+  },
+  "c:buf": {
+   "x": 424.7,
+   "y": 377.5
+  },
+  "c:hashicorp": {
+   "x": 872.5,
+   "y": 110.5
+  },
+  "c:exa": {
+   "x": 754.0,
+   "y": 232.0
+  },
+  "c:redpanda": {
+   "x": 629.9,
+   "y": 613.2
+  },
+  "c:people-data-labs": {
+   "x": 851.5,
+   "y": 76
+  },
+  "c:pomerium": {
+   "x": 726.4,
+   "y": 710.5
+  },
+  "c:virtru": {
+   "x": 634.8,
+   "y": 451.9
+  },
+  "c:fiddler": {
+   "x": 447.8,
+   "y": 552.2
+  },
+  "c:carta": {
+   "x": 777.4,
+   "y": 598.8
+  },
+  "c:rutter": {
+   "x": 700.7,
+   "y": 176.9
+  },
+  "c:finley": {
+   "x": 692.2,
+   "y": 373.9
+  },
+  "f:will-wilson": {
+   "x": 443.0,
+   "y": 403.3
+  },
+  "f:dave-scherer": {
+   "x": 589.1,
+   "y": 573.4
+  },
+  "f:robert-nishihara": {
+   "x": 546.9,
+   "y": 171.0
+  },
+  "f:philipp-moritz": {
+   "x": 533.5,
+   "y": 144.3
+  },
+  "f:ion-stoica": {
+   "x": 496.2,
+   "y": 252.3
+  },
+  "f:michael-i-jordan": {
+   "x": 432.1,
+   "y": 164.0
+  },
+  "f:peter-morelli": {
+   "x": 320.2,
+   "y": 381.7
+  },
+  "f:matt-klein": {
+   "x": 332.5,
+   "y": 409.0
+  },
+  "f:martin-conte-mac-donell": {
+   "x": 350.0,
+   "y": 384.7
+  },
+  "f:dan-lorenc": {
+   "x": 270.9,
+   "y": 446.1
+  },
+  "f:matt-moore": {
+   "x": 290.5,
+   "y": 468.6
+  },
+  "f:kim-lewandowski": {
+   "x": 279.6,
+   "y": 496.4
+  },
+  "f:ville-aikas": {
+   "x": 271.4,
+   "y": 409.8
+  },
+  "f:scott-nichols": {
+   "x": 294.9,
+   "y": 428.3
+  },
+  "f:nick-schrock": {
+   "x": 368.8,
+   "y": 489.1
+  },
+  "f:tristan-handy": {
+   "x": 906.1,
+   "y": 463.0
+  },
+  "f:drew-banin": {
+   "x": 877.2,
+   "y": 265.7
+  },
+  "f:connor-mcarthur": {
+   "x": 853.0,
+   "y": 283.3
+  },
+  "f:david-crawshaw": {
+   "x": 537.4,
+   "y": 621.3
+  },
+  "f:josh-bleecher-snyder": {
+   "x": 603.5,
+   "y": 678.8
+  },
+  "f:kashish-gupta": {
+   "x": 902.2,
+   "y": 282.0
+  },
+  "f:tejas-manohar": {
+   "x": 882.7,
+   "y": 214.4
+  },
+  "f:josh-curl": {
+   "x": 853.7,
+   "y": 221.6
+  },
+  "f:s-ren-bramer-schmidt": {
+   "x": 648.1,
+   "y": 704.9
+  },
+  "f:johannes-schickling": {
+   "x": 624.5,
+   "y": 723.2
+  },
+  "f:quinn-slack": {
+   "x": 685.3,
+   "y": 492.4
+  },
+  "f:beyang-liu": {
+   "x": 679.0,
+   "y": 321.4
+  },
+  "f:maxim-fateev": {
+   "x": 318.1,
+   "y": 480.1
+  },
+  "f:samar-abbas": {
+   "x": 315.1,
+   "y": 450.4
+  },
+  "f:joran-dirk-greef": {
+   "x": 347.9,
+   "y": 462.4
+  },
+  "f:eli-schleifer": {
+   "x": 474.4,
+   "y": 605.6
+  },
+  "f:david-apirian": {
+   "x": 368.4,
+   "y": 519.0
+  },
+  "f:matt-matheson": {
+   "x": 340.0,
+   "y": 509.7
+  },
+  "f:chris-clearwater": {
+   "x": 346.2,
+   "y": 538.9
+  },
+  "f:peter-edge": {
+   "x": 385.9,
+   "y": 423.4
+  },
+  "f:mitchell-hashimoto": {
+   "x": 838.9,
+   "y": 166.3
+  },
+  "f:armon-dadgar": {
+   "x": 835.8,
+   "y": 126.3
+  },
+  "f:will-bryk": {
+   "x": 796.9,
+   "y": 227.0
+  },
+  "f:jeff-wang": {
+   "x": 782.9,
+   "y": 200.6
+  },
+  "f:alexander-gallego": {
+   "x": 570.0,
+   "y": 613.2
+  },
+  "f:sean-thorne": {
+   "x": 859.4,
+   "y": 144.6
+  },
+  "f:henry-nevue": {
+   "x": 815.2,
+   "y": 148.0
+  },
+  "f:bobby-desimone": {
+   "x": 666.8,
+   "y": 681.6
+  },
+  "f:john-ackerly": {
+   "x": 781.2,
+   "y": 479.2
+  },
+  "f:will-ackerly": {
+   "x": 468.2,
+   "y": 426.0
+  },
+  "f:krishna-gade": {
+   "x": 384.3,
+   "y": 463.5
+  },
+  "f:amit-paka": {
+   "x": 500.3,
+   "y": 620.6
+  },
+  "f:henry-ward": {
+   "x": 699.2,
+   "y": 609.5
+  },
+  "f:manu-kumar": {
+   "x": 854.5,
+   "y": 566.1
+  },
+  "f:peter-zhou": {
+   "x": 725.0,
+   "y": 224.6
+  },
+  "f:eric-yu": {
+   "x": 766.7,
+   "y": 175.2
+  },
+  "f:jeremy-tsui": {
+   "x": 805.9,
+   "y": 462.0
+  },
+  "f:josiah-tsui": {
+   "x": 571.1,
+   "y": 373.1
+  },
+  "f:kevin-suh": {
+   "x": 757.9,
+   "y": 287.8
+  }
+ }
+}

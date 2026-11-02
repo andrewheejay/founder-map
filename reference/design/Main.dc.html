@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Founder Map · Map view</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F4F5F7}
+a{color:#2457D6;text-decoration:none}a:hover{color:#1A43AD;text-decoration:underline}
+button{font:inherit;cursor:pointer}
+input{font:inherit}
+</style>
+</helmet>
+<div style="min-height: 940px; background: #F4F5F7; color: #111418; font-family: Inter, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.45; display: flex; flex-direction: column">
+
+  <header style="background: #FFFFFF; border-bottom: 1px solid #E3E6EA">
+    <div style="max-width: 1440px; margin: 0 auto; box-sizing: border-box; padding: 0 32px; min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#111418"></rect><path d="M9 18.5 18.5 9.5M10 18l8 1.6" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path><circle cx="9" cy="18.5" r="3" fill="#FFFFFF"></circle><circle cx="19" cy="9" r="3" fill="#FFFFFF"></circle><circle cx="19.5" cy="20" r="2.4" fill="#2457D6"></circle></svg>
+        <div>
+          <h1 style="margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2">Founder Map</h1>
+          <p style="margin: 2px 0 0; font-size: 12px; color: #5B6471">Amplify Partners and Haystack portfolios, grouped by founder path</p>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 12px; color: #5B6471">54 founders · 24 companies · 23 shared employers &amp; schools · 13 open source projects</p>
+    </div>
+  </header>
+
+  <div style="max-width: 1440px; width: 100%; margin: 0 auto; box-sizing: border-box; padding: 16px 32px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+    <div style="position: relative; flex: 1 1 260px; max-width: 340px">
+      <label for="map-search" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Search founders, companies, employers, schools</label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B6471" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 12px; top: 12px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <input id="map-search" type="search" placeholder="Search founders, companies, employers, schools" style="width: 100%; box-sizing: border-box; height: 40px; padding: 0 12px 0 36px; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF; color: #111418; font-size: 13px">
+    </div>
+
+    <div role="group" aria-label="Fund" style="display: inline-flex; padding: 3px; gap: 2px; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF">
+      <button type="button" aria-pressed="true" style="height: 32px; padding: 0 12px; border: 0; border-radius: 6px; background: #111418; color: #FFFFFF; font-size: 13px; font-weight: 500">Both funds</button>
+      <button type="button" aria-pressed="false" style="height: 32px; padding: 0 12px; border: 0; border-radius: 6px; background: transparent; color: #111418; font-size: 13px; font-weight: 500">Amplify</button>
+      <button type="button" aria-pressed="false" style="height: 32px; padding: 0 12px; border: 0; border-radius: 6px; background: transparent; color: #111418; font-size: 13px; font-weight: 500">Haystack</button>
+    </div>
+
+    <div role="group" aria-label="View" style="display: inline-flex; padding: 3px; gap: 2px; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF">
+      <button type="button" aria-pressed="true" style="height: 32px; padding: 0 14px; border: 0; border-radius: 6px; background: #111418; color: #FFFFFF; font-size: 13px; font-weight: 500">Map</button>
+      <button type="button" aria-pressed="false" style="height: 32px; padding: 0 14px; border: 0; border-radius: 6px; background: transparent; color: #111418; font-size: 13px; font-weight: 500">Table</button>
+    </div>
+
+    <div style="flex: 1 1 auto"></div>
+
+    <button type="button" style="height: 40px; padding: 0 14px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF; color: #111418; font-size: 13px; font-weight: 500">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"></path></svg>
+      Filters
+    </button>
+  </div>
+
+  <main style="max-width: 1440px; width: 100%; margin: 0 auto; box-sizing: border-box; padding: 16px 32px 24px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 20px">
+
+    <section aria-label="Founder map" style="flex: 999 1 560px; min-width: 0; position: relative; background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 12px; overflow: hidden">
+      <svg viewBox="16 48 1112 764" role="img" aria-label="Network map of 54 founders, their companies, employers, schools and open source projects, with Dan Lorenc of Chainguard selected" style="display: block; width: 100%; height: auto; font-family: Inter, system-ui, sans-serif">
+<g aria-hidden="true">
+<path d="M593.6,360.1C591.4,356.3,587.8,352.7,584.1,350.5C580.3,348.4,576.9,348,571.1,347.1C537.4,341.8,353.9,349.6,320.2,355.7C314.4,356.8,312.3,357.2,307.2,359.2C295.2,363.9,268.5,379.3,258.4,387.3C254.1,390.7,251.1,393.1,248.9,396.8C246.7,400.6,246.2,404.7,245.4,409.8C244,419.2,243.9,433.3,244.9,446.1C246.1,461.8,250.9,484.6,253.6,496.4C254.8,501.8,254.9,505.7,257,509.4C259.2,513.2,262.2,515.3,266.6,518.9C279.1,529.4,318.1,555.3,333.2,561.5C338.3,563.6,341.8,564.9,346.2,564.9C350.5,564.9,353.7,563.7,359.2,561.5C392.6,547.6,556.8,420.1,584.1,395.6C588.5,391.6,591.4,389.8,593.6,386.1C595.8,382.3,597.1,377.4,597.1,373.1C597.1,368.7,595.8,363.8,593.6,360.1" fill="#2457D6" fill-opacity="0.06" stroke="#2457D6" stroke-opacity="0.28" stroke-width="1.2"/>
+<path d="M711.2,492.4C710.1,486.7,709.9,483.2,707.8,479.4C705.6,475.7,702,472.1,698.2,469.9C694.5,467.7,689.6,466.4,685.2,466.4C680.9,466.4,677.8,467.9,672.2,469.9C641,481.1,487.2,562.3,461.4,583.1C456.9,586.8,454.1,588.9,451.9,592.6C449.8,596.4,448.4,601.3,448.4,605.6C448.4,610,449.8,614.9,451.9,618.6C454.1,622.4,457.1,624.1,461.4,628.1C482.8,647.7,585.4,734.4,611.5,745.7C616.8,748,620.2,749.2,624.5,749.2C628.8,749.2,632.9,747.9,637.5,745.7C644.8,742.2,654.9,732.9,661.1,727.4C664.9,724,667.2,721.7,670.6,717.9C676.2,711.8,683.2,704.4,689.3,694.6C700.4,677,716.4,637.9,721.7,622.5C723.5,617.1,724.5,615.1,725.2,609.5C727.5,588.6,715.6,513.3,711.2,492.4" fill="#0E7C5B" fill-opacity="0.06" stroke="#0E7C5B" stroke-opacity="0.28" stroke-width="1.2"/>
+<path d="M928.6,450C926.4,446.2,922.8,442.6,919.1,440.5C915.3,438.3,911.7,437.9,906.1,437C887.3,433.9,824.7,433.1,805.9,436C800.2,436.9,797.5,437.5,792.9,439.5C785.4,442.9,774.5,451.3,768.2,456.7C764.3,460,760.9,462.4,758.7,466.2C756.5,469.9,755.2,474.9,755.2,479.2C755.2,483.5,756.3,487.1,758.7,492.2C767.3,510.7,817.7,563.9,831.9,579.1C835.9,583.3,837.7,586.4,841.5,588.6C845.2,590.8,850.1,592.1,854.5,592.1C858.8,592.1,863.7,590.8,867.5,588.6C871.2,586.4,873.5,583.6,877,579.1C889.7,562.6,921.6,495.7,928.6,476C930.5,470.5,932.1,467.3,932.1,463C932.1,458.7,930.8,453.7,928.6,450" fill="#B8304A" fill-opacity="0.06" stroke="#B8304A" stroke-opacity="0.28" stroke-width="1.2"/>
+<path d="M924.7,269C920.6,254.4,912.3,224,905.2,201.4C898,178.2,890.5,144.2,881.9,131.6C878.9,127,876.2,125.5,872.4,122.1C866.2,116.6,856.1,107.2,848.8,103.7C844.2,101.6,840.1,100.3,835.8,100.3C831.5,100.3,827.9,101.5,822.8,103.7C807.2,110.4,766.6,141.5,753.7,152.7C749.4,156.4,748,158.2,744.2,162.2C734.5,172.7,715.3,192,702.5,211.6C685.2,238.1,663.1,289.5,656.5,308.4C654.6,313.8,653,317.1,653,321.4C653,325.7,654.3,330.6,656.5,334.4C658.7,338.1,662.3,341.7,666,343.9C669.8,346.1,673.2,346.8,679,347.4C710.5,350.7,870.7,315.4,902.2,308C908,306.7,911.4,306.7,915.2,304.6C918.9,302.4,922.5,298.8,924.7,295C926.9,291.3,928.2,286.4,928.2,282C928.2,277.7,926.2,274.5,924.7,269" fill="#B45E0A" fill-opacity="0.06" stroke="#B45E0A" stroke-opacity="0.28" stroke-width="1.2"/>
+<path d="M569.4,158C566.6,150.3,560.9,137.9,556,131.3C553,127.2,550.3,123.9,546.5,121.8C542.8,119.6,539.1,118.8,533.5,118.3C514.5,116.7,451.2,133.5,432.1,138C426.5,139.4,422.9,139.3,419.1,141.5C415.4,143.7,411.8,147.3,409.6,151C407.4,154.8,406.1,159.7,406.1,164C406.1,168.4,407.3,171.8,409.6,177C417.5,195.4,460.3,250.1,473.7,265.3C477.5,269.6,479.4,272.7,483.2,274.8C486.9,277,491.8,278.3,496.2,278.3C500.5,278.3,505.4,277,509.2,274.8C512.9,272.7,515,269.7,518.7,265.3C530.5,251.1,562.6,201.2,569.4,184C571.5,178.8,572.9,175.4,572.9,171C572.9,166.7,571.2,162.8,569.4,158" fill="#6F3BB5" fill-opacity="0.06" stroke="#6F3BB5" stroke-opacity="0.28" stroke-width="1.2"/>
+</g>
+<g fill="none" stroke="#AEB6C0" stroke-width="0.9" opacity="0.09">
+<line x1="443" y1="403.3" x2="529.4" y2="489.5" stroke="#111418" stroke-width="1.3"/>
+<line x1="443" y1="403.3" x2="564.2" y2="469"/>
+<line x1="443" y1="403.3" x2="477.8" y2="463.5"/>
+<line x1="589.1" y1="573.4" x2="529.4" y2="489.5" stroke="#111418" stroke-width="1.3"/>
+<line x1="589.1" y1="573.4" x2="540.7" y2="405.5"/>
+<line x1="589.1" y1="573.4" x2="564.2" y2="469"/>
+<line x1="546.9" y1="171" x2="499.1" y2="186.4" stroke="#111418" stroke-width="1.3"/>
+<line x1="546.9" y1="171" x2="659" y2="272.9"/>
+<line x1="546.9" y1="171" x2="479.9" y2="155.8"/>
+<line x1="546.9" y1="171" x2="564.6" y2="220.2" stroke-dasharray="3 3"/>
+<line x1="533.5" y1="144.3" x2="499.1" y2="186.4" stroke="#111418" stroke-width="1.3"/>
+<line x1="533.5" y1="144.3" x2="479.9" y2="155.8"/>
+<line x1="533.5" y1="144.3" x2="564.6" y2="220.2" stroke-dasharray="3 3"/>
+<line x1="496.2" y1="252.3" x2="499.1" y2="186.4" stroke="#111418" stroke-width="1.3"/>
+<line x1="496.2" y1="252.3" x2="540.7" y2="405.5"/>
+<line x1="496.2" y1="252.3" x2="479.9" y2="155.8"/>
+<line x1="496.2" y1="252.3" x2="564.6" y2="220.2" stroke-dasharray="3 3"/>
+<line x1="432.1" y1="164" x2="499.1" y2="186.4" stroke="#111418" stroke-width="1.3"/>
+<line x1="432.1" y1="164" x2="479.9" y2="155.8"/>
+<line x1="432.1" y1="164" x2="332.7" y2="272.7"/>
+<line x1="320.2" y1="381.7" x2="325.8" y2="343.8" stroke="#111418" stroke-width="1.3"/>
+<line x1="320.2" y1="381.7" x2="380.2" y2="336.3"/>
+<line x1="320.2" y1="381.7" x2="417.6" y2="319.4"/>
+<line x1="332.5" y1="409" x2="325.8" y2="343.8" stroke="#111418" stroke-width="1.3"/>
+<line x1="332.5" y1="409" x2="362.7" y2="630.7"/>
+<line x1="332.5" y1="409" x2="286.6" y2="358.5"/>
+<line x1="332.5" y1="409" x2="380.2" y2="336.3"/>
+<line x1="332.5" y1="409" x2="417.6" y2="319.4"/>
+<line x1="332.5" y1="409" x2="371.9" y2="289.8" stroke-dasharray="3 3"/>
+<line x1="350" y1="384.7" x2="325.8" y2="343.8" stroke="#111418" stroke-width="1.3"/>
+<line x1="350" y1="384.7" x2="417.6" y2="319.4"/>
+<line x1="290.5" y1="468.6" x2="240.3" y2="451" stroke="#111418" stroke-width="1.3"/>
+<line x1="290.5" y1="468.6" x2="362.7" y2="630.7"/>
+<line x1="290.5" y1="468.6" x2="477.8" y2="463.5"/>
+<line x1="290.5" y1="468.6" x2="216.5" y2="524.1" stroke-dasharray="3 3"/>
+<line x1="279.6" y1="496.4" x2="240.3" y2="451" stroke="#111418" stroke-width="1.3"/>
+<line x1="279.6" y1="496.4" x2="477.8" y2="463.5"/>
+<line x1="279.6" y1="496.4" x2="174.2" y2="457.8" stroke-dasharray="3 3"/>
+<line x1="279.6" y1="496.4" x2="245.8" y2="558.2" stroke-dasharray="3 3"/>
+<line x1="271.4" y1="409.8" x2="240.3" y2="451" stroke="#111418" stroke-width="1.3"/>
+<line x1="271.4" y1="409.8" x2="477.8" y2="463.5"/>
+<line x1="271.4" y1="409.8" x2="271" y2="318.4"/>
+<line x1="271.4" y1="409.8" x2="207.6" y2="480.4" stroke-dasharray="3 3"/>
+<line x1="271.4" y1="409.8" x2="218.4" y2="301.2" stroke-dasharray="3 3"/>
+<line x1="294.9" y1="428.3" x2="240.3" y2="451" stroke="#111418" stroke-width="1.3"/>
+<line x1="294.9" y1="428.3" x2="477.8" y2="463.5"/>
+<line x1="294.9" y1="428.3" x2="271" y2="318.4"/>
+<line x1="294.9" y1="428.3" x2="207.6" y2="480.4" stroke-dasharray="3 3"/>
+<line x1="368.8" y1="489.1" x2="322.7" y2="557.5" stroke="#111418" stroke-width="1.3"/>
+<line x1="368.8" y1="489.1" x2="535.9" y2="542.6"/>
+<line x1="368.8" y1="489.1" x2="362.7" y2="630.7"/>
+<line x1="368.8" y1="489.1" x2="504.6" y2="381.3"/>
+<line x1="368.8" y1="489.1" x2="334.4" y2="598.4" stroke-dasharray="3 3"/>
+<line x1="906.1" y1="463" x2="901" y2="353.2" stroke="#111418" stroke-width="1.3"/>
+<line x1="906.1" y1="463" x2="869.6" y2="384"/>
+<line x1="877.2" y1="265.7" x2="901" y2="353.2" stroke="#111418" stroke-width="1.3"/>
+<line x1="877.2" y1="265.7" x2="869.6" y2="384"/>
+<line x1="853" y1="283.3" x2="901" y2="353.2" stroke="#111418" stroke-width="1.3"/>
+<line x1="853" y1="283.3" x2="869.6" y2="384"/>
+<line x1="537.4" y1="621.3" x2="578.8" y2="651.3" stroke="#111418" stroke-width="1.3"/>
+<line x1="537.4" y1="621.3" x2="477.8" y2="463.5"/>
+<line x1="537.4" y1="621.3" x2="556.3" y2="717.5"/>
+<line x1="537.4" y1="621.3" x2="525" y2="679.8" stroke-dasharray="3 3"/>
+<line x1="603.5" y1="678.8" x2="578.8" y2="651.3" stroke="#111418" stroke-width="1.3"/>
+<line x1="603.5" y1="678.8" x2="509.3" y2="716.2"/>
+<line x1="603.5" y1="678.8" x2="556.3" y2="717.5"/>
+<line x1="603.5" y1="678.8" x2="525" y2="679.8" stroke-dasharray="3 3"/>
+<line x1="902.2" y1="282" x2="927.2" y2="237" stroke="#111418" stroke-width="1.3"/>
+<line x1="882.7" y1="214.4" x2="927.2" y2="237" stroke="#111418" stroke-width="1.3"/>
+<line x1="882.7" y1="214.4" x2="818.7" y2="300"/>
+<line x1="853.7" y1="221.6" x2="927.2" y2="237" stroke="#111418" stroke-width="1.3"/>
+<line x1="853.7" y1="221.6" x2="818.7" y2="300"/>
+<line x1="648.1" y1="704.9" x2="666.1" y2="764" stroke="#111418" stroke-width="1.3"/>
+<line x1="624.5" y1="723.2" x2="666.1" y2="764" stroke="#111418" stroke-width="1.3"/>
+<line x1="685.3" y1="492.4" x2="685.8" y2="404.6" stroke="#111418" stroke-width="1.3"/>
+<line x1="685.3" y1="492.4" x2="718.3" y2="416.9"/>
+<line x1="685.3" y1="492.4" x2="650.8" y2="399.2"/>
+<line x1="679" y1="321.4" x2="685.8" y2="404.6" stroke="#111418" stroke-width="1.3"/>
+<line x1="679" y1="321.4" x2="718.3" y2="416.9"/>
+<line x1="679" y1="321.4" x2="477.8" y2="463.5"/>
+<line x1="679" y1="321.4" x2="650.8" y2="399.2"/>
+<line x1="318.1" y1="480.1" x2="259.9" y2="473.9" stroke="#111418" stroke-width="1.3"/>
+<line x1="318.1" y1="480.1" x2="286.6" y2="358.5"/>
+<line x1="318.1" y1="480.1" x2="362.7" y2="630.7"/>
+<line x1="318.1" y1="480.1" x2="477.8" y2="463.5"/>
+<line x1="318.1" y1="480.1" x2="466" y2="519.3"/>
+<line x1="318.1" y1="480.1" x2="236.9" y2="405.9" stroke-dasharray="3 3"/>
+<line x1="315.1" y1="450.4" x2="259.9" y2="473.9" stroke="#111418" stroke-width="1.3"/>
+<line x1="315.1" y1="450.4" x2="362.7" y2="630.7"/>
+<line x1="315.1" y1="450.4" x2="286.6" y2="358.5"/>
+<line x1="315.1" y1="450.4" x2="466" y2="519.3"/>
+<line x1="315.1" y1="450.4" x2="236.9" y2="405.9" stroke-dasharray="3 3"/>
+<line x1="347.9" y1="462.4" x2="413.7" y2="469" stroke="#111418" stroke-width="1.3"/>
+<line x1="347.9" y1="462.4" x2="362.7" y2="630.7"/>
+<line x1="474.4" y1="605.6" x2="389.9" y2="579.8" stroke="#111418" stroke-width="1.3"/>
+<line x1="474.4" y1="605.6" x2="362.7" y2="630.7"/>
+<line x1="474.4" y1="605.6" x2="477.8" y2="463.5"/>
+<line x1="474.4" y1="605.6" x2="466" y2="519.3"/>
+<line x1="368.4" y1="519" x2="389.9" y2="579.8" stroke="#111418" stroke-width="1.3"/>
+<line x1="368.4" y1="519" x2="466" y2="519.3"/>
+<line x1="340" y1="509.7" x2="389.9" y2="579.8" stroke="#111418" stroke-width="1.3"/>
+<line x1="340" y1="509.7" x2="362.7" y2="630.7"/>
+<line x1="340" y1="509.7" x2="466" y2="519.3"/>
+<line x1="346.2" y1="538.9" x2="389.9" y2="579.8" stroke="#111418" stroke-width="1.3"/>
+<line x1="346.2" y1="538.9" x2="466" y2="519.3"/>
+<line x1="385.9" y1="423.4" x2="424.7" y2="377.5" stroke="#111418" stroke-width="1.3"/>
+<line x1="385.9" y1="423.4" x2="540.7" y2="405.5"/>
+<line x1="385.9" y1="423.4" x2="466" y2="519.3"/>
+<line x1="838.9" y1="166.3" x2="872.5" y2="110.5" stroke="#111418" stroke-width="1.3"/>
+<line x1="838.9" y1="166.3" x2="750.7" y2="116.7"/>
+<line x1="838.9" y1="166.3" x2="779.8" y2="77.2"/>
+<line x1="838.9" y1="166.3" x2="927.5" y2="147.8" stroke-dasharray="3 3"/>
+<line x1="835.8" y1="126.3" x2="872.5" y2="110.5" stroke="#111418" stroke-width="1.3"/>
+<line x1="835.8" y1="126.3" x2="750.7" y2="116.7"/>
+<line x1="835.8" y1="126.3" x2="779.8" y2="77.2"/>
+<line x1="796.9" y1="227" x2="754" y2="232" stroke="#111418" stroke-width="1.3"/>
+<line x1="796.9" y1="227" x2="659" y2="272.9"/>
+<line x1="782.9" y1="200.6" x2="754" y2="232" stroke="#111418" stroke-width="1.3"/>
+<line x1="782.9" y1="200.6" x2="659" y2="272.9"/>
+<line x1="570" y1="613.2" x2="629.9" y2="613.2" stroke="#111418" stroke-width="1.3"/>
+<line x1="859.4" y1="144.6" x2="851.5" y2="76" stroke="#111418" stroke-width="1.3"/>
+<line x1="815.2" y1="148" x2="851.5" y2="76" stroke="#111418" stroke-width="1.3"/>
+<line x1="666.8" y1="681.6" x2="726.4" y2="710.5" stroke="#111418" stroke-width="1.3"/>
+<line x1="781.2" y1="479.2" x2="634.8" y2="451.9" stroke="#111418" stroke-width="1.3"/>
+<line x1="781.2" y1="479.2" x2="659" y2="272.9"/>
+<line x1="468.2" y1="426" x2="634.8" y2="451.9" stroke="#111418" stroke-width="1.3"/>
+<line x1="468.2" y1="426" x2="542.9" y2="336.7" stroke-dasharray="3 3"/>
+<line x1="384.3" y1="463.5" x2="447.8" y2="552.2" stroke="#111418" stroke-width="1.3"/>
+<line x1="384.3" y1="463.5" x2="429.7" y2="581.8"/>
+<line x1="384.3" y1="463.5" x2="362.7" y2="630.7"/>
+<line x1="384.3" y1="463.5" x2="380.2" y2="336.3"/>
+<line x1="384.3" y1="463.5" x2="504.6" y2="381.3"/>
+<line x1="500.3" y1="620.6" x2="447.8" y2="552.2" stroke="#111418" stroke-width="1.3"/>
+<line x1="500.3" y1="620.6" x2="429.7" y2="581.8"/>
+<line x1="500.3" y1="620.6" x2="362.7" y2="630.7"/>
+<line x1="500.3" y1="620.6" x2="509.3" y2="716.2"/>
+<line x1="699.2" y1="609.5" x2="777.4" y2="598.8" stroke="#111418" stroke-width="1.3"/>
+<line x1="699.2" y1="609.5" x2="535.9" y2="542.6"/>
+<line x1="854.5" y1="566.1" x2="777.4" y2="598.8" stroke="#111418" stroke-width="1.3"/>
+<line x1="725" y1="224.6" x2="700.7" y2="176.9" stroke="#111418" stroke-width="1.3"/>
+<line x1="725" y1="224.6" x2="504.6" y2="381.3"/>
+<line x1="766.7" y1="175.2" x2="700.7" y2="176.9" stroke="#111418" stroke-width="1.3"/>
+<line x1="805.9" y1="462" x2="692.2" y2="373.9" stroke="#111418" stroke-width="1.3"/>
+<line x1="571.1" y1="373.1" x2="692.2" y2="373.9" stroke="#111418" stroke-width="1.3"/>
+<line x1="571.1" y1="373.1" x2="650.8" y2="399.2"/>
+<line x1="757.9" y1="287.8" x2="692.2" y2="373.9" stroke="#111418" stroke-width="1.3"/>
+</g>
+<g fill="none" stroke="#AEB6C0" stroke-width="0.9" opacity="0.9">
+<line x1="270.9" y1="446.1" x2="240.3" y2="451" stroke="#111418" stroke-width="1.3"/>
+<line x1="270.9" y1="446.1" x2="332.7" y2="272.7"/>
+<line x1="270.9" y1="446.1" x2="362.7" y2="630.7"/>
+<line x1="270.9" y1="446.1" x2="477.8" y2="463.5"/>
+<line x1="270.9" y1="446.1" x2="207.6" y2="480.4" stroke-dasharray="3 3"/>
+<line x1="270.9" y1="446.1" x2="172.5" y2="392.6" stroke-dasharray="3 3"/>
+<line x1="270.9" y1="446.1" x2="174.2" y2="457.8" stroke-dasharray="3 3"/>
+<line x1="270.9" y1="446.1" x2="245.8" y2="558.2" stroke-dasharray="3 3"/>
+<line x1="270.9" y1="446.1" x2="216.5" y2="524.1" stroke-dasharray="3 3"/>
+</g>
+<g aria-hidden="true">
+<g opacity="0.12"><line x1="443" y1="403.3" x2="461.1" y2="335.7" stroke="#6F3BB5" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="461.1" cy="335.7" r="2.6" fill="#6F3BB5"/></g>
+<g opacity="0.12"><line x1="546.9" y1="171" x2="615.8" y2="183.4" stroke="#B45E0A" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="615.8" cy="183.4" r="2.6" fill="#B45E0A"/></g>
+<g opacity="0.12"><line x1="533.5" y1="144.3" x2="601.2" y2="162.3" stroke="#B45E0A" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="601.2" cy="162.3" r="2.6" fill="#B45E0A"/></g>
+<g opacity="0.12"><line x1="496.2" y1="252.3" x2="514.7" y2="319.8" stroke="#0E7C5B" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="514.7" cy="319.8" r="2.6" fill="#0E7C5B"/></g>
+<g opacity="0.12"><line x1="537.4" y1="621.3" x2="486.4" y2="573.3" stroke="#2457D6" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="486.4" cy="573.3" r="2.6" fill="#2457D6"/></g>
+<g opacity="0.12"><line x1="902.2" y1="282" x2="881.4" y2="348.9" stroke="#B8304A" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="881.4" cy="348.9" r="2.6" fill="#B8304A"/></g>
+<g opacity="0.12"><line x1="685.3" y1="492.4" x2="715.3" y2="429.2" stroke="#B45E0A" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="715.3" cy="429.2" r="2.6" fill="#B45E0A"/></g>
+<g opacity="0.12"><line x1="679" y1="321.4" x2="613.8" y2="346.8" stroke="#2457D6" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="613.8" cy="346.8" r="2.6" fill="#2457D6"/></g>
+<g opacity="0.12"><line x1="474.4" y1="605.6" x2="431.8" y2="550.1" stroke="#2457D6" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="431.8" cy="550.1" r="2.6" fill="#2457D6"/></g>
+<g opacity="0.12"><line x1="570" y1="613.2" x2="514.3" y2="570.8" stroke="#2457D6" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="514.3" cy="570.8" r="2.6" fill="#2457D6"/></g>
+<g opacity="0.12"><line x1="500.3" y1="620.6" x2="454.9" y2="567.3" stroke="#2457D6" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="454.9" cy="567.3" r="2.6" fill="#2457D6"/></g>
+<g opacity="0.12"><line x1="699.2" y1="609.5" x2="752.5" y2="564.2" stroke="#B8304A" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="752.5" cy="564.2" r="2.6" fill="#B8304A"/></g>
+<g opacity="0.12"><line x1="571.1" y1="373.1" x2="630.3" y2="335.7" stroke="#B45E0A" stroke-width="1.4" stroke-dasharray="2 3"/><circle cx="630.3" cy="335.7" r="2.6" fill="#B45E0A"/></g>
+</g>
+<g stroke="#FFFFFF" stroke-width="1.6" opacity="0.32">
+<circle cx="564.2" cy="469" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="540.7" cy="405.5" r="7.6" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/><circle cx="540.7" cy="405.5" r="2.4" fill="#111418" stroke="none"/>
+<circle cx="659" cy="272.9" r="8.2" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/><circle cx="659" cy="272.9" r="2.6" fill="#111418" stroke="none"/>
+<circle cx="479.9" cy="155.8" r="8.2" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/><circle cx="479.9" cy="155.8" r="2.6" fill="#111418" stroke="none"/>
+<circle cx="564.6" cy="220.2" r="7.6" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="380.2" cy="336.3" r="7.6" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="417.6" cy="319.4" r="7.6" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="286.6" cy="358.5" r="7.6" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="371.9" cy="289.8" r="5.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="271" cy="318.4" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="218.4" cy="301.2" r="5.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="535.9" cy="542.6" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/><circle cx="535.9" cy="542.6" r="2.2" fill="#111418" stroke="none"/>
+<circle cx="504.6" cy="381.3" r="7.6" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="334.4" cy="598.4" r="5.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="869.6" cy="384" r="7.6" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="556.3" cy="717.5" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="525" cy="679.8" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="509.3" cy="716.2" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="818.7" cy="300" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="718.3" cy="416.9" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/><circle cx="718.3" cy="416.9" r="2.2" fill="#111418" stroke="none"/>
+<circle cx="650.8" cy="399.2" r="7.6" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="466" cy="519.3" r="9.7" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="236.9" cy="405.9" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="750.7" cy="116.7" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/><circle cx="750.7" cy="116.7" r="2.2" fill="#111418" stroke="none"/>
+<circle cx="779.8" cy="77.2" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="927.5" cy="147.8" r="5.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="542.9" cy="336.7" r="5.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="429.7" cy="581.8" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/><circle cx="429.7" cy="581.8" r="2.2" fill="#111418" stroke="none"/>
+<circle cx="529.4" cy="489.5" r="5.0" fill="#111418"/>
+<circle cx="499.1" cy="186.4" r="5.0" fill="#111418"/>
+<circle cx="325.8" cy="343.8" r="5.0" fill="#111418"/>
+<circle cx="322.7" cy="557.5" r="5.0" fill="#111418"/>
+<circle cx="901" cy="353.2" r="5.0" fill="#111418"/>
+<circle cx="578.8" cy="651.3" r="5.0" fill="#111418"/>
+<circle cx="927.2" cy="237" r="5.0" fill="#111418"/>
+<circle cx="666.1" cy="764" r="5.0" fill="#111418"/>
+<circle cx="685.8" cy="404.6" r="5.0" fill="#111418"/>
+<circle cx="259.9" cy="473.9" r="5.0" fill="#111418"/>
+<circle cx="413.7" cy="469" r="5.0" fill="#111418"/>
+<rect x="385.4" y="575.3" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="420.2" y="373.0" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="868.0" y="106.0" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="749.5" y="227.5" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="625.4" y="608.7" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="847.0" y="71.5" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="721.9" y="706.0" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="630.3" y="447.4" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="443.3" y="547.7" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="772.9" y="594.3" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="696.2" y="172.4" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<rect x="687.7" y="369.4" width="9.0" height="9.0" rx="1.5" fill="#111418"/>
+<circle cx="443" cy="403.3" r="6.5" fill="#2457D6"/>
+<circle cx="589.1" cy="573.4" r="6.5" fill="#0E7C5B"/>
+<circle cx="546.9" cy="171" r="6.5" fill="#6F3BB5"/>
+<circle cx="533.5" cy="144.3" r="6.5" fill="#6F3BB5"/>
+<circle cx="496.2" cy="252.3" r="6.5" fill="#6F3BB5"/>
+<circle cx="432.1" cy="164" r="6.5" fill="#6F3BB5"/>
+<circle cx="320.2" cy="381.7" r="6.5" fill="#2457D6"/>
+<circle cx="332.5" cy="409" r="6.5" fill="#2457D6"/>
+<circle cx="350" cy="384.7" r="6.5" fill="#2457D6"/>
+<circle cx="290.5" cy="468.6" r="6.5" fill="#2457D6"/>
+<circle cx="279.6" cy="496.4" r="6.5" fill="#2457D6"/>
+<circle cx="271.4" cy="409.8" r="6.5" fill="#2457D6"/>
+<circle cx="294.9" cy="428.3" r="6.5" fill="#2457D6"/>
+<circle cx="368.8" cy="489.1" r="6.5" fill="#2457D6"/>
+<circle cx="906.1" cy="463" r="6.5" fill="#B8304A"/>
+<circle cx="877.2" cy="265.7" r="6.5" fill="#B45E0A"/>
+<circle cx="853" cy="283.3" r="6.5" fill="#B45E0A"/>
+<circle cx="537.4" cy="621.3" r="6.5" fill="#0E7C5B"/>
+<circle cx="603.5" cy="678.8" r="6.5" fill="#0E7C5B"/>
+<circle cx="902.2" cy="282" r="6.5" fill="#B45E0A"/>
+<circle cx="882.7" cy="214.4" r="6.5" fill="#B45E0A"/>
+<circle cx="853.7" cy="221.6" r="6.5" fill="#B45E0A"/>
+<circle cx="648.1" cy="704.9" r="6.5" fill="#0E7C5B"/>
+<circle cx="624.5" cy="723.2" r="6.5" fill="#0E7C5B"/>
+<circle cx="685.3" cy="492.4" r="6.5" fill="#0E7C5B"/>
+<circle cx="679" cy="321.4" r="6.5" fill="#B45E0A"/>
+<circle cx="318.1" cy="480.1" r="6.5" fill="#2457D6"/>
+<circle cx="315.1" cy="450.4" r="6.5" fill="#2457D6"/>
+<circle cx="347.9" cy="462.4" r="6.5" fill="#2457D6"/>
+<rect x="468.6" y="599.8" width="11.7" height="11.7" rx="2.0" fill="#0E7C5B"/>
+<rect x="362.5" y="513.1" width="11.7" height="11.7" rx="2.0" fill="#2457D6"/>
+<rect x="334.1" y="503.8" width="11.7" height="11.7" rx="2.0" fill="#2457D6"/>
+<rect x="340.3" y="533.1" width="11.7" height="11.7" rx="2.0" fill="#2457D6"/>
+<rect x="380.1" y="417.5" width="11.7" height="11.7" rx="2.0" fill="#2457D6"/>
+<rect x="833.0" y="160.4" width="11.7" height="11.7" rx="2.0" fill="#B45E0A"/>
+<rect x="829.9" y="120.4" width="11.7" height="11.7" rx="2.0" fill="#B45E0A"/>
+<rect x="791.0" y="221.2" width="11.7" height="11.7" rx="2.0" fill="#B45E0A"/>
+<rect x="777.0" y="194.8" width="11.7" height="11.7" rx="2.0" fill="#B45E0A"/>
+<rect x="564.1" y="607.3" width="11.7" height="11.7" rx="2.0" fill="#0E7C5B"/>
+<rect x="853.6" y="138.7" width="11.7" height="11.7" rx="2.0" fill="#B45E0A"/>
+<rect x="809.4" y="142.1" width="11.7" height="11.7" rx="2.0" fill="#B45E0A"/>
+<rect x="661.0" y="675.7" width="11.7" height="11.7" rx="2.0" fill="#0E7C5B"/>
+<rect x="775.4" y="473.3" width="11.7" height="11.7" rx="2.0" fill="#B8304A"/>
+<rect x="462.4" y="420.1" width="11.7" height="11.7" rx="2.0" fill="#2457D6"/>
+<rect x="378.5" y="457.7" width="11.7" height="11.7" rx="2.0" fill="#2457D6"/>
+<rect x="494.5" y="614.7" width="11.7" height="11.7" rx="2.0" fill="#0E7C5B"/>
+<rect x="693.3" y="603.6" width="11.7" height="11.7" rx="2.0" fill="#0E7C5B"/>
+<rect x="848.6" y="560.2" width="11.7" height="11.7" rx="2.0" fill="#B8304A"/>
+<rect x="719.2" y="218.7" width="11.7" height="11.7" rx="2.0" fill="#B45E0A"/>
+<rect x="760.9" y="169.4" width="11.7" height="11.7" rx="2.0" fill="#B45E0A"/>
+<rect x="800.0" y="456.2" width="11.7" height="11.7" rx="2.0" fill="#B8304A"/>
+<rect x="565.2" y="367.2" width="11.7" height="11.7" rx="2.0" fill="#2457D6"/>
+<rect x="752.0" y="281.9" width="11.7" height="11.7" rx="2.0" fill="#B45E0A"/>
+</g>
+<g stroke="#FFFFFF" stroke-width="1.6">
+<circle cx="477.8" cy="463.5" r="10.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="332.7" cy="272.7" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/><circle cx="332.7" cy="272.7" r="2.2" fill="#111418" stroke="none"/>
+<circle cx="362.7" cy="630.7" r="11.2" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6"/>
+<circle cx="207.6" cy="480.4" r="7.6" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="172.5" cy="392.6" r="5.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="174.2" cy="457.8" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="245.8" cy="558.2" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="216.5" cy="524.1" r="6.9" fill="#FFFFFF" stroke="#2A313B" stroke-width="1.6" stroke-dasharray="2.4 1.9"/>
+<circle cx="240.3" cy="451" r="5.0" fill="#111418"/>
+<circle cx="270.9" cy="446.1" r="11.5" fill="none" stroke="#2457D6" stroke-width="2.2"/><circle cx="270.9" cy="446.1" r="6.5" fill="#2457D6"/>
+</g>
+<g font-size="12.5" font-weight="600" fill="#111418" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.4" stroke-linejoin="round" opacity="0.32">
+<text x="433" y="407.6" text-anchor="end">Wilson</text>
+<text x="599.1" y="577.7">Scherer</text>
+<text x="556.9" y="175.3">Nishihara</text>
+<text x="543.5" y="148.6">Moritz</text>
+<text x="486.2" y="256.6" text-anchor="end">Stoica</text>
+<text x="422.1" y="168.4" text-anchor="end">Jordan</text>
+<text x="310.2" y="386" text-anchor="end">Morelli</text>
+<text x="322.5" y="413.3" text-anchor="end">Klein</text>
+<text x="360" y="389.1">Conte Mac Donell</text>
+<text x="300.5" y="472.9">Moore</text>
+<text x="279.6" y="517.3" text-anchor="middle">Lewandowski</text>
+<text x="271.4" y="399.8" text-anchor="middle">Aikas</text>
+<text x="304.9" y="432.6">Nichols</text>
+<text x="368.8" y="509.9" text-anchor="middle">Schrock</text>
+<text x="916.1" y="467.3">Handy</text>
+<text x="887.2" y="270">Banin</text>
+<text x="843" y="287.6" text-anchor="end">McArthur</text>
+<text x="537.4" y="611.3" text-anchor="middle">Crawshaw</text>
+<text x="603.5" y="668.8" text-anchor="middle">Bleecher Snyder</text>
+<text x="912.2" y="286.4">Gupta</text>
+<text x="882.7" y="204.4" text-anchor="middle">Manohar</text>
+<text x="843.7" y="226" text-anchor="end">Curl</text>
+<text x="638.1" y="709.2" text-anchor="end">Schmidt</text>
+<text x="634.5" y="727.5">Schickling</text>
+<text x="695.3" y="496.7">Slack</text>
+<text x="689" y="325.7">Liu</text>
+<text x="318.1" y="501" text-anchor="middle">Fateev</text>
+<text x="325.1" y="454.7">Abbas</text>
+<text x="347.9" y="483.3" text-anchor="middle">Greef</text>
+<text x="464.4" y="609.9" text-anchor="end">Schleifer</text>
+<text x="378.4" y="523.3">Apirian</text>
+<text x="336.2" y="543.3" text-anchor="end">Clearwater</text>
+<text x="395.9" y="427.7">Edge</text>
+<text x="848.9" y="170.6">Hashimoto</text>
+<text x="845.8" y="130.6">Dadgar</text>
+<text x="796.9" y="247.9" text-anchor="middle">Bryk</text>
+<text x="792.9" y="204.9">Wang</text>
+<text x="580" y="617.5">Gallego</text>
+<text x="869.4" y="148.9">Thorne</text>
+<text x="805.2" y="152.3" text-anchor="end">Nevue</text>
+<text x="676.8" y="685.9">DeSimone</text>
+<text x="791.2" y="483.5">J. Ackerly</text>
+<text x="468.2" y="446.9" text-anchor="middle">W. Ackerly</text>
+<text x="384.3" y="453.5" text-anchor="middle">Gade</text>
+<text x="500.3" y="641.5" text-anchor="middle">Paka</text>
+<text x="709.2" y="613.8">Ward</text>
+<text x="864.5" y="570.4">Kumar</text>
+<text x="715" y="228.9" text-anchor="end">Zhou</text>
+<text x="776.7" y="179.6">Yu</text>
+<text x="815.9" y="466.4">Jeremy Tsui</text>
+<text x="571.1" y="363.1" text-anchor="middle">Josiah Tsui</text>
+<text x="747.9" y="292.1" text-anchor="end">Suh</text>
+</g>
+<g font-size="12.5" font-weight="600" fill="#111418" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.4" stroke-linejoin="round" opacity="1">
+<text x="270.9" y="466.9" text-anchor="middle">Lorenc</text>
+</g>
+<g font-size="13" font-weight="700" fill="#111418" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.4" stroke-linejoin="round" opacity="0.32">
+<text x="529.4" y="510.5" text-anchor="middle">Antithesis</text>
+<text x="499.1" y="207.3" text-anchor="middle">Anyscale</text>
+<text x="325.8" y="364.7" text-anchor="middle">bitdrift</text>
+<text x="322.7" y="578.5" text-anchor="middle">Dagster</text>
+<text x="901" y="345.2" text-anchor="middle">dbt</text>
+<text x="578.8" y="643.3" text-anchor="middle">exe.dev</text>
+<text x="927.2" y="229" text-anchor="middle">Hightouch</text>
+<text x="666.1" y="785" text-anchor="middle">Prisma</text>
+<text x="694.8" y="409.5">Sourcegraph</text>
+<text x="413.7" y="489.9" text-anchor="middle">TigerBeetle</text>
+<text x="389.9" y="571.8" text-anchor="middle">Trunk</text>
+<text x="424.7" y="369.5" text-anchor="middle">Buf</text>
+<text x="872.5" y="102.5" text-anchor="middle">HashiCorp</text>
+<text x="754" y="224" text-anchor="middle">Exa</text>
+<text x="629.9" y="605.2" text-anchor="middle">Redpanda</text>
+<text x="851.5" y="68" text-anchor="middle">People Data Labs</text>
+<text x="726.4" y="702.5" text-anchor="middle">Pomerium</text>
+<text x="634.8" y="443.9" text-anchor="middle">Virtru</text>
+<text x="456.8" y="557">Fiddler</text>
+<text x="777.4" y="590.8" text-anchor="middle">Carta</text>
+<text x="700.7" y="168.9" text-anchor="middle">Rutter</text>
+<text x="692.2" y="365.9" text-anchor="middle">Finley</text>
+</g>
+<g font-size="13" font-weight="700" fill="#111418" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.4" stroke-linejoin="round" opacity="1">
+<text x="240.3" y="443" text-anchor="middle">Chainguard</text>
+</g>
+<g font-size="10.5" font-weight="600" fill="#5B6471" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.4" stroke-linejoin="round" opacity="0.32" letter-spacing="0.06em">
+<text x="564.2" y="459.2" text-anchor="middle">FOUNDATIONDB</text>
+<text x="540.7" y="425.8" text-anchor="middle">CARNEGIE MELLON</text>
+<text x="659" y="293.8" text-anchor="middle">HARVARD</text>
+<text x="479.9" y="144.6" text-anchor="middle">UC BERKELEY</text>
+<text x="564.6" y="240.5" text-anchor="middle">RAY</text>
+<text x="380.2" y="356.6" text-anchor="middle">TWITTER</text>
+<text x="417.6" y="339.7" text-anchor="middle">LYFT</text>
+<text x="286.6" y="347.9" text-anchor="middle">AMAZON</text>
+<text x="371.9" y="308.4" text-anchor="middle">ENVOY</text>
+<text x="271" y="308.6" text-anchor="middle">VMWARE</text>
+<text x="218.4" y="319.8" text-anchor="middle">KNATIVE</text>
+<text x="535.9" y="562.1" text-anchor="middle">MICHIGAN</text>
+<text x="504.6" y="370.7" text-anchor="middle">FACEBOOK</text>
+<text x="344.3" y="602.1">GRAPHQL</text>
+<text x="869.6" y="404.3" text-anchor="middle">RJMETRICS</text>
+<text x="556.3" y="737.1" text-anchor="middle">TAILSCALE</text>
+<text x="525" y="699.4" text-anchor="middle">GO</text>
+<text x="498.5" y="719.9" text-anchor="end">PAYPAL</text>
+<text x="818.7" y="319.5" text-anchor="middle">SEGMENT</text>
+<text x="718.3" y="436.5" text-anchor="middle">STANFORD</text>
+<text x="650.8" y="388.6" text-anchor="middle">PALANTIR</text>
+<text x="466" y="541.7" text-anchor="middle">UBER</text>
+<text x="236.9" y="425.5" text-anchor="middle">CADENCE</text>
+<text x="750.7" y="136.2" text-anchor="middle">UNIV. OF WASHINGTON</text>
+<text x="779.8" y="96.8" text-anchor="middle">KIIP</text>
+<text x="542.9" y="327.8" text-anchor="middle">TRUSTED DATA FORMAT</text>
+<text x="440.6" y="585.6">MINNESOTA</text>
+</g>
+<g font-size="10.5" font-weight="600" fill="#5B6471" paint-order="stroke" stroke="#FFFFFF" stroke-width="3.4" stroke-linejoin="round" opacity="1" letter-spacing="0.06em">
+<text x="477.8" y="487.1" text-anchor="middle">GOOGLE</text>
+<text x="332.7" y="292.3" text-anchor="middle">MIT</text>
+<text x="362.7" y="654.6" text-anchor="middle">MICROSOFT</text>
+<text x="207.6" y="500.7" text-anchor="middle">KUBERNETES</text>
+<text x="172.5" y="411.2" text-anchor="middle">SIGSTORE</text>
+<text x="174.2" y="448" text-anchor="middle">SLSA</text>
+<text x="245.8" y="577.8" text-anchor="middle">TEKTON</text>
+<text x="216.5" y="543.7" text-anchor="middle">DISTROLESS</text>
+</g>
+<g font-size="13" font-weight="700" letter-spacing="0.08em" paint-order="stroke" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round">
+<text x="233.5" y="469.3" text-anchor="end" fill="#2457D6">BIG TECH ENGINEER · 20</text>
+<text x="631.4" y="766" text-anchor="middle" fill="#0E7C5B">REPEAT FOUNDER · 11</text>
+<text x="916.9" y="520.9" fill="#B8304A">BUSINESS OPERATOR · 4</text>
+<text x="910.9" y="150.7" fill="#B45E0A">YOUNG BUILDER · 15</text>
+<text x="488" y="116.5" text-anchor="middle" fill="#6F3BB5">ACADEMIC · 4</text>
+</g>
+      </svg>
+
+      <div style="position: absolute; right: 12px; bottom: 56px; display: flex; flex-direction: column; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF; overflow: hidden">
+        <button type="button" aria-label="Zoom in" style="width: 36px; height: 36px; border: 0; background: #FFFFFF; color: #111418; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
+        <button type="button" aria-label="Zoom out" style="width: 36px; height: 36px; border: 0; border-top: 1px solid #E3E6EA; background: #FFFFFF; color: #111418; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button>
+        <button type="button" aria-label="Fit map to view" style="width: 36px; height: 36px; border: 0; border-top: 1px solid #E3E6EA; background: #FFFFFF; color: #111418; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"></path></svg></button>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; padding: 10px 16px; border-top: 1px solid #E3E6EA; font-size: 12px; color: #5B6471">
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #0E7C5B"></span>Repeat founder</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #B8304A"></span>Business operator</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #B45E0A"></span>Young builder</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #6F3BB5"></span>Academic</span>
+        <span style="width: 1px; height: 14px; background: #E3E6EA"></span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #111418"></span>Amplify</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: #111418"></span>Haystack</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; border: 1.5px solid #2A313B; background: #FFFFFF"></span>Employer</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; border: 1.5px solid #2A313B; background: radial-gradient(circle, #111418 0 2px, #FFFFFF 2.5px)"></span>School</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; border: 1.5px dashed #2A313B; background: #FFFFFF"></span>Open source project</span>
+      </div>
+    </section>
+
+    <aside style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+
+      <article aria-label="Selected founder" style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 12px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <p style="margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6471">Founder · Amplify</p>
+            <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2">Dan Lorenc</h2>
+            <p style="margin: 0; font-size: 13px; color: #5B6471">Co-founder, CEO · <a href="#chainguard">Chainguard</a></p>
+          </div>
+          <button type="button" aria-label="Close founder details" style="flex: 0 0 auto; width: 32px; height: 32px; margin: -6px -6px 0 0; border: 0; border-radius: 8px; background: transparent; color: #5B6471; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 6px">
+          <span style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: #EAF0FC; color: #111418; font-size: 12px; font-weight: 500"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span>
+          <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px solid #E3E6EA; color: #111418; font-size: 12px; font-weight: 500">Prior open source</span>
+          <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px solid #E3E6EA; color: #111418; font-size: 12px; font-weight: 500">Big tech alum</span>
+        </div>
+
+        <p style="margin: 0; font-size: 13px; line-height: 1.55; color: #111418">MIT mechanical engineering, then Microsoft and Google (2012 to 2021). Created Minikube and helped found Sigstore, Tekton, and SLSA.</p>
+
+        <dl style="margin: 0; display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 8px 12px; font-size: 13px">
+          <dt style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; padding-top: 2px">Worked at</dt>
+          <dd style="margin: 0"><a href="#microsoft">Microsoft</a>, <a href="#google">Google</a></dd>
+          <dt style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; padding-top: 2px">School</dt>
+          <dd style="margin: 0"><a href="#mit">MIT</a></dd>
+          <dt style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; padding-top: 2px">Prior OSS</dt>
+          <dd style="margin: 0"><a href="#kubernetes">Kubernetes</a>, <a href="#sigstore">Sigstore</a>, <a href="#slsa">SLSA</a>, <a href="#tekton">Tekton</a>, <a href="#distroless">Distroless</a></dd>
+          <dt style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; padding-top: 2px">Co-founders</dt>
+          <dd style="margin: 0"><a href="#matt-moore">Matt Moore</a>, <a href="#kim-lewandowski">Kim Lewandowski</a>, <a href="#ville-aikas">Ville Aikas</a>, <a href="#scott-nichols">Scott Nichols</a></dd>
+        </dl>
+
+        <div id="chainguard" style="border-top: 1px solid #E3E6EA; padding-top: 14px; display: flex; flex-direction: column; gap: 4px">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px">
+            <p style="margin: 0; font-size: 14px; font-weight: 600">Chainguard</p>
+            <p style="margin: 0; font-size: 12px; color: #5B6471">Security &amp; Observability</p>
+          </div>
+          <p style="margin: 0; font-size: 13px">$356M Series D at $3.5B, Apr 2025</p>
+          <p style="margin: 0; font-size: 12px; color: #5B6471">Founded 2021 · Active · Partially open source</p>
+        </div>
+
+        <p style="margin: 0; font-size: 12px; color: #5B6471">Source: <a href="https://kccncind2026.sched.com/speaker/dlorenc">kccncind2026.sched.com</a></p>
+      </article>
+
+      <section aria-label="Clusters" style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 12px; overflow: hidden">
+        <div role="tablist" style="display: flex; border-bottom: 1px solid #E3E6EA; padding: 0 8px">
+          <button type="button" role="tab" aria-selected="true" style="height: 42px; padding: 0 12px; border: 0; border-bottom: 2px solid #111418; margin-bottom: -1px; background: transparent; color: #111418; font-size: 13px; font-weight: 600">Clusters</button>
+          <button type="button" role="tab" aria-selected="false" style="height: 42px; padding: 0 12px; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; background: transparent; color: #5B6471; font-size: 13px; font-weight: 500">Insights</button>
+          <button type="button" role="tab" aria-selected="false" style="height: 42px; padding: 0 12px; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; background: transparent; color: #5B6471; font-size: 13px; font-weight: 500">About</button>
+        </div>
+        <div role="tabpanel" style="padding: 8px 20px 12px">
+          <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471"><span>Path</span><span>Amplify · Haystack</span></div>
+          <button type="button" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border: 0; border-top: 1px solid #E3E6EA; background: transparent; color: #111418; font-size: 13px; text-align: left"><span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span><span style="font-variant-numeric: tabular-nums; color: #5B6471">13 · 7</span></button>
+          <button type="button" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border: 0; border-top: 1px solid #E3E6EA; background: transparent; color: #111418; font-size: 13px; text-align: left"><span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #B45E0A"></span>Young builder</span><span style="font-variant-numeric: tabular-nums; color: #5B6471">6 · 9</span></button>
+          <button type="button" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border: 0; border-top: 1px solid #E3E6EA; background: transparent; color: #111418; font-size: 13px; text-align: left"><span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #0E7C5B"></span>Repeat founder</span><span style="font-variant-numeric: tabular-nums; color: #5B6471">6 · 5</span></button>
+          <button type="button" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border: 0; border-top: 1px solid #E3E6EA; background: transparent; color: #111418; font-size: 13px; text-align: left"><span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #B8304A"></span>Business operator</span><span style="font-variant-numeric: tabular-nums; color: #5B6471">1 · 3</span></button>
+          <button type="button" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border: 0; border-top: 1px solid #E3E6EA; background: transparent; color: #111418; font-size: 13px; text-align: left"><span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #6F3BB5"></span>Academic</span><span style="font-variant-numeric: tabular-nums; color: #5B6471">4 · 0</span></button>
+        </div>
+      </section>
+
+    </aside>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":940}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

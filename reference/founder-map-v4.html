@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Amplify–Haystack Founder Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one toolbar (search, fund, view, Filters), a drawer that opens only when asked, then the map or table beside a single detail card with three tabs under it. */
+:root{
+  --bg:#EDF0F3; --surface:#FBFCFD; --ink:#141920; --muted:#58626E; --hair:#D2D8DF; --line:#7A8592; --wash:#E3E8ED;
+  --a-bigco:#2B59D1; --a-serial:#0F8661; --a-business:#C6334F; --a-young:#D46A0E; --a-academic:#8443C2;
+  --focus:#2B59D1;
+  --font-sans:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1015; --surface:#151A21; --ink:#E5E9EF; --muted:#8F99A5; --hair:#29313B; --line:#7E8895; --wash:#1C222B;
+    --a-bigco:#6F95F6; --a-serial:#3BBD8B; --a-business:#EF6C89; --a-young:#F29A4B; --a-academic:#B489EC;
+    --focus:#6F95F6; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1015; --surface:#151A21; --ink:#E5E9EF; --muted:#8F99A5; --hair:#29313B; --line:#7E8895; --wash:#1C222B;
+  --a-bigco:#6F95F6; --a-serial:#3BBD8B; --a-business:#EF6C89; --a-young:#F29A4B; --a-academic:#B489EC;
+  --focus:#6F95F6; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:14px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+button,input,select{font:inherit;color:inherit}
+.page{max-width:1480px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.mono{font-family:var(--font-mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+
+/* Header */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 32px}
+h1{font-size:clamp(26px,3.2vw,34px);font-weight:850;font-stretch:112%;letter-spacing:-.015em;line-height:1.05;margin:0 0 4px}
+.dek{max-width:72ch;color:var(--muted);margin:0;font-size:13.5px}
+.stats{font-family:var(--font-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;flex-wrap:wrap;gap:4px 16px}
+.stats b{color:var(--ink);font-weight:600}
+
+/* Toolbar */
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding-top:10px;border-top:1px solid var(--hair)}
+.search{flex:1 1 300px;min-width:0;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--hair);border-radius:10px;padding:7px 12px}
+.search:focus-within{border-color:var(--focus);box-shadow:0 0 0 2px color-mix(in srgb,var(--focus) 25%,transparent)}
+.search svg{flex:none;width:15px;height:15px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round}
+.search input{flex:1;min-width:0;border:0;background:none;outline:none;font-size:14px;padding:0}
+.search input::placeholder{color:var(--muted)}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.seg{display:inline-flex;border:1px solid var(--hair);border-radius:10px;padding:2px;background:var(--surface)}
+.seg button{appearance:none;border:0;background:none;border-radius:8px;padding:5px 12px;font-size:12.5px;font-weight:650;font-stretch:92%;cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.btn{appearance:none;border:1px solid var(--hair);background:var(--surface);border-radius:10px;padding:6px 12px;font-size:12.5px;font-weight:650;font-stretch:92%;cursor:pointer;color:var(--ink);white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--line)}
+.btn[aria-expanded="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.btn .n{font-family:var(--font-mono);font-size:11px;font-weight:500;opacity:.75}
+.btn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Filter drawer */
+.drawer{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 24px;padding:14px 16px 16px;background:var(--surface);border:1px solid var(--hair);border-radius:12px}
+.fgroup{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fgroup h3{margin:0 0 3px;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.chip{appearance:none;border:1px solid var(--hair);background:var(--surface);border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:650;font-stretch:92%;cursor:pointer;display:flex;align-items:center;gap:7px;line-height:1.35;width:100%;text-align:left}
+.chip:hover{border-color:var(--line)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip .n{font-family:var(--font-mono);font-size:11px;font-weight:500;opacity:.7;margin-left:auto;font-variant-numeric:tabular-nums}
+.chip .sw{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+.chip.inline{width:auto;display:inline-flex;border-radius:999px;padding:4px 11px}
+.sel{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--hair);border-radius:8px;padding:4px 10px;font-size:12.5px}
+.sel label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sel select{flex:1;min-width:0;border:0;background:none;font-weight:650;font-stretch:92%;padding:2px 0;cursor:pointer}
+.sel.on{border-color:var(--ink)}
+
+/* Active filters */
+.active{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:12.5px}
+.achip{display:inline-flex;align-items:center;gap:4px;background:var(--ink);color:var(--surface);border-radius:999px;padding:3px 6px 3px 10px;font-weight:650;font-stretch:92%}
+.achip button{appearance:none;border:0;background:none;color:inherit;cursor:pointer;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:14px;line-height:1;opacity:.8}
+.achip button:hover{opacity:1;background:color-mix(in srgb,var(--surface) 20%,transparent)}
+.acount{font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.acount b{color:var(--ink);font-weight:600}
+.linkbtn{appearance:none;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px;text-align:left;font:inherit;color:inherit}
+.linkbtn:hover{text-decoration-color:var(--ink)}
+.active .linkbtn{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+:is(.chip,.seg button,.btn,.cluster,.linkbtn,.mem,.zoombar button,.search input,.sel select,.th,.row,.bseg,.tab,.close,.achip button):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* Main */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+@media (max-width:980px){.layout{grid-template-columns:minmax(0,1fr)}}
+.mapcol{display:flex;flex-direction:column;gap:8px;min-width:0}
+.map{position:relative;background:var(--surface);border:1px solid var(--hair);border-radius:12px;height:clamp(520px,78vh,900px);overflow:hidden}
+@media (max-width:980px){.map{height:auto;aspect-ratio:1100/840;min-height:300px}}
+.map svg{display:block;width:100%;height:100%;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.map svg:active{cursor:grabbing}
+.zoombar{position:absolute;right:10px;bottom:10px;display:flex;flex-direction:column;gap:4px}
+.zoombar button{appearance:none;width:32px;height:32px;border-radius:8px;border:1px solid var(--hair);background:var(--surface);font-size:16px;font-weight:700;cursor:pointer;display:grid;place-items:center}
+.zoombar button.fit{font-size:10.5px;font-family:var(--font-mono);font-weight:500}
+.err{position:absolute;inset:auto 16px 16px 16px;margin:0;color:var(--a-business);font-weight:650}
+.legend{list-style:none;margin:0;padding:0 4px;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12px;color:var(--muted)}
+.legend li{display:flex;align-items:center;gap:6px}
+.legend svg{flex:none;width:16px;height:16px;overflow:visible}
+.legend .hint{margin-left:auto;font-family:var(--font-mono);font-size:11px}
+.lg-f{fill:var(--line)}
+.lg-c{fill:var(--ink)}
+.lg-h{fill:var(--surface);stroke:var(--ink);stroke-width:1.6}
+.lg-h.o{stroke-dasharray:2.4 1.9}
+.lg-alt{stroke:var(--line);stroke-width:1.5;stroke-dasharray:2 3}
+
+/* Table */
+.tablewrap{background:var(--surface);border:1px solid var(--hair);border-radius:12px;overflow:hidden}
+.tbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-bottom:1px solid var(--hair);font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.scroll{overflow-x:auto;max-height:clamp(520px,78vh,900px);overflow-y:auto}
+table{border-collapse:collapse;width:100%;min-width:1180px;font-size:12.5px}
+#tbl :is(td,th):nth-child(5){min-width:150px}
+#tbl :is(td,th):nth-child(6){min-width:210px}
+#tbl :is(td,th):nth-child(12){min-width:230px}
+thead th{position:sticky;top:0;background:var(--wash);text-align:left;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:8px 10px;border-bottom:1px solid var(--hair);white-space:nowrap;z-index:1}
+.th{appearance:none;border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;letter-spacing:inherit;text-transform:inherit}
+.th.on{color:var(--ink)}
+tbody td{padding:7px 10px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.4}
+tbody tr.row{cursor:pointer}
+tbody tr.row:hover{background:var(--wash)}
+tbody tr.sel{background:color-mix(in srgb,var(--focus) 12%,transparent)}
+td.name{font-weight:700;white-space:nowrap}
+.pdot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:6px;vertical-align:-1px}
+.pdot.sq{border-radius:2px}
+.mini{font-family:var(--font-mono);font-size:10.5px;color:var(--muted)}
+.st-changed{color:var(--a-young);font-weight:650}
+.st-left{color:var(--a-business);font-weight:650}
+.empty{padding:28px 14px;color:var(--muted);text-align:center}
+#csvbox{position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0}
+.toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:650;z-index:20;pointer-events:none;opacity:0;transition:opacity .2s}
+.toast.show{opacity:1}
+
+/* SVG */
+.hull{fill:var(--c);fill-opacity:.075;stroke:var(--c);stroke-opacity:.38;stroke-width:1.2;vector-effect:non-scaling-stroke;transition:opacity .2s}
+.link{fill:none;stroke:var(--line);vector-effect:non-scaling-stroke;transition:opacity .15s}
+.link.co{stroke:var(--ink);stroke-width:1.3}
+.link.e,.link.s{stroke-width:.9}
+.link.o{stroke-width:.9;stroke-dasharray:3 3}
+.alt line{stroke:var(--c);stroke-width:1.4;stroke-dasharray:2 3;vector-effect:non-scaling-stroke}
+.alt circle{fill:var(--c)}
+.alt{transition:opacity .15s}
+.node{cursor:pointer;transition:opacity .15s;outline:none}
+.node .shape{stroke:var(--surface);stroke-width:1.6}
+.node.founder .shape{fill:var(--c)}
+.node.company .shape{fill:var(--ink)}
+.node.hub .shape{fill:var(--surface);stroke:var(--ink);stroke-width:1.7}
+.node.hub.o .shape{stroke-dasharray:2.4 1.9}
+.node .pip{fill:var(--ink)}
+.node .halo{fill:none;stroke:var(--c,var(--ink));stroke-width:2.2;display:none}
+.node.pinned .halo{display:block}
+.node .hit{fill:transparent;stroke:none}
+.node:focus-visible .hit{stroke:var(--focus);stroke-width:2}
+.lbl{transition:opacity .15s;pointer-events:none}
+.lbl text{paint-order:stroke;stroke:var(--surface);stroke-width:3.4px;stroke-linejoin:round;fill:var(--ink)}
+.lbl.founder text{font-size:12.5px;font-weight:600;font-stretch:87.5%}
+.lbl.company text{font-size:13px;font-weight:800;font-stretch:87.5%}
+.lbl.hub text{font-size:10.5px;font-weight:650;font-stretch:75%;letter-spacing:.06em;fill:var(--muted)}
+.lbl.cluster text{font-size:13px;font-weight:850;font-stretch:80%;letter-spacing:.09em;fill:var(--c)}
+
+/* Side panel */
+.side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.card{position:relative;background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:16px 16px 18px;min-height:180px}
+.close{position:absolute;top:10px;right:10px;appearance:none;border:1px solid var(--hair);background:var(--surface);width:26px;height:26px;border-radius:50%;cursor:pointer;display:grid;place-items:center;font-size:15px;line-height:1;color:var(--muted)}
+.close:hover{color:var(--ink);border-color:var(--line)}
+.d-kind{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0;padding-right:30px}
+.d-name{font-size:22px;font-weight:850;font-stretch:104%;line-height:1.12;margin:5px 0 4px;text-wrap:balance;padding-right:24px}
+.d-sub{color:var(--muted);font-size:13px}
+.d-bio{margin:10px 0 0;font-size:13.5px;line-height:1.5}
+.d-flag{margin:10px 0 0;font-size:12.5px;color:var(--muted);border-left:2px dashed var(--line);padding-left:8px}
+.d-status{margin:10px 0 0;font-size:13px;padding:7px 10px;border-radius:8px;background:var(--wash)}
+.d-status b{font-weight:750}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:650;font-stretch:92%;padding:2px 9px;border-radius:999px;border:1px solid var(--hair);line-height:1.5}
+.tag.arch{border-color:var(--c)}
+.tag.arch::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+.tag.alt{border-style:dashed}
+.tag.badge{color:var(--muted)}
+.ties{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 12px;margin:14px 0 0;font-size:13px}
+.ties dt{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-top:2px;white-space:nowrap}
+.ties dd{margin:0;min-width:0;font-variant-numeric:tabular-nums}
+.ties a{color:var(--ink);text-decoration-color:var(--line);text-underline-offset:2px;word-break:break-word}
+.memlist{display:flex;flex-direction:column;margin-top:8px}
+.mem{appearance:none;background:none;border:0;border-top:1px solid var(--hair);padding:6px 0;display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:8px;align-items:center;text-align:left;cursor:pointer;font-size:13px}
+.mem:hover .mem-n{text-decoration:underline;text-underline-offset:2px}
+.mem-n{font-weight:650;min-width:0}
+.mem-a{color:var(--muted);font-size:12px;white-space:nowrap}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.dot.sq{border-radius:2px}
+.memhead{margin-top:16px}
+.try{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--hair)}
+.tab{appearance:none;border:0;background:none;padding:7px 10px;font-size:13px;font-weight:650;font-stretch:92%;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabpanel{display:flex;flex-direction:column;gap:16px}
+.sec h2{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px}
+.sec h2 .note{text-transform:none;letter-spacing:0}
+
+.clusters{display:flex;flex-direction:column;gap:2px}
+.cluster{appearance:none;width:100%;text-align:left;background:none;border:1px solid transparent;border-radius:10px;padding:7px 10px;cursor:pointer;display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:1px 10px;align-items:baseline}
+.cluster:hover{background:var(--surface)}
+.cluster[aria-pressed="true"]{background:var(--surface);border-color:var(--c)}
+.cluster .sw{width:11px;height:11px;border-radius:50%;background:var(--c);align-self:center}
+.cluster .nm{font-weight:750;font-size:13.5px;min-width:0}
+.cluster .ct{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cluster .df{grid-column:2/4;color:var(--muted);font-size:12px;line-height:1.35}
+.cluster .bar{grid-column:2/4;display:flex;height:4px;border-radius:3px;overflow:hidden;background:var(--hair);margin-top:5px}
+.cluster .bar i{display:block;height:100%;background:var(--c)}
+.cluster .bar i.hay{opacity:.42}
+
+.brow{display:grid;grid-template-columns:112px minmax(0,1fr);gap:4px 10px;align-items:center;padding:6px 0;border-top:1px solid var(--hair);font-size:12.5px}
+.brow:first-child{border-top:0}
+.brow .bl{font-weight:700;font-stretch:92%}
+.brow .bl small{display:block;font-family:var(--font-mono);font-size:10.5px;color:var(--muted);font-weight:500}
+.bbar{display:flex;height:16px;border-radius:4px;overflow:hidden;background:var(--hair)}
+.bseg{appearance:none;border:0;padding:0;background:var(--c);cursor:pointer;color:var(--surface);font-family:var(--font-mono);font-size:10.5px;font-weight:600;display:grid;place-items:center;min-width:0;overflow:hidden}
+.bseg[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:-2px}
+.bseg.dim{opacity:.35}
+.bnote{font-size:12.5px;color:var(--muted);line-height:1.45;margin:6px 0 0}
+.bnote b{color:var(--ink);font-weight:700}
+.notes{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:9px;font-size:13px;line-height:1.48}
+.notes b{font-weight:750}
+.method p{margin:0 0 8px;font-size:12.5px;color:var(--muted);line-height:1.5}
+.method a{color:var(--ink)}
+@media (prefers-reduced-motion: reduce){.node,.lbl,.link,.hull,.alt,.toast{transition:none}}
+</style>
+
+<div class="page">
+  <header class="top">
+    <div>
+      <h1>Founder Map</h1>
+      <p class="dek">Amplify (Lenny Pruss) and Haystack (Semil Shah) founders, grouped by the career path that led them to start a company and linked through shared employers, schools, and open source.</p>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="bar">
+    <label class="search" for="q">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Search founders, companies, employers, schools, projects" autocomplete="off" spellcheck="false">
+    </label>
+    <div class="seg" id="fundSeg">
+      <button type="button" data-fund="all" aria-pressed="true">Both funds</button>
+      <button type="button" data-fund="amp" aria-pressed="false">Amplify</button>
+      <button type="button" data-fund="hay" aria-pressed="false">Haystack</button>
+    </div>
+    <div class="seg" id="viewSeg">
+      <button type="button" data-view="map" aria-pressed="true">Map</button>
+      <button type="button" data-view="table" aria-pressed="false">Table</button>
+    </div>
+    <button class="btn" type="button" id="filtersBtn" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filters<span class="n" id="filtersN"></span></button>
+  </div>
+
+  <div class="drawer" id="drawer" hidden>
+    <div class="fgroup"><h3>Path</h3><div id="pathGroup" class="fgroup"></div></div>
+    <div class="fgroup"><h3>Badges</h3><div id="badgeGroup" class="fgroup"></div></div>
+    <div class="fgroup"><h3>Big tech employer</h3><div id="empGroup" class="fgroup"></div></div>
+    <div class="fgroup"><h3>More</h3>
+      <span class="sel"><label for="selSchool">School</label><select id="selSchool"></select></span>
+      <span class="sel"><label for="selVert">Vertical</label><select id="selVert"></select></span>
+      <span class="sel"><label for="selStatus">Status</label><select id="selStatus">
+        <option value="">Any</option><option value="active">Still in founding role</option><option value="changed">Role changed</option><option value="left">Left the company</option></select></span>
+      <span class="sel"><label for="selOss">Open source</label><select id="selOss">
+        <option value="">Any</option><option value="yes">Open product</option><option value="partial">Partially open</option><option value="no">Closed product</option></select></span>
+    </div>
+    <div class="fgroup"><h3>Map layers</h3><div id="layers" class="fgroup">
+      <button class="chip" type="button" data-type="c" aria-pressed="true">Companies</button>
+      <button class="chip" type="button" data-type="e" aria-pressed="true">Employers</button>
+      <button class="chip" type="button" data-type="s" aria-pressed="true">Schools</button>
+      <button class="chip" type="button" data-type="o" aria-pressed="true">Prior open source</button>
+      <button class="chip" type="button" data-toggle="oneOff" aria-pressed="false">One-off ties</button>
+      <button class="chip" type="button" data-toggle="alt" aria-pressed="true">Also-fits stubs</button>
+    </div></div>
+  </div>
+
+  <div class="active" id="activeRow" hidden></div>
+
+  <div class="layout">
+    <div class="mapcol">
+      <div class="map" id="mapWrap">
+        <svg id="map" role="group" aria-label="Founder network map"></svg>
+        <div class="zoombar">
+          <button type="button" id="zin" aria-label="Zoom in">+</button>
+          <button type="button" id="zout" aria-label="Zoom out">−</button>
+          <button type="button" id="zfit" class="fit" aria-label="Fit the whole map">Fit</button>
+        </div>
+      </div>
+      <ul class="legend" id="legend">
+        <li><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="6" class="lg-f"/></svg>Amplify founder</li>
+        <li><svg viewBox="0 0 18 18"><rect x="3.5" y="3.5" width="11" height="11" rx="2" class="lg-f"/></svg>Haystack founder</li>
+        <li><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="4.5" class="lg-c"/></svg>Company</li>
+        <li><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="6" class="lg-h"/></svg>Employer</li>
+        <li><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="6" class="lg-h"/><circle cx="9" cy="9" r="2" class="lg-c"/></svg>School</li>
+        <li><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="6" class="lg-h o"/></svg>Prior open source</li>
+        <li><svg viewBox="0 0 18 18"><line x1="2" y1="14" x2="14" y2="4" class="lg-alt"/><circle cx="14.5" cy="3.6" r="2.2" class="lg-f"/></svg>Also fits another path</li>
+        <li class="hint">Hover or tap · drag to pan · scroll to zoom · Esc clears</li>
+      </ul>
+      <div class="tablewrap" id="tableWrap" hidden>
+        <div class="tbar"><span id="tcount"></span><button class="btn" type="button" id="csvBtn">Copy table as CSV</button></div>
+        <div class="scroll"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+
+    <aside class="side">
+      <section class="card" id="detail" aria-live="polite"></section>
+      <div class="tabs" role="tablist">
+        <button class="tab" type="button" role="tab" data-tab="clusters" aria-selected="true">Clusters</button>
+        <button class="tab" type="button" role="tab" data-tab="insights" aria-selected="false">Insights</button>
+        <button class="tab" type="button" role="tab" data-tab="about" aria-selected="false">About</button>
+      </div>
+      <section class="tabpanel" id="tab-clusters" role="tabpanel">
+        <div class="sec"><h2><span>Five paths</span><span class="note" id="clNote">Amplify · Haystack</span></h2><div class="clusters" id="clusters"></div></div>
+        <div class="sec"><h2><span>Badges by path</span><span class="note">tap a segment to filter</span></h2><div id="badgeRows"></div></div>
+      </section>
+      <section class="tabpanel" id="tab-insights" role="tabpanel" hidden>
+        <div class="sec"><h2>What the map shows</h2><ul class="notes" id="notes"></ul></div>
+      </section>
+      <section class="tabpanel method" id="tab-about" role="tabpanel" hidden>
+        <div class="sec"><h2>How it's built</h2>
+        <p><b>Paths.</b> Each founder sits in one cluster for the main career path that led to this company, from public bios as of October 2026. A dashed stub points toward a second path that also fits.</p>
+        <p><b>Open source is a badge, not a path.</b> Prior open source means the founder created or co-created a notable project before this company (Envoy, Ray, Vagrant). Open source product is a company attribute: whether the core product is open, partial (open tooling or standard, commercial core), or closed.</p>
+        <p><b>Big tech</b> means Google, Facebook (Meta), Microsoft, Amazon, Apple, Twitter, Uber, Lyft, or Palantir. Big tech engineer is a path (years building inside a large company or agency, such as the NSA); Big tech alum is a badge (worked at one of the nine).</p>
+        <p><b>Stations</b> are employers and schools shared by two or more founders, plus every prior open source project; turn on One-off ties in Filters for the rest. Valuations and rounds are the latest public figures. Full bios and sources live in <a href="https://claude.ai/code/artifact/619f117c-df06-44e8-abac-ee2e6b95b82d" target="_blank" rel="noopener">Amplify Portfolio: Founder Briefs</a>.</p>
+        </div>
+      </section>
+    </aside>
+  </div>
+</div>
+<textarea id="csvbox" aria-hidden="true" tabindex="-1"></textarea>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+(() => {
+"use strict";
+if (!window.d3) {
+  document.getElementById("mapWrap").insertAdjacentHTML("beforeend", '<p class="err">The map library did not load. Refresh the page to try again.</p>');
+  return;
+}
+
+/* ---------- Data ---------- */
+const W = 1100, H = 840, CX = W / 2, CY = H / 2;
+const ARCH = {
+  bigco:    {name: "Big tech engineer",  def: "Years building infrastructure inside a large tech company or agency."},
+  serial:   {name: "Repeat founder",     def: "A company they started before is their main credential."},
+  business: {name: "Business operator",  def: "Came from finance, consulting, policy, or investing."},
+  young:    {name: "Young builder",      def: "Started within a few years of school or a first startup job."},
+  academic: {name: "Academic",           def: "Came out of a PhD lab or a professorship."}
+};
+const ORDER = ["bigco", "serial", "business", "young", "academic"];
+const ANCHOR = {bigco: [290, 470], serial: [580, 690], business: [870, 560], young: [800, 220], academic: [410, 165]};
+const BADGES = {oss: "Prior open source", exit: "Prior exit", grad: "Grad degree", bigtech: "Big tech alum"};
+const FUND = {amp: "Amplify", hay: "Haystack"};
+const HUBTYPE = {e: "Employer", s: "School", o: "Prior open source project"};
+const REL = {e: "Worked at", s: "Studied at", S: "Taught at", o: "Built or contributed to"};
+const BIGTECH = ["Google", "Microsoft", "Uber", "Facebook", "Twitter", "Amazon", "Lyft", "Palantir", "Apple"];
+const BIGSET = new Set(BIGTECH);
+const STATUS = {active: "Still in founding role", changed: "Role changed", left: "Left the company"};
+const OSSP = {yes: "Open source product", partial: "Partially open", no: "Closed product"};
+
+const COMPANIES = [
+  {n: "Antithesis", f: "amp", v: "Developer Tools", yr: "2018", age: 37, oss: "no", st: "Active", last: "$105M Series A, Dec 2025 (valuation undisclosed)", d: "Autonomous testing that simulates your system and injects faults to find rare bugs."},
+  {n: "Anyscale", f: "amp", v: "AI & Cloud Infrastructure", yr: "2019", age: 28, oss: "yes", st: "Active · outside CEO since 2024", last: "$99M Series C at $1B+, Aug 2022", d: "The company behind Ray, scaling AI and Python workloads from a laptop to a data center."},
+  {n: "bitdrift", f: "amp", v: "Security & Observability", yr: "2023", age: 44, oss: "partial", st: "Active · spun out of Lyft", last: "$15M Series A led by Amplify, Dec 2023", d: "Mobile-first observability that turns app telemetry up or down in real time. The Capture SDK is open; the platform is commercial."},
+  {n: "Chainguard", f: "amp", v: "Security & Observability", yr: "2021", age: 33, oss: "partial", st: "Active", last: "$356M Series D at $3.5B, Apr 2025", d: "Hardened container images, VMs, and libraries with zero known vulnerabilities. Stewards open tools (Sigstore, Wolfi); the images are commercial."},
+  {n: "Dagster", f: "amp", v: "Data Infrastructure", yr: "2018", age: 35, oss: "yes", st: "Active · outside CEO since 2022", last: "$33M Series B led by Georgian, May 2023", d: "Open source data pipeline orchestrator built around data assets."},
+  {n: "dbt", f: "amp", v: "Data Infrastructure", yr: "2016", age: 35, oss: "yes", st: "Merged with Fivetran, June 2026", last: "Last standalone valuation $4.2B (Series D, Feb 2022)", d: "SQL transformations managed like software. Now part of Fivetran + dbt Labs."},
+  {n: "exe.dev", f: "amp", v: "AI & Cloud Infrastructure", yr: "2025", age: 39, oss: "no", st: "Active · early", last: "Seed backed by Amplify (amount undisclosed)", d: "An agent-first cloud that gives every coding agent its own VM."},
+  {n: "Hightouch", f: "amp", v: "Data Infrastructure", yr: "2018", age: 22, oss: "no", st: "Active", last: "$150M Series D at $2.75B, Apr 2026", d: "Syncs warehouse data into marketing and sales tools, plus AI marketing agents."},
+  {n: "Prisma", f: "amp", v: "Developer Tools", yr: "2016", age: 28, oss: "yes", st: "Active · one founder left", last: "$40M Series B, May 2022", d: "Type-safe database toolkit for TypeScript, now with hosted Postgres."},
+  {n: "Sourcegraph", f: "amp", v: "Developer Tools", yr: "2013", age: 24, oss: "partial", st: "Active · founders left to run the Amp spinout, Dec 2025", last: "Series D led by a16z Growth at $2.6B, 2021", d: "Code search for huge codebases. Moved from open source to a fair-source license; spun out Amp in 2025."},
+  {n: "Temporal", f: "amp", v: "AI & Cloud Infrastructure", yr: "2019", age: 45, oss: "yes", st: "Active · founders swapped CEO and CTO in 2024", last: "$550M Series E at $12.55B, Sept 2026", d: "Durable execution that keeps app workflows running through crashes. MIT-licensed core."},
+  {n: "TigerBeetle", f: "amp", v: "Fintech Infrastructure", yr: "2022", age: null, oss: "yes", st: "Active · spun out of Coil", last: "$24M Series A led by Spark Capital, 2025", d: "A database with debit and credit built in, for financial transactions. Apache 2.0."},
+  {n: "Trunk", f: "hay", v: "Developer Tools", yr: "2021", age: 41, oss: "no", st: "Active", last: "$25M Series A led by Initialized, Feb 2022", d: "Merge queues, flaky test detection, and CI debugging."},
+  {n: "Buf", f: "hay", v: "Developer Tools", yr: "2020", age: 28, oss: "yes", st: "Active", last: "$68M Series B, Nov 2021", d: "Tooling and a schema registry for Protocol Buffers. Open source CLI, commercial registry."},
+  {n: "HashiCorp", f: "hay", v: "AI & Cloud Infrastructure", yr: "2012", age: 22, oss: "yes", st: "Acquired by IBM for $6.4B, 2025 (IPO 2021)", last: "IPO Dec 2021; IBM acquisition closed Feb 2025", d: "Terraform, Vault, and Vagrant. Moved to the Business Source License in 2023."},
+  {n: "Exa", f: "hay", v: "AI & Cloud Infrastructure", yr: "2021", age: 24, oss: "no", st: "Active", last: "$250M Series C at $2.2B led by a16z, May 2026", d: "A search engine built for AI agents instead of people."},
+  {n: "Redpanda", f: "hay", v: "Data Infrastructure", yr: "2019", age: 33, oss: "yes", st: "Active", last: "$100M Series D at $1B led by GV, Apr 2025", d: "Kafka-compatible streaming rebuilt in C++. Source-available core."},
+  {n: "People Data Labs", f: "hay", v: "Data Infrastructure", yr: "2015", age: 25, oss: "no", st: "Active · founders stepped back, Aug 2025", last: "$45M Series B led by Craft Ventures, Nov 2021", d: "B2B data on billions of people and companies, sold through APIs."},
+  {n: "Pomerium", f: "hay", v: "Security & Observability", yr: "2019", age: 33, oss: "yes", st: "Active", last: "$13.75M Series A led by Benchmark, June 2024", d: "Identity-aware access to internal apps without a VPN. Open core."},
+  {n: "Virtru", f: "hay", v: "Security & Observability", yr: "2012", age: 34, oss: "partial", st: "Active", last: "$37M Series B led by Iconiq", d: "Encryption and access control for email, files, and data, built on the open Trusted Data Format standard."},
+  {n: "Fiddler", f: "hay", v: "Security & Observability", yr: "2018", age: 38, oss: "no", st: "Active", last: "$30M Series C led by RPS Ventures; $100M raised in total", d: "Monitors and explains AI models in production."},
+  {n: "Carta", f: "hay", v: "Fintech Infrastructure", yr: "2012", age: 38, oss: "no", st: "Active", last: "Series G at $7.4B, Aug 2021", d: "Cap tables, equity, and fund administration for private companies."},
+  {n: "Rutter", f: "hay", v: "Fintech Infrastructure", yr: "2019", age: 23, oss: "no", st: "Active", last: "$27M Series A led by a16z, Mar 2022", d: "One API for business financial data across accounting, commerce, and payments."},
+  {n: "Finley", f: "hay", v: "Fintech Infrastructure", yr: "2021", age: 28, oss: "no", st: "Acquired by Concord, Mar 2026", last: "$17M Series A (CRV), then acquired", d: "Turns debt agreements into managed workflows for borrowers and lenders."}
+];
+
+/* t: e = employer, s = school (S = taught there), o = prior open source project. st: active | changed | left */
+const FOUNDERS = [
+  // Amplify
+  {n: "Will Wilson", c: "Antithesis", a: "bigco", s: "academic", role: "Co-founder, CEO", st: "active", b: [], t: ["e:FoundationDB", "e:Apple", "e:Google"], src: "https://antithesis.com/company/backstory/", bio: "Trained as a mathematician and AI researcher, then built distributed databases at FoundationDB, Apple, and Google."},
+  {n: "Dave Scherer", c: "Antithesis", a: "serial", role: "Co-founder, CTO", st: "active", b: ["exit"], t: ["s:Carnegie Mellon", "e:Visual Sciences", "e:FoundationDB"], src: "https://www.startupgrind.com/blog/foundationdb-how-this-startup-got-funded-by-ron-conway/", bio: "Co-founded Visual Sciences (sold, later part of Adobe) and FoundationDB (bought by Apple), where he was chief architect."},
+  {n: "Robert Nishihara", c: "Anyscale", a: "academic", s: "young", role: "Co-founder; CEO 2019 to 2024", st: "changed", note: "Stepped down as CEO in July 2024 when Keerti Melkote took over; now leads product strategy.", b: ["oss", "grad"], t: ["s:Harvard", "s:UC Berkeley", "o:Ray"], src: "https://research.facebook.com/fellows/nishihara-robert/", bio: "Harvard math, then a Berkeley PhD under Michael Jordan. Co-created Ray in RISELab and was Anyscale's first CEO."},
+  {n: "Philipp Moritz", c: "Anyscale", a: "academic", s: "young", role: "Co-founder, CTO", st: "active", b: ["oss", "grad"], t: ["s:UC Berkeley", "o:Ray"], src: "https://www.clay.com/dossier/anyscale-cto", bio: "Berkeley CS PhD (2013 to 2019) in distributed systems and ML. Went straight from the PhD to Anyscale CTO."},
+  {n: "Ion Stoica", c: "Anyscale", a: "academic", s: "serial", role: "Co-founder, executive chairman", st: "active", b: ["oss", "grad"], t: ["s:Carnegie Mellon", "S:UC Berkeley", "e:Databricks", "e:Conviva", "o:Ray"], src: "https://www.anyscale.com/press/anyscale-names-industry-veteran-keerti-melkote-chief-executive-officer", bio: "Berkeley professor with a CMU PhD. Co-founded Conviva and Databricks (its first CEO) before Anyscale."},
+  {n: "Michael I. Jordan", sh: "Jordan", c: "Anyscale", a: "academic", role: "Co-founder, advisor", st: "active", b: ["grad"], t: ["S:UC Berkeley", "S:MIT"], src: "https://www2.eecs.berkeley.edu/Faculty/Homepages/jordan.html", bio: "Berkeley professor of CS and statistics, previously at MIT, and one of the most influential ML researchers."},
+  {n: "Peter Morelli", c: "bitdrift", a: "bigco", role: "Co-founder, CEO", st: "active", b: [], t: ["e:Twitter", "e:Lyft"], src: "https://techcrunch.com/2015/03/10/lyft-peter-morelli-vp-engineering/amp/", bio: "Ran Twitter's 100+ engineer platform group, then joined Lyft as VP of Engineering in 2015."},
+  {n: "Matt Klein", c: "bitdrift", a: "bigco", role: "Co-founder, CTO", st: "active", b: ["oss"], t: ["e:Microsoft", "e:Amazon", "e:Twitter", "e:Lyft", "o:Envoy"], src: "https://www.usenix.org/conference/srecon17americas/program/presentation/klein", bio: "20+ years in low-level systems at Microsoft, AWS EC2, and Twitter. Created Envoy at Lyft and chose not to commercialize it."},
+  {n: "Martin Conte Mac Donell", sh: "Conte Mac Donell", c: "bitdrift", a: "bigco", role: "Co-founder", st: "active", b: [], t: ["e:Lyft"], src: "https://app.dealroom.co/companies/bitdrift", bio: "Lyft engineer who teamed up with Morelli and Klein there. Few public details on his earlier career."},
+  {n: "Dan Lorenc", c: "Chainguard", a: "bigco", role: "Co-founder, CEO", st: "active", b: ["oss"], t: ["s:MIT", "e:Microsoft", "e:Google", "o:Kubernetes", "o:Sigstore", "o:SLSA", "o:Tekton", "o:Distroless"], src: "https://kccncind2026.sched.com/speaker/dlorenc", bio: "MIT mechanical engineering, then Microsoft and Google (2012 to 2021). Created Minikube and helped found Sigstore, Tekton, and SLSA."},
+  {n: "Matt Moore", c: "Chainguard", a: "bigco", role: "Co-founder, CTO", st: "active", b: ["oss"], t: ["e:Microsoft", "e:Google", "o:Distroless"], src: "https://research.contrary.com/company/chainguard", bio: "Microsoft from 2005, then Disqus and Google, where he led container tooling and co-created the distroless image."},
+  {n: "Kim Lewandowski", c: "Chainguard", a: "bigco", role: "Co-founder, product", st: "active", b: ["oss"], t: ["e:Lawrence Livermore", "e:Google", "o:SLSA", "o:Tekton"], src: "https://www.securitymagazine.com/authors/4214-kim-lewandowski", bio: "Started in security at Lawrence Livermore Lab. Google PM from 2014 who created SLSA and co-created Tekton."},
+  {n: "Ville Aikas", c: "Chainguard", a: "bigco", role: "Co-founder, distinguished engineer", st: "active", b: ["oss"], t: ["e:Google", "e:VMware", "o:Kubernetes", "o:Knative"], src: "https://research.contrary.com/company/chainguard", bio: "Google from 2007 on the early Kubernetes team and Knative, then a senior staff engineer at VMware."},
+  {n: "Scott Nichols", c: "Chainguard", a: "bigco", role: "Co-founder", st: "active", b: ["oss"], t: ["e:Google", "e:VMware", "o:Kubernetes"], src: "https://research.contrary.com/company/chainguard", bio: "Started on Chrome, moved to Google Cloud to build the Kubernetes Service Catalog, then VMware."},
+  {n: "Nick Schrock", c: "Dagster", a: "bigco", role: "Founder; CEO, now CTO and chairman", st: "changed", note: "Handed the CEO role to Pete Hunt in November 2022 and moved to CTO and chairman.", b: ["oss"], t: ["s:Michigan", "e:Microsoft", "e:CareEvolution", "e:Facebook", "o:GraphQL"], src: "https://qconlondon.com/london-2011/qconlondon.com/london-2011/speaker/Nick+Schrock.html", bio: "Michigan computer engineering, Microsoft, then 8 years at Facebook, where he co-created GraphQL and founded Product Infrastructure."},
+  {n: "Tristan Handy", c: "dbt", a: "business", role: "Founder; CEO until 2026", st: "changed", note: "President of Fivetran + dbt Labs since the June 2026 merger; George Fraser is CEO.", b: ["grad"], t: ["s:Maryland", "s:UNC", "e:Deloitte", "e:Squarespace", "e:RJMetrics"], src: "https://www.bigdatawire.com/people-to-watch-2022/6", bio: "Finance and IT degree, 5 years at Deloitte Consulting, a UNC MBA, then startup operations roles before founding Fishtown Analytics."},
+  {n: "Drew Banin", c: "dbt", a: "young", role: "Co-founder; former CPO", st: "changed", note: "Stepped back from the Chief Product Officer role; still works with the dbt open source community.", b: [], t: ["s:Drexel", "e:8tracks", "e:RJMetrics"], src: "https://review.firstround.com/dbt-labs-path-to-product-market-fit", bio: "Worked part-time at RJMetrics to pay for Drexel, then joined Handy instead of a post-grad job and wrote the first dbt prototype."},
+  {n: "Connor McArthur", c: "dbt", a: "young", role: "Co-founder, first CTO", st: "active", b: [], t: ["e:RJMetrics", "e:Stitch"], src: "https://www.getdbt.com/about-us", bio: "Engineer and engineering manager at RJMetrics and Stitch, and dbt's first CTO."},
+  {n: "David Crawshaw", c: "exe.dev", a: "serial", s: "bigco", role: "Co-founder, CEO", st: "active", b: ["oss"], t: ["s:Sydney", "e:NICTA", "e:Google", "e:Tailscale", "o:Go"], src: "https://exe.dev/docs/who", bio: "Sydney math grad. Google staff engineer on Go and Fuchsia, then Tailscale co-founder and CTO (2019 to 2024)."},
+  {n: "Josh Bleecher Snyder", sh: "Bleecher Snyder", c: "exe.dev", a: "serial", role: "Co-founder", st: "active", b: ["oss", "exit"], t: ["e:AdMob", "e:PayPal", "e:Tailscale", "o:Go"], src: "https://exe.dev/docs/who", bio: "Early AdMob engineer. Co-founded card.io (sold to PayPal in 2012) and Canopy Climate, then an early Tailscale engineer and Go contributor."},
+  {n: "Kashish Gupta", c: "Hightouch", a: "young", s: "business", role: "Co-founder, co-CEO", st: "active", b: ["grad"], t: ["s:Penn", "e:Bessemer"], src: "https://www.snowflake.com/blog/authors/kashish-gupta", bio: "Penn alum (Wharton economics plus a robotics master's). A Bessemer VC who turned down a return offer to build a travel Slackbot."},
+  {n: "Tejas Manohar", c: "Hightouch", a: "young", role: "Co-founder, co-CEO", st: "active", b: [], t: ["e:Segment"], src: "https://pulse2.com/hightouch-profile-tejas-manohar-interview/", bio: "Self-taught and skipped college. Moved to SF at 16 to be one of Segment's first 10 engineers."},
+  {n: "Josh Curl", c: "Hightouch", a: "young", role: "Co-founder, CTO", st: "active", b: [], t: ["e:Rancher Labs", "e:Segment"], src: "https://cloudflare.tv/shows/founder-spotlight/founder-spotlight-josh-curl/Mg6Ko4vl", bio: "One of Rancher Labs' first 10 engineers, then Segment's Personas team. Briefly co-founded Deviceplane."},
+  {n: "Søren Bramer Schmidt", sh: "Schmidt", c: "Prisma", a: "serial", role: "Co-founder; CTO, now CEO", st: "changed", note: "Started as CTO and took over as CEO.", b: [], t: ["e:Trustpilot"], src: "https://app.welcometothejungle.com/jobs/k6ASPhV7", bio: "Nearly 7 years as a developer and architect at Trustpilot. Co-founded the nutrition startup Eat Better before Prisma."},
+  {n: "Johannes Schickling", c: "Prisma", a: "serial", role: "Co-founder, original CEO", st: "left", note: "Left Prisma; later built Overtone and LiveStore.", b: [], t: ["e:Optonaut"], src: "https://tech.eu/2020/07/06/prisma-series-a/", bio: "Built the VR startup Optonaut and went through Entrepreneur First in London before co-founding Graphcool."},
+  {n: "Quinn Slack", c: "Sourcegraph", a: "serial", s: "young", role: "Co-founder; CEO until Dec 2025", st: "left", note: "Now CEO of Amp Inc., the spinout; remains on Sourcegraph's board. Dan Adler is Sourcegraph CEO.", b: [], t: ["s:Stanford", "e:Bleacher Report", "e:Palantir", "e:Blend"], src: "https://handbook.sourcegraph.com/team", bio: "Bleacher Report's first engineer right out of high school, then Stanford CS and Palantir. Co-founded Blend before Sourcegraph."},
+  {n: "Beyang Liu", c: "Sourcegraph", a: "young", s: "bigco", role: "Co-founder; CTO until Dec 2025", st: "left", note: "Co-founded Amp Inc. with Slack; remains on Sourcegraph's board.", b: [], t: ["s:Stanford", "e:Google", "e:Palantir"], src: "https://handbook.sourcegraph.com/team", bio: "Stanford CS with Stanford AI Lab research. Worked at Google and Palantir before co-founding Sourcegraph at about 24."},
+  {n: "Maxim Fateev", c: "Temporal", a: "bigco", role: "Co-founder; CEO 2019 to 2024, now CTO", st: "changed", note: "Swapped roles with Abbas in April 2024.", b: ["oss", "grad"], t: ["s:Moscow State", "s:UFRJ", "e:Amazon", "e:Microsoft", "e:Google", "e:Uber", "o:Cadence"], src: "https://crunchbase.com/person/maxim-fateev", bio: "Physics in Moscow, a CS master's in Rio. Led what became AWS SQS and Simple Workflow, then Google and Uber, where he co-created Cadence."},
+  {n: "Samar Abbas", c: "Temporal", a: "bigco", role: "Co-founder; CTO 2019 to 2024, now CEO", st: "changed", note: "Swapped roles with Fateev in April 2024.", b: ["oss"], t: ["s:GIK Institute", "e:Microsoft", "e:Amazon", "e:Uber", "o:Cadence"], src: "https://temporal.io/in-use/keynote-building-trust-with-code", bio: "From Karachi. Microsoft from 2000, AWS Simple Workflow, then Azure's Durable Task Framework, and co-created Cadence at Uber."},
+  {n: "Joran Dirk Greef", sh: "Greef", c: "TigerBeetle", a: "bigco", edge: true, role: "Founder, CEO", st: "active", b: ["oss"], t: ["e:Microsoft", "e:Coil"], src: "https://interledger.org/summit/2022/speaker/joran-greef", bio: "Self-taught coder from Cape Town and a former Microsoft security consultant. Built TigerBeetle inside Coil before spinning it out."},
+  // Haystack
+  {n: "Eli Schleifer", c: "Trunk", a: "serial", s: "bigco", role: "Co-founder, co-CEO", st: "active", b: ["exit"], t: ["s:Columbia", "e:Microsoft", "e:Google", "e:Uber"], src: "https://developerweek2023.sched.com/speaker/eli_schleifer.24uw8c05", bio: "Columbia visual arts and CS. Microsoft, then co-founded Directr (sold to Google in 2014), YouTube, and ran Autonomy Systems at Uber ATG."},
+  {n: "David Apirian", c: "Trunk", a: "bigco", role: "Co-founder, co-CEO", st: "active", b: [], t: ["e:Bloomberg", "e:BitTorrent", "e:Uber"], src: "https://crunchbase.com/person/david-apirian", bio: "Engineer at Bloomberg and BitTorrent, then Head of Autonomy Systems and Simulation at Uber ATG."},
+  {n: "Matt Matheson", c: "Trunk", a: "bigco", role: "Co-founder, CTO", st: "active", b: [], t: ["e:Microsoft", "e:Uber"], src: "https://app.welcometothejungle.com/jobs/YGeKOig-", bio: "Developer at Microsoft, then tech lead manager at Uber ATG. Trunk's CTO."},
+  {n: "Chris Clearwater", c: "Trunk", a: "bigco", role: "Co-founder", st: "active", b: [], t: ["e:Uber"], src: "https://app.welcometothejungle.com/jobs/YGeKOig-", bio: "Senior autonomy engineer at Uber ATG."},
+  {n: "Peter Edge", c: "Buf", a: "bigco", role: "Founder, CEO", st: "active", b: [], t: ["s:Carnegie Mellon", "e:Uber"], src: "https://runtimewire.com/article/buf-protobuf-lsp-compiler-editor-support", bio: "CMU CS and math, then about five years at Uber in Toronto, where he watched every team rebuild the same schema tooling."},
+  {n: "Mitchell Hashimoto", c: "HashiCorp", a: "young", role: "Co-founder; CEO, then CTO, then engineer", st: "left", note: "Left HashiCorp in December 2023; built the Ghostty terminal and now co-founds Superlogical.", b: ["oss"], t: ["s:Univ. of Washington", "e:Kiip", "o:Vagrant"], src: "https://mitchellh.com/", bio: "Self-taught at 12. Built Vagrant in his UW dorm, was Kiip's first engineer, and started HashiCorp at about 22."},
+  {n: "Armon Dadgar", c: "HashiCorp", a: "young", role: "Co-founder, CTO", st: "active", note: "Stayed CTO through the IBM acquisition.", b: [], t: ["s:Univ. of Washington", "e:Kiip"], src: "https://hashicorp.com/about/person/armon-dadgar", bio: "Started college at 16. UW CS, distributed systems architect at Kiip, then HashiCorp co-founder and CTO."},
+  {n: "Will Bryk", c: "Exa", a: "young", role: "Co-founder, CEO", st: "active", b: [], t: ["s:Harvard", "e:Zoox", "e:Cresta"], src: "https://metaphor.systems/about", bio: "Harvard CS and physics, where he led the robotics club. Early engineer at Cresta before co-founding Exa with his roommate."},
+  {n: "Jeff Wang", c: "Exa", a: "young", role: "Co-founder", st: "active", b: [], t: ["s:Harvard", "e:Plaid"], src: "https://metaphor.systems/about", bio: "Harvard CS and philosophy, where he ran a GPU cluster in his dorm. Three years building data infrastructure at Plaid."},
+  {n: "Alexander Gallego", c: "Redpanda", a: "serial", s: "bigco", role: "Founder, CEO", st: "active", b: ["exit"], t: ["s:NYU", "e:FactSet", "e:YieldMo", "e:Akamai"], src: "https://research.contrary.com/company/redpanda", bio: "Moved from Colombia at 14. NYU CS, FactSet and YieldMo, then co-founded Concord (sold to Akamai in 2016) and became a principal engineer there."},
+  {n: "Sean Thorne", c: "People Data Labs", a: "young", role: "Co-founder; CEO until 2025", st: "changed", note: "Stepped back from daily leadership in August 2025; on the board and now founding AgentScore. Ben Eisenberg is CEO.", b: [], t: ["s:Univ. of Oregon"], src: "https://yespress.io/sean-thorne", bio: "University of Oregon. Traced the idea to a 2012 marketing class and ran sales while Nevue built the product."},
+  {n: "Henry Nevue", c: "People Data Labs", a: "young", role: "Co-founder; President until 2025", st: "changed", note: "Stepped back from daily leadership in August 2025.", b: [], t: [], src: "https://yespress.io/people-data-labs.md", bio: "Built People Data Labs' product while Thorne ran sales. Few public details on his earlier career."},
+  {n: "Bobby DeSimone", c: "Pomerium", a: "serial", role: "Founder, CEO", st: "active", b: ["exit"], t: ["e:BeyondTrust"], src: "https://pomerium.com/authors/bobby-desimone", bio: "Teen hacker turned founder. Sold Surelock to BeyondTrust and spent 7 years there before writing Pomerium's first code."},
+  {n: "John Ackerly", sh: "J. Ackerly", c: "Virtru", a: "business", role: "Co-founder, CEO", st: "active", b: ["grad"], t: ["s:Williams", "s:Oxford", "s:Harvard", "e:White House", "e:Lindsay Goldberg"], src: "https://ipo-edge.com/data-centric-cybersecurity-virtru-ceo-john-ackerly-live-from-nyse/", bio: "Williams, Rhodes Scholar, Harvard MBA. White House tech policy advisor during 9/11, then a private equity investor."},
+  {n: "Will Ackerly", sh: "W. Ackerly", c: "Virtru", a: "bigco", role: "Co-founder, CTO", st: "active", b: ["oss"], t: ["e:NSA", "o:Trusted Data Format"], src: "https://en.wikipedia.org/wiki/Virtru", bio: "8 to 9 years at the NSA in cloud security, where he created the Trusted Data Format that Virtru is built on."},
+  {n: "Krishna Gade", c: "Fiddler", a: "bigco", role: "Co-founder, CEO", st: "active", b: ["grad"], t: ["s:Minnesota", "e:Microsoft", "e:Twitter", "e:Pinterest", "e:Facebook"], src: "https://aimmediahouse.com/lists/aim-next-15-ai-ceos-in-america-2026/krishna-gade", bio: "Minnesota CS master's. Microsoft and Bing, Twitter, Pinterest, then Facebook, where his team built \"Why am I seeing this post?\""},
+  {n: "Amit Paka", c: "Fiddler", a: "serial", s: "bigco", role: "Co-founder, CPO", st: "active", b: ["exit"], t: ["s:Minnesota", "e:Microsoft", "e:Expedia", "e:PayPal", "e:Samsung"], src: "https://www.oreilly.com/library/view/model-performance-management/9781098108687/colophon01.html", bio: "Product roles at Microsoft, Expedia, and PayPal. Sold Flockish and Parable (to Samsung) before co-founding Fiddler."},
+  {n: "Henry Ward", c: "Carta", a: "serial", s: "business", role: "Co-founder, CEO", st: "active", b: ["grad"], t: ["s:Michigan", "s:EDHEC", "e:Trilogy", "e:BetweenMarkets", "e:Reddwerks"], src: "https://www3.carta.com/executive-team/henry-ward", bio: "Michigan math and CS plus a finance master's. Software and sales engineering roles, then founded Secondsight before eShares."},
+  {n: "Manu Kumar", c: "Carta", a: "business", role: "Co-founder, chairman", st: "active", b: [], t: ["e:K9 Ventures"], src: "https://en.wikipedia.org/wiki/Carta_(software_company)", bio: "Serial seed investor (K9 Ventures) who co-founded eShares with Ward and became chairman."},
+  {n: "Peter Zhou", c: "Rutter", a: "young", role: "Co-founder, CEO", st: "active", b: [], t: ["s:Yale", "e:Facebook", "e:Atrium"], src: "https://yespress.io/peter-zhou.md", bio: "Yale CS with stints at Facebook and Atrium. Pivoted through failed ideas before Rutter (YC S19)."},
+  {n: "Eric Yu", c: "Rutter", a: "young", role: "Co-founder", st: "active", b: [], t: [], src: "https://www.ycombinator.com/companies/rutter", bio: "Co-founded Rutter with Zhou. Few public details on his earlier career."},
+  {n: "Jeremy Tsui", sh: "Jeremy Tsui", c: "Finley", a: "business", role: "Co-founder, CEO", st: "changed", note: "Joined Concord as Managing Director, Capital Markets after the March 2026 acquisition.", b: [], t: ["e:Goldman Sachs"], src: "https://ycombinator.com/companies/finley", bio: "Debt investor in Goldman Sachs' Merchant Banking Division, where he saw borrowers struggle with credit agreements."},
+  {n: "Josiah Tsui", sh: "Josiah Tsui", c: "Finley", a: "bigco", s: "young", role: "Co-founder", st: "active", b: [], t: ["e:Palantir", "e:Ironclad"], src: "https://ycombinator.com/companies/finley", bio: "Worked at Palantir and Ironclad (another Haystack company) before co-founding Finley with his brother."},
+  {n: "Kevin Suh", c: "Finley", a: "young", role: "Co-founder", st: "active", b: [], t: ["e:Nova Credit"], src: "https://ycombinator.com/companies/finley", bio: "First engineer at Nova Credit before co-founding Finley."}
+];
+
+
+/* ---------- Graph model ---------- */
+const slug = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+const byId = new Map();
+const compByName = new Map();
+COMPANIES.forEach(c => {
+  Object.assign(c, {id: "c:" + slug(c.n), kind: "company", fund: c.f, members: []});
+  compByName.set(c.n, c); byId.set(c.id, c);
+});
+const hubMap = new Map();
+FOUNDERS.forEach(f => {
+  f.id = "f:" + slug(f.n); f.kind = "founder";
+  f.comp = compByName.get(f.c); f.fund = f.comp.fund; f.comp.members.push(f);
+  f.label = f.sh || f.n.split(" ").slice(-1)[0];
+  f.ties = f.t.map(str => {
+    const i = str.indexOf(":"); const code = str.slice(0, i); const name = str.slice(i + 1);
+    const type = code === "S" ? "s" : code; const id = type + ":" + slug(name);
+    let h = hubMap.get(id);
+    if (!h) { h = {id, kind: "hub", htype: type, n: name, members: []}; hubMap.set(id, h); byId.set(id, h); }
+    if (!h.members.includes(f)) h.members.push(f);
+    return {hub: h, rel: REL[code]};
+  });
+  f.emps = f.ties.filter(t => t.hub.htype === "e").map(t => t.hub.n);
+  f.schools = f.ties.filter(t => t.hub.htype === "s").map(t => t.hub.n);
+  f.projects = f.ties.filter(t => t.hub.htype === "o").map(t => t.hub.n);
+  f.bigtech = f.emps.filter(e => BIGSET.has(e));
+  f.badges = f.b.slice();
+  if (f.bigtech.length) f.badges.push("bigtech");
+  f.hay = [f.n, f.comp.n, f.comp.v, f.role, ARCH[f.a].name, f.s ? ARCH[f.s].name : "", f.badges.map(b => BADGES[b]).join(" "),
+    f.emps.join(" "), f.schools.join(" "), f.projects.join(" "), f.bio, f.note || "", STATUS[f.st], FUND[f.fund], OSSP[f.comp.oss]].join(" | ").toLowerCase();
+  byId.set(f.id, f);
+});
+const HUBS = [...hubMap.values()];
+HUBS.forEach(h => { h.deg = h.members.length; h.oneOff = h.htype !== "o" && h.deg < 2; });
+
+const LINKS = [];
+FOUNDERS.forEach(f => {
+  LINKS.push({source: f, target: f.comp, kind: "co"});
+  f.ties.forEach(t => LINKS.push({source: f, target: t.hub, kind: t.hub.htype}));
+});
+const ALL = [...HUBS, ...COMPANIES, ...FOUNDERS];
+const NB = new Map(ALL.map(d => [d, new Set()]));
+LINKS.forEach(l => { NB.get(l.source).add(l.target); NB.get(l.target).add(l.source); });
+
+/* ---------- Layout ---------- */
+const hubR = d => 3.6 + Math.sqrt(d.deg) * 2.3;
+const nodeR = d => d.kind === "founder" ? 7 : d.kind === "company" ? 5.5 : hubR(d);
+
+FOUNDERS.forEach((f, i) => {
+  const a = ANCHOR[f.a], s = f.s ? ANCHOR[f.s] : null, w = s ? 0.26 : 0;
+  f.tx = a[0] * (1 - w) + (s ? s[0] * w : 0);
+  f.ty = a[1] * (1 - w) + (s ? s[1] * w : 0);
+  const ang = i * 2.39996, r = 14 + (i % 5) * 6;
+  f.x = f.tx + Math.cos(ang) * r; f.y = f.ty + Math.sin(ang) * r;
+});
+COMPANIES.forEach((c, i) => { c.x = d3.mean(c.members, m => m.x) + Math.cos(i) * 8; c.y = d3.mean(c.members, m => m.y) + Math.sin(i) * 8; });
+const SIM_HUBS = HUBS.filter(h => !h.oneOff);
+SIM_HUBS.forEach((h, i) => { h.x = d3.mean(h.members, m => m.x) + Math.cos(i * 1.7) * 10; h.y = d3.mean(h.members, m => m.y) + Math.sin(i * 1.7) * 10; });
+const simNodes = [...FOUNDERS, ...COMPANIES, ...SIM_HUBS];
+const simLinks = LINKS.filter(l => !l.target.oneOff);
+const sim = d3.forceSimulation(simNodes)
+  .force("link", d3.forceLink(simLinks).distance(l => l.kind === "co" ? 30 : 62).strength(l => l.kind === "co" ? 0.42 : 0.5 / Math.max(2, l.target.deg)))
+  .force("charge", d3.forceManyBody().strength(d => d.kind === "founder" ? -75 : d.kind === "company" ? -55 : -95 - d.deg * 4).distanceMax(250))
+  .force("x", d3.forceX(d => d.kind === "founder" ? d.tx : CX).strength(d => d.kind === "founder" ? 0.27 : d.kind === "hub" ? 0.012 : 0))
+  .force("y", d3.forceY(d => d.kind === "founder" ? d.ty : CY).strength(d => d.kind === "founder" ? 0.27 : d.kind === "hub" ? 0.012 : 0))
+  .force("collide", d3.forceCollide(d => d.kind === "founder" ? 15 : d.kind === "company" ? 15 : hubR(d) + 13).iterations(2))
+  .stop();
+for (let i = 0; i < 500; i++) sim.tick();
+
+(function fitLayout() {
+  const m = 76;
+  const x0 = d3.min(simNodes, d => d.x), x1 = d3.max(simNodes, d => d.x);
+  const y0 = d3.min(simNodes, d => d.y), y1 = d3.max(simNodes, d => d.y);
+  const k = Math.min((W - 2 * m) / (x1 - x0 || 1), (H - 2 * m) / (y1 - y0 || 1), 1.45);
+  const ox = (W - (x1 - x0) * k) / 2, oy = (H - (y1 - y0) * k) / 2;
+  simNodes.forEach(d => { d.x = ox + (d.x - x0) * k; d.y = oy + (d.y - y0) * k; });
+})();
+
+const clusters = ORDER.map(key => ({key, ...ARCH[key], founders: FOUNDERS.filter(f => f.a === key)}));
+const clusterByKey = Object.fromEntries(clusters.map(c => [c.key, c]));
+clusters.forEach(c => {
+  const pts = [];
+  c.founders.forEach(f => { for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; pts.push([f.x + Math.cos(a) * 26, f.y + Math.sin(a) * 26]); } });
+  c.hull = d3.polygonHull(pts);
+  c.cx = d3.mean(c.founders, f => f.x); c.cy = d3.mean(c.founders, f => f.y);
+  let dx = c.cx - CX, dy = c.cy - CY; const len = Math.hypot(dx, dy) || 1; dx /= len; dy /= len;
+  const reach = d3.max(c.hull, p => (p[0] - c.cx) * dx + (p[1] - c.cy) * dy);
+  c.lx0 = c.cx + dx * (reach + 24); c.ly0 = c.cy + dy * (reach + 24) + 4;
+  c.lx = c.lx0; c.ly = c.ly0;
+  c.anchor = dx > 0.35 ? "start" : dx < -0.35 ? "end" : "middle";
+  c.counts = {amp: c.founders.filter(f => f.fund === "amp").length, hay: c.founders.filter(f => f.fund === "hay").length};
+});
+
+FOUNDERS.filter(f => f.s).forEach(f => {
+  const c = clusterByKey[f.s]; const dx = c.cx - f.x, dy = c.cy - f.y; const L = Math.hypot(dx, dy) || 1;
+  const len = Math.min(L * 0.55, 70); f.altX = f.x + dx / L * len; f.altY = f.y + dy / L * len;
+});
+
+const perFounder = new Map();
+HUBS.filter(h => h.oneOff).forEach(h => {
+  const f = h.members[0]; const k = perFounder.get(f) || 0; perFounder.set(f, k + 1);
+  const c = clusterByKey[f.a]; let dx = f.x - c.cx, dy = f.y - c.cy;
+  if (Math.hypot(dx, dy) < 4) { dx = f.x - CX; dy = f.y - CY; }
+  const base = Math.atan2(dy, dx); const ang = base + (k % 2 ? 1 : -1) * Math.ceil(k / 2) * 0.62;
+  h.x = Math.min(W - 16, Math.max(16, f.x + Math.cos(ang) * 36));
+  h.y = Math.min(H - 16, Math.max(16, f.y + Math.sin(ang) * 36));
+});
+
+/* ---------- State ---------- */
+const state = {
+  fund: "all", view: "map", tab: "clusters", drawer: false, q: "", paths: new Set(), badges: new Set(), emps: new Set(), school: "", vertical: "", status: "", ossp: "",
+  types: {c: true, e: true, s: true, o: true}, oneOff: false, alt: true, focus: null, pinned: false, sort: {key: "name", dir: 1}
+};
+let curK = 1;
+const shown = d => d.kind === "company" ? state.types.c : d.kind === "hub" ? (state.types[d.htype] && (!d.oneOff || state.oneOff)) : true;
+const activeCount = () => (state.fund !== "all" ? 1 : 0) + (state.q ? 1 : 0) + state.paths.size + state.badges.size + state.emps.size + (state.school ? 1 : 0) + (state.vertical ? 1 : 0) + (state.status ? 1 : 0) + (state.ossp ? 1 : 0);
+const filtersActive = () => activeCount() > 0;
+function matchF(f) {
+  if (state.fund !== "all" && f.fund !== state.fund) return false;
+  if (state.paths.size && !state.paths.has(f.a)) return false;
+  for (const b of state.badges) if (!f.badges.includes(b)) return false;
+  if (state.emps.size && !f.bigtech.some(e => state.emps.has(e))) return false;
+  if (state.school && !f.schools.includes(state.school)) return false;
+  if (state.vertical && f.comp.v !== state.vertical) return false;
+  if (state.status && f.st !== state.status) return false;
+  if (state.ossp && f.comp.oss !== state.ossp) return false;
+  if (state.q) { const toks = state.q.toLowerCase().split(/\s+/).filter(Boolean); if (!toks.every(t => f.hay.includes(t))) return false; }
+  return true;
+}
+let matched = new Set(FOUNDERS);
+const compM = c => c.members.some(m => matched.has(m));
+const hubM = h => h.members.some(m => matched.has(m));
+const nodeM = d => d.kind === "founder" ? matched.has(d) : d.kind === "company" ? compM(d) : hubM(d);
+
+/* ---------- Draw ---------- */
+const svg = d3.select("#map").attr("viewBox", `0 0 ${W} ${H}`).attr("preserveAspectRatio", "xMidYMid meet");
+const vp = svg.append("g");
+const gHull = vp.append("g"), gLink = vp.append("g"), gAlt = vp.append("g"), gNode = vp.append("g"), gLbl = vp.append("g");
+const hullLine = d3.line().curve(d3.curveCatmullRomClosed.alpha(0.6));
+
+const hullSel = gHull.selectAll("path").data(clusters).join("path")
+  .attr("class", "hull").attr("style", c => `--c:var(--a-${c.key})`).attr("d", c => hullLine(c.hull));
+
+const linkSel = gLink.selectAll("line").data(LINKS).join("line")
+  .attr("class", l => "link " + l.kind)
+  .attr("x1", l => l.source.x).attr("y1", l => l.source.y).attr("x2", l => l.target.x).attr("y2", l => l.target.y);
+
+const altSel = gAlt.selectAll("g").data(FOUNDERS.filter(f => f.s)).join("g")
+  .attr("class", "alt").attr("style", f => `--c:var(--a-${f.s})`);
+altSel.append("line").attr("x1", f => f.x).attr("y1", f => f.y).attr("x2", f => f.altX).attr("y2", f => f.altY);
+const altDot = altSel.append("circle").attr("cx", f => f.altX).attr("cy", f => f.altY).attr("r", 2.6);
+
+const ariaLabel = d => d.kind === "founder" ? `${d.n}, ${ARCH[d.a].name}, ${d.comp.n}, ${FUND[d.fund]}`
+  : d.kind === "company" ? `${d.n}, ${FUND[d.fund]} company` : `${d.n}, ${HUBTYPE[d.htype]}, ${d.deg} founder${d.deg > 1 ? "s" : ""}`;
+
+const nodeSel = gNode.selectAll("g").data(ALL, d => d.id).join("g")
+  .attr("class", d => `node ${d.kind}${d.kind === "hub" ? " " + d.htype : ""}`)
+  .attr("style", d => d.kind === "founder" ? `--c:var(--a-${d.a})` : null)
+  .attr("tabindex", 0).attr("role", "button").attr("aria-label", ariaLabel);
+nodeSel.each(function (d) {
+  const g = d3.select(this);
+  g.append("circle").attr("class", "halo").attr("r", nodeR(d) + 4.5);
+  if (d.kind === "hub") {
+    g.append("circle").attr("class", "shape").attr("r", hubR(d));
+    if (d.htype === "s") g.append("circle").attr("class", "pip").attr("r", Math.max(2, hubR(d) * 0.32));
+  } else {
+    const r = d.kind === "founder" ? 6.5 : 5;
+    if (d.fund === "amp") g.append("circle").attr("class", "shape").attr("r", r);
+    else g.append("rect").attr("class", "shape").attr("x", -r * 0.9).attr("y", -r * 0.9).attr("width", r * 1.8).attr("height", r * 1.8).attr("rx", 2);
+  }
+  g.append("circle").attr("class", "hit").attr("r", Math.max(12, nodeR(d) + 5));
+});
+
+const lblSel = gLbl.selectAll("g.lbl").data(ALL, d => d.id).join("g").attr("class", d => `lbl ${d.kind}`);
+lblSel.append("text").text(d => d.kind === "hub" ? d.n.toUpperCase() : d.kind === "founder" ? d.label : d.n);
+const clSel = gLbl.selectAll("g.cl").data(clusters).join("g").attr("class", "lbl cluster cl").attr("style", c => `--c:var(--a-${c.key})`);
+const clText = clSel.append("text").attr("text-anchor", c => c.anchor);
+const clusterLabelText = c => filtersActive() ? `${c.name.toUpperCase()}  ${c.founders.filter(f => matched.has(f)).length}/${c.founders.length}` : `${c.name.toUpperCase()}  ${c.founders.length}`;
+clText.text(clusterLabelText);
+
+function applyScale() {
+  const s = 1 / Math.sqrt(curK);
+  const tf = d => `translate(${d.x},${d.y}) scale(${s})`;
+  nodeSel.attr("transform", tf);
+  lblSel.attr("transform", tf);
+  clSel.attr("transform", c => `translate(${c.lx},${c.ly}) scale(${s})`);
+  altDot.attr("r", 2.6 * s);
+}
+
+/* ---------- Label placement ---------- */
+function measure() {
+  lblSel.attr("display", null);
+  lblSel.each(function (d) {
+    const t = this.firstChild;
+    t.setAttribute("text-anchor", "start"); t.setAttribute("x", 0); t.setAttribute("y", 0);
+    let b; try { b = t.getBBox(); } catch (e) { b = {width: d.n.length * 6, height: 14, y: -11}; }
+    d.lw = b.width; d.lh = b.height; d.la = -b.y;
+  });
+  clSel.each(function (c) {
+    const t = this.firstChild; t.textContent = `${c.name.toUpperCase()}  ${c.founders.length}/${c.founders.length}`;
+    let b; try { b = t.getBBox(); } catch (e) { b = {width: 180, height: 15, y: -12, x: 0}; }
+    c.lw = b.width; c.lh = b.height; c.la = -b.y;
+    if (c.anchor === "start") c.lx = Math.min(c.lx0, W - 10 - c.lw);
+    else if (c.anchor === "end") c.lx = Math.max(c.lx0, 10 + c.lw);
+    else c.lx = Math.min(Math.max(c.lx0, 10 + c.lw / 2), W - 10 - c.lw / 2);
+    c.ly = Math.min(Math.max(c.ly0, c.la + 8), H - 10);
+  });
+  clText.text(clusterLabelText);
+  applyScale();
+}
+function candidates(d) {
+  const mid = d.la - d.lh / 2;
+  if (d.kind === "founder") {
+    const R = 10;
+    const m = {r: {a: "start", dx: R, dy: mid}, l: {a: "end", dx: -R, dy: mid}, b: {a: "middle", dx: 0, dy: R + d.la - 1}, t: {a: "middle", dx: 0, dy: -R}};
+    return (d.x < CX ? ["l", "r", "b", "t"] : ["r", "l", "b", "t"]).map(k => m[k]);
+  }
+  const r = d.kind === "company" ? 8 : hubR(d) + 3;
+  const above = {a: "middle", dx: 0, dy: -r}, below = {a: "middle", dx: 0, dy: r + d.la};
+  const sides = [{a: "start", dx: r + 1, dy: mid}, {a: "end", dx: -r - 1, dy: mid}];
+  return d.kind === "company" ? [above, below, ...sides] : [below, above, ...sides];
+}
+function rectFor(d, c, s) {
+  const w = d.lw * s, h = d.lh * s, bx = d.x + c.dx * s, by = d.y + c.dy * s;
+  const x0 = c.a === "start" ? bx : c.a === "end" ? bx - w : bx - w / 2; const y0 = by - d.la * s;
+  return [x0, y0, x0 + w, y0 + h];
+}
+function ov(a, b) {
+  const w = Math.min(a[2], b[2]) - Math.max(a[0], b[0]); if (w <= 0) return 0;
+  const h = Math.min(a[3], b[3]) - Math.max(a[1], b[1]); return h > 0 ? w * h : 0;
+}
+function placeLabels() {
+  const s = 1 / Math.sqrt(curK);
+  const act = ALL.filter(shown);
+  const obs = act.map(d => { const r = nodeR(d) * s + 1.5; return {o: d, r: [d.x - r, d.y - r, d.x + r, d.y + r]}; });
+  const placed = clusters.map(c => {
+    const w = c.lw * s, h = c.lh * s; const x0 = c.anchor === "start" ? c.lx : c.anchor === "end" ? c.lx - w : c.lx - w / 2;
+    return [x0, c.ly - c.la * s, x0 + w, c.ly - c.la * s + h];
+  });
+  const order = [
+    ...act.filter(d => d.kind === "hub" && d.deg >= 3).sort((a, b) => b.deg - a.deg),
+    ...act.filter(d => d.kind === "company"),
+    ...act.filter(d => d.kind === "founder"),
+    ...act.filter(d => d.kind === "hub" && d.deg < 3)
+  ];
+  const bounds = curK <= 1.02;
+  ALL.forEach(d => { d.crowded = true; });
+  order.forEach(d => {
+    const area = d.lw * d.lh * s * s; let best = null, bs = Infinity;
+    candidates(d).forEach((c, i) => {
+      const r = rectFor(d, c, s); let sc = i * 0.5;
+      for (const ob of obs) if (ob.o !== d) sc += ov(r, ob.r);
+      for (const p of placed) sc += ov(r, p);
+      if (bounds && (r[0] < 2 || r[1] < 2 || r[2] > W - 2 || r[3] > H - 2)) sc += area;
+      if (sc < bs) { bs = sc; best = {c, r}; }
+    });
+    d.lp = best.c; d.crowded = bs > 0.18 * area + 2;
+    if (!d.crowded) placed.push(best.r);
+  });
+  lblSel.each(function (d) {
+    if (!d.lp) return; const t = this.firstChild;
+    t.setAttribute("text-anchor", d.lp.a); t.setAttribute("x", d.lp.dx); t.setAttribute("y", d.lp.dy);
+  });
+}
+
+/* ---------- Render ---------- */
+function render() {
+  matched = new Set(FOUNDERS.filter(matchF));
+  const active = filtersActive();
+  const focusNode = state.focus ? byId.get(state.focus) : null;
+  const E = focusNode ? new Set([focusNode, ...NB.get(focusNode)]) : null;
+  const op = d => { if (!nodeM(d)) return 0.07; if (E) return E.has(d) ? 1 : 0.1; return 1; };
+  nodeSel.attr("display", d => shown(d) ? null : "none").style("opacity", op)
+    .classed("pinned", d => state.pinned && focusNode === d);
+  lblSel.attr("display", d => (shown(d) && (!d.crowded || (E && E.has(d)))) ? null : "none").style("opacity", op);
+  linkSel.attr("display", l => shown(l.target) ? null : "none").style("opacity", l => {
+    const f = l.source, t = l.target; if (!matched.has(f)) return 0.03;
+    const base = l.kind === "co" ? 0.45 : 0.24;
+    if (focusNode) return (f === focusNode || t === focusNode) ? 0.95 : 0.03;
+    return active ? Math.min(1, base * 1.6) : base;
+  });
+  altSel.attr("display", state.alt ? null : "none").style("opacity", f => !matched.has(f) ? 0.04 : E ? (E.has(f) ? 0.9 : 0.05) : 0.6);
+  const pathOn = c => !state.paths.size || state.paths.has(c.key);
+  hullSel.style("opacity", c => pathOn(c) ? (E ? 0.5 : 1) : 0.25);
+  clSel.style("opacity", c => pathOn(c) ? (E ? 0.55 : 1) : 0.3);
+  clText.text(clusterLabelText);
+  renderActive(active);
+  renderClusters(active);
+  renderBadgeRows();
+  renderTable(focusNode);
+  updateControls();
+  showDetail(focusNode);
+}
+function renderActive(active) {
+  const row = document.getElementById("activeRow");
+  document.getElementById("filtersN").textContent = activeCount() ? String(activeCount()) : "";
+  if (!active) { row.hidden = true; row.innerHTML = ""; return; }
+  const chips = [];
+  const chip = (label, rm) => chips.push(`<span class="achip">${esc(label)}<button type="button" data-rm="${esc(rm)}" aria-label="Remove ${esc(label)}">×</button></span>`);
+  if (state.fund !== "all") chip(FUND[state.fund], "fund");
+  if (state.q) chip(`“${state.q}”`, "q");
+  state.paths.forEach(p => chip(ARCH[p].name, "path:" + p));
+  state.badges.forEach(b => chip(BADGES[b], "badge:" + b));
+  state.emps.forEach(e => chip(e, "emp:" + e));
+  if (state.school) chip("School: " + state.school, "school");
+  if (state.vertical) chip(state.vertical, "vertical");
+  if (state.status) chip(STATUS[state.status], "status");
+  if (state.ossp) chip(OSSP[state.ossp], "ossp");
+  const cm = COMPANIES.filter(compM).length;
+  row.innerHTML = chips.join("") + `<span class="acount"><b>${matched.size}</b> of ${FOUNDERS.length} founders · <b>${cm}</b> of ${COMPANIES.length} companies</span><button class="linkbtn" type="button" id="clearFilters">Clear all</button>`;
+  row.hidden = false;
+}
+function renderClusters(active) {
+  clusters.forEach(c => {
+    const el = document.querySelector(`.cluster[data-cluster="${c.key}"] .ct`);
+    if (!el) return;
+    if (active) { const a = c.founders.filter(f => f.fund === "amp" && matched.has(f)).length, h = c.founders.filter(f => f.fund === "hay" && matched.has(f)).length; el.textContent = `${a} · ${h} of ${c.founders.length}`; }
+    else el.textContent = `${c.counts.amp} · ${c.counts.hay}`;
+  });
+}
+
+/* ---------- Table ---------- */
+const TCOLS = [
+  {key: "name", label: "Founder", get: f => f.n},
+  {key: "fund", label: "Fund", get: f => FUND[f.fund]},
+  {key: "company", label: "Company", get: f => f.comp.n},
+  {key: "path", label: "Path", get: f => ARCH[f.a].name},
+  {key: "role", label: "Role", get: f => f.role},
+  {key: "status", label: "Status", get: f => STATUS[f.st]},
+  {key: "bigtech", label: "Big tech", get: f => f.bigtech.join(", ")},
+  {key: "badges", label: "Badges", get: f => f.b.map(b => BADGES[b]).join(", ")},
+  {key: "schools", label: "Schools", get: f => f.schools.join(", ")},
+  {key: "projects", label: "Prior OSS", get: f => f.projects.join(", ")},
+  {key: "ossp", label: "OSS product", get: f => OSSP[f.comp.oss]},
+  {key: "last", label: "Company latest", get: f => f.comp.last},
+  {key: "src", label: "Source", get: f => f.src}
+];
+const thead = document.querySelector("#tbl thead"), tbody = document.querySelector("#tbl tbody");
+thead.innerHTML = `<tr>${TCOLS.map(c => `<th><button class="th" type="button" data-sort="${c.key}">${c.label}<span class="arrow"></span></button></th>`).join("")}</tr>`;
+function sortedMatched() {
+  const col = TCOLS.find(c => c.key === state.sort.key);
+  return FOUNDERS.filter(f => matched.has(f)).sort((a, b) => {
+    const va = col.get(a).toLowerCase(), vb = col.get(b).toLowerCase();
+    return (va < vb ? -1 : va > vb ? 1 : a.n.localeCompare(b.n)) * state.sort.dir;
+  });
+}
+function renderTable(focusNode) {
+  document.getElementById("tcount").textContent = `${matched.size} founder${matched.size === 1 ? "" : "s"} · sorted by ${TCOLS.find(c => c.key === state.sort.key).label.toLowerCase()}`;
+  thead.querySelectorAll(".th").forEach(b => { const on = b.dataset.sort === state.sort.key; b.classList.toggle("on", on); b.querySelector(".arrow").textContent = on ? (state.sort.dir > 0 ? " ▲" : " ▼") : ""; });
+  const rows = sortedMatched();
+  if (!rows.length) { tbody.innerHTML = `<tr><td colspan="${TCOLS.length}" class="empty">No founders match these filters.</td></tr>`; return; }
+  tbody.innerHTML = rows.map(f => `<tr class="row${focusNode === f ? " sel" : ""}" data-select="${f.id}" tabindex="0">
+    <td class="name"><span class="pdot${f.fund === "hay" ? " sq" : ""}" style="--c:var(--a-${f.a})"></span>${esc(f.n)}</td>
+    <td>${FUND[f.fund]}</td>
+    <td>${esc(f.comp.n)}<div class="mini">${esc(f.comp.v)}</div></td>
+    <td>${ARCH[f.a].name}${f.s ? `<div class="mini">also ${esc(ARCH[f.s].name)}</div>` : ""}</td>
+    <td>${esc(f.role)}</td>
+    <td class="st-${f.st}">${STATUS[f.st]}${f.note ? `<div class="mini">${esc(f.note)}</div>` : ""}</td>
+    <td>${esc(f.bigtech.join(", ")) || "<span class='mini'>none</span>"}</td>
+    <td>${esc(f.b.map(b => BADGES[b]).join(", ")) || "<span class='mini'>none</span>"}</td>
+    <td>${esc(f.schools.join(", ")) || "<span class='mini'>n/a</span>"}</td>
+    <td>${esc(f.projects.join(", ")) || "<span class='mini'>none</span>"}</td>
+    <td>${OSSP[f.comp.oss]}</td>
+    <td>${esc(f.comp.last)}<div class="mini">${esc(f.comp.st)}</div></td>
+    <td><a href="${esc(f.src)}" target="_blank" rel="noopener" data-stop>bio ↗</a></td></tr>`).join("");
+}
+function csv() {
+  const q = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+  const head = ["Name", "Fund", "Company", "Vertical", "Role", "Status", "Status note", "Path", "Also fits", "Prior open source", "Prior exit", "Grad degree", "Big tech alum", "Big tech employers", "All employers", "Schools", "Prior OSS projects", "Company founded", "Company latest round", "Company status", "Company open source", "Est. founder age at founding", "Source"];
+  const rows = sortedMatched().map(f => [f.n, FUND[f.fund], f.comp.n, f.comp.v, f.role, STATUS[f.st], f.note || "", ARCH[f.a].name, f.s ? ARCH[f.s].name : "",
+    f.b.includes("oss") ? "yes" : "no", f.b.includes("exit") ? "yes" : "no", f.b.includes("grad") ? "yes" : "no", f.bigtech.length ? "yes" : "no",
+    f.bigtech.join("; "), f.emps.join("; "), f.schools.join("; "), f.projects.join("; "), f.comp.yr, f.comp.last, f.comp.st, OSSP[f.comp.oss], f.comp.age ?? "", f.src]);
+  return [head, ...rows].map(r => r.map(q).join(",")).join("\r\n");
+}
+let toastT;
+function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2200); }
+document.getElementById("csvBtn").addEventListener("click", () => {
+  const text = csv(), n = matched.size;
+  const fallback = () => { const box = document.getElementById("csvbox"); box.value = text; box.style.position = "fixed"; box.style.left = "16px"; box.style.top = "16px"; box.style.width = "min(90vw,600px)"; box.style.height = "200px"; box.style.opacity = "1"; box.focus(); box.select(); toast("Select the text and copy it manually"); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => toast(`Copied ${n} row${n === 1 ? "" : "s"} as CSV`), fallback);
+  else fallback();
+});
+
+/* ---------- Side panel ---------- */
+const btn = x => `<button class="linkbtn" type="button" data-select="${x.id}">${esc(x.n)}</button>`;
+const memberRow = (m, side) => `<button class="mem" type="button" data-select="${m.id}"><span class="dot${m.fund === "hay" ? " sq" : ""}" style="--c:var(--a-${m.a})"></span><span class="mem-n">${esc(m.n)}</span><span class="mem-a">${esc(side)}</span></button>`;
+const byPath = (a, b) => ORDER.indexOf(a.a) - ORDER.indexOf(b.a);
+const hostOf = u => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return u; } };
+const closeBtn = `<button class="close" type="button" data-close aria-label="Close">×</button>`;
+
+function founderHTML(f) {
+  const g = {e: [], s: [], o: []}; f.ties.forEach(t => g[t.hub.htype].push(t));
+  const row = (label, arr) => arr.length ? `<dt>${label}</dt><dd>${arr.map(t => btn(t.hub) + (t.rel === "Taught at" ? " (taught)" : "")).join(", ")}</dd>` : "";
+  const cof = f.comp.members.filter(m => m !== f);
+  return `${closeBtn}<div class="d-kind">Founder · ${FUND[f.fund]}</div>
+    <h2 class="d-name">${esc(f.n)}</h2>
+    <div class="d-sub">${esc(f.role)} · ${btn(f.comp)}</div>
+    <div class="tags"><span class="tag arch" style="--c:var(--a-${f.a})">${ARCH[f.a].name}</span>${f.s ? `<span class="tag arch alt" style="--c:var(--a-${f.s})">Also fits: ${ARCH[f.s].name}</span>` : ""}${f.badges.map(b => `<span class="tag badge">${BADGES[b]}</span>`).join("")}</div>
+    <p class="d-bio">${esc(f.bio)}</p>
+    ${f.st !== "active" || f.note ? `<p class="d-status"><b>${STATUS[f.st]}.</b> ${esc(f.note || "")}</p>` : ""}
+    ${f.edge ? `<p class="d-flag">Edge case: no clean path fits, so this placement is tentative.</p>` : ""}
+    <dl class="ties">${row("Worked at", g.e)}${row("School", g.s)}${row("Prior OSS", g.o)}
+    ${cof.length ? `<dt>Co-founders</dt><dd>${cof.map(btn).join(", ")}</dd>` : ""}
+    <dt>Company</dt><dd>${esc(f.comp.last)}<br><span class="mini">${esc(f.comp.st)} · ${OSSP[f.comp.oss]}</span></dd>
+    <dt>Source</dt><dd><a href="${esc(f.src)}" target="_blank" rel="noopener">${esc(hostOf(f.src))} ↗</a></dd></dl>`;
+}
+function overlaps(c) {
+  const map = new Map();
+  c.members.forEach(m => m.ties.forEach(t => { if (t.hub.oneOff) return; t.hub.members.forEach(o => { if (o.comp === c) return; const e = map.get(o.comp) || {c: o.comp, hubs: new Set()}; e.hubs.add(t.hub.n); map.set(o.comp, e); }); }));
+  return [...map.values()].sort((a, b) => b.hubs.size - a.hubs.size).slice(0, 6);
+}
+function companyHTML(c) {
+  const paths = ORDER.filter(k => c.members.some(m => m.a === k));
+  const ovl = overlaps(c);
+  const moved = c.members.filter(m => m.st !== "active");
+  return `${closeBtn}<div class="d-kind">Company · ${FUND[c.fund]} · ${esc(c.v)}</div>
+    <h2 class="d-name">${esc(c.n)}</h2>
+    <div class="d-sub">Founded ${esc(c.yr)}${c.age ? ` · founders about ${c.age} at founding` : ""}</div>
+    <p class="d-bio">${esc(c.d)}</p>
+    <dl class="ties"><dt>Status</dt><dd>${esc(c.st)}</dd><dt>Latest</dt><dd>${esc(c.last)}</dd><dt>Open source</dt><dd>${OSSP[c.oss]}</dd>
+    <dt>Team</dt><dd>${paths.map(k => `<span style="color:var(--a-${k});font-weight:650">${ARCH[k].name}</span>`).join(", ")}${moved.length ? `<br><span class="mini">${moved.length} of ${c.members.length} founders changed role or left</span>` : ""}</dd>
+    ${ovl.length ? `<dt>Shares talent pools with</dt><dd>${ovl.map(o => `${btn(o.c)} <span class="mini">(${esc([...o.hubs].join(", "))})</span>`).join("<br>")}</dd>` : ""}</dl>
+    <div class="d-kind memhead">${c.members.length === 1 ? "Founder" : `${c.members.length} founders`}</div>
+    <div class="memlist">${c.members.slice().sort(byPath).map(m => memberRow(m, m.role.replace(/^Co-founder[,;]?\s*/, "") || "Co-founder")).join("")}</div>`;
+}
+function hubHTML(h) {
+  const paths = ORDER.filter(k => h.members.some(m => m.a === k)).length;
+  const amp = h.members.filter(m => m.fund === "amp").length;
+  const comps = [...new Set(h.members.map(m => m.comp))];
+  return `${closeBtn}<div class="d-kind">${HUBTYPE[h.htype]}${h.oneOff ? " · one-off tie" : ""}${BIGSET.has(h.n) ? " · big tech" : ""}</div>
+    <h2 class="d-name">${esc(h.n)}</h2>
+    <div class="d-sub">${h.deg} founder${h.deg > 1 ? "s" : ""} across ${paths} path${paths > 1 ? "s" : ""} and ${comps.length} compan${comps.length > 1 ? "ies" : "y"} · Amplify ${amp}, Haystack ${h.deg - amp}</div>
+    ${BIGSET.has(h.n) ? `<div class="try"><button class="chip inline" type="button" data-emp="${esc(h.n)}" aria-pressed="${state.emps.has(h.n)}">Filter to ${esc(h.n)} alumni</button></div>` : ""}
+    <div class="memlist">${h.members.slice().sort(byPath).map(m => memberRow(m, m.comp.n)).join("")}</div>`;
+}
+function clusterHTML(c) {
+  const inbound = FOUNDERS.filter(f => f.s === c.key);
+  const st = HUBS.filter(h => !h.oneOff).map(h => [h, h.members.filter(m => m.a === c.key).length]).filter(x => x[1] >= 2).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  const mem = c.founders.filter(f => matched.has(f));
+  return `<div class="d-kind">Cluster</div>
+    <h2 class="d-name">${c.name}</h2>
+    <div class="d-sub">${c.def}</div>
+    <dl class="ties"><dt>Founders</dt><dd>Amplify ${c.counts.amp}, Haystack ${c.counts.hay}${mem.length !== c.founders.length ? ` · ${mem.length} match the current filters` : ""}</dd>
+    ${st.length ? `<dt>Shared ties</dt><dd>${st.map(([h, n]) => `${btn(h)} (${n})`).join(", ")}</dd>` : ""}
+    ${inbound.length ? `<dt>Also fits here</dt><dd>${inbound.map(btn).join(", ")}</dd>` : ""}</dl>
+    <div class="memlist">${mem.slice().sort((a, b) => a.fund.localeCompare(b.fund) || a.n.localeCompare(b.n)).map(m => memberRow(m, m.comp.n)).join("")}</div>`;
+}
+function defaultHTML() {
+  const tries = ["e:uber", "s:harvard", "c:temporal", "f:matt-klein"].map(id => byId.get(id)).filter(Boolean);
+  return `<div class="d-kind">Start here</div>
+    <h2 class="d-name">Pick any dot or station</h2>
+    <p class="d-bio">Colored dots are founders, placed by career path. Gray circles are the employers, schools, and projects they share. Tap one to see its ties and evidence.</p>
+    <div class="try">${tries.map(n => `<button class="chip inline" type="button" data-select="${n.id}">${esc(n.n)}</button>`).join("")}</div>`;
+}
+const detailEl = document.getElementById("detail");
+let lastDetail = "";
+function showDetail(n) {
+  const html = n ? (n.kind === "founder" ? founderHTML(n) : n.kind === "company" ? companyHTML(n) : hubHTML(n))
+    : state.paths.size === 1 ? clusterHTML(clusterByKey[[...state.paths][0]]) : defaultHTML();
+  if (html !== lastDetail) { detailEl.innerHTML = html; lastDetail = html; }
+}
+
+/* ---------- Static panels ---------- */
+const maxN = d3.max(clusters, c => c.founders.length);
+document.getElementById("clusters").innerHTML = clusters.map(c =>
+  `<button class="cluster" type="button" data-cluster="${c.key}" aria-pressed="false" style="--c:var(--a-${c.key})">
+    <span class="sw"></span><span class="nm">${c.name}</span><span class="ct">${c.counts.amp} · ${c.counts.hay}</span>
+    <span class="df">${c.def}</span>
+    <span class="bar" aria-hidden="true"><i style="width:${c.counts.amp / maxN * 100}%"></i><i class="hay" style="width:${c.counts.hay / maxN * 100}%"></i></span>
+  </button>`).join("");
+
+document.getElementById("pathGroup").innerHTML = clusters.map(c => `<button class="chip" type="button" data-path="${c.key}" aria-pressed="false" style="--c:var(--a-${c.key})"><span class="sw"></span>${c.name}<span class="n">${c.founders.length}</span></button>`).join("");
+document.getElementById("badgeGroup").innerHTML = Object.entries(BADGES).map(([k, label]) => `<button class="chip" type="button" data-badge="${k}" aria-pressed="false">${label}<span class="n">${FOUNDERS.filter(f => f.badges.includes(k)).length}</span></button>`).join("");
+document.getElementById("empGroup").innerHTML = BIGTECH.map(e => { const n = FOUNDERS.filter(f => f.bigtech.includes(e)).length; return `<button class="chip" type="button" data-emp="${esc(e)}" aria-pressed="false">${esc(e)}<span class="n">${n}</span></button>`; }).join("");
+(function fillSelects() {
+  const schools = HUBS.filter(h => h.htype === "s").sort((a, b) => b.deg - a.deg || a.n.localeCompare(b.n));
+  document.getElementById("selSchool").innerHTML = `<option value="">Any</option>` + schools.map(h => `<option value="${esc(h.n)}">${esc(h.n)} (${h.deg})</option>`).join("");
+  const verts = [...new Set(COMPANIES.map(c => c.v))];
+  document.getElementById("selVert").innerHTML = `<option value="">Any</option>` + verts.map(v => `<option value="${esc(v)}">${esc(v)} (${FOUNDERS.filter(f => f.comp.v === v).length})</option>`).join("");
+})();
+
+function renderBadgeRows() {
+  const rows = Object.entries(BADGES).map(([k, label]) => {
+    const fs = FOUNDERS.filter(f => f.badges.includes(k));
+    const segs = ORDER.map(p => ({p, n: fs.filter(f => f.a === p).length})).filter(s => s.n);
+    return `<div class="brow"><div class="bl">${label}<small>${fs.length} founders</small></div><div class="bbar">${segs.map(s => `<button class="bseg${state.badges.has(k) && state.paths.size && !state.paths.has(s.p) ? " dim" : ""}" type="button" data-bp="${k}:${s.p}" aria-pressed="${state.badges.has(k) && state.paths.size === 1 && state.paths.has(s.p)}" style="--c:var(--a-${s.p});flex:${s.n}" title="${ARCH[s.p].name}: ${s.n}">${s.n}</button>`).join("")}</div></div>`;
+  });
+  const oss = FOUNDERS.filter(f => f.badges.includes("oss")); const top = ORDER.map(p => ({p, n: oss.filter(f => f.a === p).length})).sort((a, b) => b.n - a.n)[0];
+  const co = {yes: COMPANIES.filter(c => c.oss === "yes").length, partial: COMPANIES.filter(c => c.oss === "partial").length, no: COMPANIES.filter(c => c.oss === "no").length};
+  const html = rows.join("") + `<div class="brow"><div class="bl">Open source product<small>company level</small></div><div class="bbar">${["yes", "partial", "no"].map((k, i) => `<button class="bseg" type="button" data-ossp="${k}" aria-pressed="${state.ossp === k}" style="--c:var(--a-serial);opacity:${[1, .6, .3][i]};flex:${co[k]}" title="${OSSP[k]}: ${co[k]} companies">${co[k]}</button>`).join("")}</div></div>
+    <p class="bnote">Open source is a badge on top of a path. <b>${top.n} of the ${oss.length}</b> founders with prior open source work are ${ARCH[top.p].name.toLowerCase()}s. Separately, ${co.yes} of ${COMPANIES.length} companies sell an open source product and ${co.partial} are partially open.</p>`;
+  const el = document.getElementById("badgeRows");
+  if (el.dataset.html !== html) { el.innerHTML = html; el.dataset.html = html; }
+}
+
+const shared = HUBS.filter(h => !h.oneOff && h.htype !== "o").length;
+const oss = HUBS.filter(h => h.htype === "o").length;
+document.getElementById("stats").innerHTML = [[FOUNDERS.length, "founders"], [COMPANIES.length, "companies"], [shared, "shared employers & schools"], [oss, "prior open source projects"]]
+  .map(([n, l]) => `<span><b>${n}</b> ${l}</span>`).join("");
+
+(function notes() {
+  const top = fund => {
+    const fs = FOUNDERS.filter(f => f.fund === fund);
+    const k = ORDER.slice().sort((a, b) => fs.filter(f => f.a === b).length - fs.filter(f => f.a === a).length)[0];
+    return {k, n: fs.filter(f => f.a === k).length, total: fs.length};
+  };
+  const A = top("amp"), Hy = top("hay");
+  const busiest = HUBS.filter(h => h.htype === "e").sort((a, b) => b.deg - a.deg).slice(0, 3);
+  const riders = new Set(); busiest.forEach(h => h.members.forEach(m => riders.add(m)));
+  const big = [...riders].filter(m => m.a === "bigco").length;
+  const both = HUBS.filter(h => !h.oneOff && h.members.some(m => m.fund === "amp") && h.members.some(m => m.fund === "hay")).sort((a, b) => b.deg - a.deg);
+  const multi = HUBS.filter(h => !h.oneOff).map(h => ({h, k: new Set(h.members.map(m => m.a)).size})).sort((a, b) => b.k - a.k || b.h.deg - a.h.deg);
+  const most = multi.filter(x => x.k === multi[0].k);
+  const mixed = COMPANIES.filter(c => new Set(c.members.map(m => m.a)).size > 1);
+  const moved = FOUNDERS.filter(f => f.st !== "active");
+  const lower = k => ARCH[k].name.toLowerCase() + "s";
+  document.getElementById("notes").innerHTML = [
+    `<b>Amplify leans on one path.</b> ${A.n} of its ${A.total} founders are ${lower(A.k)}. Haystack's biggest group is ${lower(Hy.k)}, ${Hy.n} of ${Hy.total}.`,
+    `<b>Busiest stations:</b> ${busiest.map(h => `${btn(h)} (${h.deg})`).join(", ")}. ${big} of the ${riders.size} founders who passed through them are big tech engineers, which is why that neighborhood is so dense.`,
+    `<b>Shared by both funds:</b> ${both.length} stations, led by ${both.slice(0, 5).map(btn).join(", ")}. This is where the two portfolios draw from the same talent.`,
+    `<b>Most mixed stations:</b> ${most.slice(0, 4).map(x => btn(x.h)).join(", ")} each connect ${most[0].k} different paths.`,
+    `<b>Mixed teams:</b> ${mixed.length} of ${COMPANIES.length} companies pair founders from different paths, such as ${mixed.slice(0, 3).map(btn).join(", ")}.`,
+    `<b>Founder turnover:</b> ${moved.length} of ${FOUNDERS.length} founders have changed role or left, including ${moved.filter(f => f.st === "left").map(btn).join(", ")}. Filter Status to see them.`
+  ].map(s => `<li>${s}</li>`).join("");
+})();
+
+function updateControls() {
+  document.querySelectorAll("#fundSeg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.fund === state.fund)));
+  document.querySelectorAll("#viewSeg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === state.view)));
+  document.querySelectorAll("#layers [data-type]").forEach(b => b.setAttribute("aria-pressed", String(state.types[b.dataset.type])));
+  document.querySelectorAll("#layers [data-toggle]").forEach(b => b.setAttribute("aria-pressed", String(state[b.dataset.toggle])));
+  document.querySelectorAll("[data-path]").forEach(b => b.setAttribute("aria-pressed", String(state.paths.has(b.dataset.path))));
+  document.querySelectorAll("[data-badge]").forEach(b => b.setAttribute("aria-pressed", String(state.badges.has(b.dataset.badge))));
+  document.querySelectorAll("[data-emp]").forEach(b => b.setAttribute("aria-pressed", String(state.emps.has(b.dataset.emp))));
+  document.querySelectorAll(".cluster").forEach(b => b.setAttribute("aria-pressed", String(state.paths.has(b.dataset.cluster))));
+  const setSel = (id, v) => { const s = document.getElementById(id); if (s.value !== v) s.value = v; s.parentElement.classList.toggle("on", !!v); };
+  setSel("selSchool", state.school); setSel("selVert", state.vertical); setSel("selStatus", state.status); setSel("selOss", state.ossp);
+  const q = document.getElementById("q"); if (q.value !== state.q) q.value = state.q;
+  const isMap = state.view === "map";
+  document.getElementById("mapWrap").hidden = !isMap; document.getElementById("legend").hidden = !isMap;
+  document.getElementById("tableWrap").hidden = isMap;
+  const fb = document.getElementById("filtersBtn"); fb.setAttribute("aria-expanded", String(state.drawer));
+  document.getElementById("drawer").hidden = !state.drawer;
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === state.tab)));
+  ["clusters", "insights", "about"].forEach(k => { document.getElementById("tab-" + k).hidden = k !== state.tab; });
+}
+
+/* ---------- Interaction ---------- */
+const idToHash = id => id.replace(":", "-");
+const hashToId = () => { const m = location.hash.replace(/^#/, ""); if (m.length < 3 || m[1] !== "-") return null; const id = m[0] + ":" + m.slice(2); return byId.has(id) ? id : null; };
+function select(id) { state.focus = id; state.pinned = true; render(); if (location.hash !== "#" + idToHash(id)) location.hash = idToHash(id); if (window.innerWidth <= 980) detailEl.scrollIntoView({behavior: "smooth", block: "nearest"}); }
+function toggleSelect(id) { if (state.pinned && state.focus === id) clearSel(); else select(id); }
+function clearSel() { state.focus = null; state.pinned = false; render(); if (location.hash) location.hash = ""; }
+function clearFilters() { Object.assign(state, {fund: "all", q: "", school: "", vertical: "", status: "", ossp: ""}); state.paths.clear(); state.badges.clear(); state.emps.clear(); render(); }
+function removeFilter(rm) {
+  const [k, v] = rm.split(/:(.*)/s);
+  if (k === "fund") state.fund = "all"; else if (k === "q") state.q = ""; else if (k === "path") state.paths.delete(v); else if (k === "badge") state.badges.delete(v);
+  else if (k === "emp") state.emps.delete(v); else if (k === "school") state.school = ""; else if (k === "vertical") state.vertical = ""; else if (k === "status") state.status = ""; else if (k === "ossp") state.ossp = "";
+  render();
+}
+const toggleIn = (set, v) => { if (set.has(v)) set.delete(v); else set.add(v); };
+
+nodeSel
+  .on("pointerenter", (ev, d) => { if (ev.pointerType === "touch" || state.pinned) return; state.focus = d.id; render(); })
+  .on("pointerleave", ev => { if (ev.pointerType === "touch" || state.pinned) return; state.focus = null; render(); })
+  .on("click", (ev, d) => { ev.stopPropagation(); toggleSelect(d.id); })
+  .on("keydown", (ev, d) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggleSelect(d.id); } });
+svg.on("click", () => { if (state.focus || state.pinned) clearSel(); });
+document.addEventListener("keydown", ev => { if (ev.key === "Escape" && !["INPUT", "SELECT"].includes(document.activeElement.tagName)) clearSel(); });
+
+document.addEventListener("click", ev => {
+  if (ev.target.closest("[data-stop]")) { ev.stopPropagation(); return; }
+  if (ev.target.closest("[data-close]")) { clearSel(); return; }
+  const s = ev.target.closest("[data-select]"); if (s) { select(s.dataset.select); return; }
+  const rm = ev.target.closest("[data-rm]"); if (rm) { removeFilter(rm.dataset.rm); return; }
+  const c = ev.target.closest("[data-cluster]"); if (c) { toggleIn(state.paths, c.dataset.cluster); render(); return; }
+  const p = ev.target.closest("[data-path]"); if (p) { toggleIn(state.paths, p.dataset.path); render(); return; }
+  const b = ev.target.closest("[data-badge]"); if (b) { toggleIn(state.badges, b.dataset.badge); render(); return; }
+  const e = ev.target.closest("[data-emp]"); if (e) { toggleIn(state.emps, e.dataset.emp); render(); return; }
+  const bp = ev.target.closest("[data-bp]"); if (bp) { const [k, pth] = bp.dataset.bp.split(":"); const on = state.badges.has(k) && state.paths.size === 1 && state.paths.has(pth); state.badges.clear(); state.paths.clear(); if (!on) { state.badges.add(k); state.paths.add(pth); } render(); return; }
+  const op = ev.target.closest("[data-ossp]"); if (op) { state.ossp = state.ossp === op.dataset.ossp ? "" : op.dataset.ossp; render(); return; }
+  const f = ev.target.closest("[data-fund]"); if (f) { state.fund = f.dataset.fund; render(); return; }
+  const v = ev.target.closest("[data-view]"); if (v) { state.view = v.dataset.view; render(); return; }
+  const tb = ev.target.closest("[data-tab]"); if (tb) { state.tab = tb.dataset.tab; updateControls(); return; }
+  if (ev.target.closest("#filtersBtn")) { state.drawer = !state.drawer; updateControls(); return; }
+  const t = ev.target.closest("#layers button"); if (t) { if (t.dataset.type) state.types[t.dataset.type] = !state.types[t.dataset.type]; else state[t.dataset.toggle] = !state[t.dataset.toggle]; placeLabels(); render(); return; }
+  const srt = ev.target.closest("[data-sort]"); if (srt) { if (state.sort.key === srt.dataset.sort) state.sort.dir *= -1; else state.sort = {key: srt.dataset.sort, dir: 1}; render(); return; }
+  if (ev.target.closest("#clearFilters")) { clearFilters(); return; }
+});
+tbody.addEventListener("keydown", ev => { const r = ev.target.closest("tr.row"); if (r && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); select(r.dataset.select); } });
+document.getElementById("q").addEventListener("input", ev => { state.q = ev.target.value; render(); });
+document.getElementById("selSchool").addEventListener("change", ev => { state.school = ev.target.value; render(); });
+document.getElementById("selVert").addEventListener("change", ev => { state.vertical = ev.target.value; render(); });
+document.getElementById("selStatus").addEventListener("change", ev => { state.status = ev.target.value; render(); });
+document.getElementById("selOss").addEventListener("change", ev => { state.ossp = ev.target.value; render(); });
+window.addEventListener("hashchange", () => { const id = hashToId(); if (id) { if (state.focus !== id || !state.pinned) { state.focus = id; state.pinned = true; render(); } } else if (state.pinned) { state.focus = null; state.pinned = false; render(); } });
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const dur = reduceMotion ? 0 : 260;
+const zoom = d3.zoom().scaleExtent([0.8, 5]).translateExtent([[-W * 0.4, -H * 0.4], [W * 1.4, H * 1.4]])
+  .on("zoom", ev => { vp.attr("transform", ev.transform); if (ev.transform.k !== curK) { curK = ev.transform.k; applyScale(); } })
+  .on("end", () => { placeLabels(); render(); });
+svg.call(zoom).on("dblclick.zoom", null);
+document.getElementById("zin").addEventListener("click", () => svg.transition().duration(dur).call(zoom.scaleBy, 1.5));
+document.getElementById("zout").addEventListener("click", () => svg.transition().duration(dur).call(zoom.scaleBy, 1 / 1.5));
+document.getElementById("zfit").addEventListener("click", () => svg.transition().duration(dur).call(zoom.transform, d3.zoomIdentity));
+
+/* ---------- Boot ---------- */
+applyScale(); measure(); placeLabels();
+const startId = hashToId(); if (startId) { state.focus = startId; state.pinned = true; }
+render();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measure(); placeLabels(); render(); });
+})();
+</script>
+
+</body>
+</html>

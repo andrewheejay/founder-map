@@ -1,0 +1,1340 @@
+[
+  {
+    "id": "f:will-wilson",
+    "name": "Will Wilson",
+    "shortLabel": "Wilson",
+    "company": "Antithesis",
+    "path": "big_tech_engineer",
+    "secondaryPath": "academic",
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "FoundationDB",
+      "Apple",
+      "Google"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Trained as a mathematician and AI researcher, then built distributed databases at FoundationDB, Apple, and Google.",
+    "source": "https://antithesis.com/company/backstory/"
+  },
+  {
+    "id": "f:dave-scherer",
+    "name": "Dave Scherer",
+    "shortLabel": "Scherer",
+    "company": "Antithesis",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "Visual Sciences",
+      "FoundationDB"
+    ],
+    "schools": [
+      "Carnegie Mellon"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Co-founded Visual Sciences (sold, later part of Adobe) and FoundationDB (bought by Apple), where he was chief architect.",
+    "source": "https://www.startupgrind.com/blog/foundationdb-how-this-startup-got-funded-by-ron-conway/"
+  },
+  {
+    "id": "f:robert-nishihara",
+    "name": "Robert Nishihara",
+    "shortLabel": "Nishihara",
+    "company": "Anyscale",
+    "path": "academic",
+    "secondaryPath": "young_builder",
+    "role": "Co-founder; CEO 2019 to 2024",
+    "status": "role_changed",
+    "statusNote": "Stepped down as CEO in July 2024 when Keerti Melkote took over; now leads product strategy.",
+    "badges": [
+      "prior_open_source",
+      "grad_degree"
+    ],
+    "employers": [],
+    "schools": [
+      "Harvard",
+      "UC Berkeley"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Ray"
+    ],
+    "edgeCase": false,
+    "bio": "Harvard math, then a Berkeley PhD under Michael Jordan. Co-created Ray in RISELab and was Anyscale's first CEO.",
+    "source": "https://research.facebook.com/fellows/nishihara-robert/"
+  },
+  {
+    "id": "f:philipp-moritz",
+    "name": "Philipp Moritz",
+    "shortLabel": "Moritz",
+    "company": "Anyscale",
+    "path": "academic",
+    "secondaryPath": "young_builder",
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source",
+      "grad_degree"
+    ],
+    "employers": [],
+    "schools": [
+      "UC Berkeley"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Ray"
+    ],
+    "edgeCase": false,
+    "bio": "Berkeley CS PhD (2013 to 2019) in distributed systems and ML. Went straight from the PhD to Anyscale CTO.",
+    "source": "https://www.clay.com/dossier/anyscale-cto"
+  },
+  {
+    "id": "f:ion-stoica",
+    "name": "Ion Stoica",
+    "shortLabel": "Stoica",
+    "company": "Anyscale",
+    "path": "academic",
+    "secondaryPath": "repeat_founder",
+    "role": "Co-founder, executive chairman",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source",
+      "grad_degree"
+    ],
+    "employers": [
+      "Databricks",
+      "Conviva"
+    ],
+    "schools": [
+      "Carnegie Mellon"
+    ],
+    "taughtAt": [
+      "UC Berkeley"
+    ],
+    "priorOpenSource": [
+      "Ray"
+    ],
+    "edgeCase": false,
+    "bio": "Berkeley professor with a CMU PhD. Co-founded Conviva and Databricks (its first CEO) before Anyscale.",
+    "source": "https://www.anyscale.com/press/anyscale-names-industry-veteran-keerti-melkote-chief-executive-officer"
+  },
+  {
+    "id": "f:michael-i-jordan",
+    "name": "Michael I. Jordan",
+    "shortLabel": "Jordan",
+    "company": "Anyscale",
+    "path": "academic",
+    "secondaryPath": null,
+    "role": "Co-founder, advisor",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [],
+    "schools": [],
+    "taughtAt": [
+      "UC Berkeley",
+      "MIT"
+    ],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Berkeley professor of CS and statistics, previously at MIT, and one of the most influential ML researchers.",
+    "source": "https://www2.eecs.berkeley.edu/Faculty/Homepages/jordan.html"
+  },
+  {
+    "id": "f:peter-morelli",
+    "name": "Peter Morelli",
+    "shortLabel": "Morelli",
+    "company": "bitdrift",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Twitter",
+      "Lyft"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Ran Twitter's 100+ engineer platform group, then joined Lyft as VP of Engineering in 2015.",
+    "source": "https://techcrunch.com/2015/03/10/lyft-peter-morelli-vp-engineering/amp/"
+  },
+  {
+    "id": "f:matt-klein",
+    "name": "Matt Klein",
+    "shortLabel": "Klein",
+    "company": "bitdrift",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Microsoft",
+      "Amazon",
+      "Twitter",
+      "Lyft"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Envoy"
+    ],
+    "edgeCase": false,
+    "bio": "20+ years in low-level systems at Microsoft, AWS EC2, and Twitter. Created Envoy at Lyft and chose not to commercialize it.",
+    "source": "https://www.usenix.org/conference/srecon17americas/program/presentation/klein"
+  },
+  {
+    "id": "f:martin-conte-mac-donell",
+    "name": "Martin Conte Mac Donell",
+    "shortLabel": "Conte Mac Donell",
+    "company": "bitdrift",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Lyft"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Lyft engineer who teamed up with Morelli and Klein there. Few public details on his earlier career.",
+    "source": "https://app.dealroom.co/companies/bitdrift"
+  },
+  {
+    "id": "f:dan-lorenc",
+    "name": "Dan Lorenc",
+    "shortLabel": "Lorenc",
+    "company": "Chainguard",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Microsoft",
+      "Google"
+    ],
+    "schools": [
+      "MIT"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Kubernetes",
+      "Sigstore",
+      "SLSA",
+      "Tekton",
+      "Distroless"
+    ],
+    "edgeCase": false,
+    "bio": "MIT mechanical engineering, then Microsoft and Google (2012 to 2021). Created Minikube and helped found Sigstore, Tekton, and SLSA.",
+    "source": "https://kccncind2026.sched.com/speaker/dlorenc"
+  },
+  {
+    "id": "f:matt-moore",
+    "name": "Matt Moore",
+    "shortLabel": "Moore",
+    "company": "Chainguard",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Microsoft",
+      "Google"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Distroless"
+    ],
+    "edgeCase": false,
+    "bio": "Microsoft from 2005, then Disqus and Google, where he led container tooling and co-created the distroless image.",
+    "source": "https://research.contrary.com/company/chainguard"
+  },
+  {
+    "id": "f:kim-lewandowski",
+    "name": "Kim Lewandowski",
+    "shortLabel": "Lewandowski",
+    "company": "Chainguard",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, product",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Lawrence Livermore",
+      "Google"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "SLSA",
+      "Tekton"
+    ],
+    "edgeCase": false,
+    "bio": "Started in security at Lawrence Livermore Lab. Google PM from 2014 who created SLSA and co-created Tekton.",
+    "source": "https://www.securitymagazine.com/authors/4214-kim-lewandowski"
+  },
+  {
+    "id": "f:ville-aikas",
+    "name": "Ville Aikas",
+    "shortLabel": "Aikas",
+    "company": "Chainguard",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, distinguished engineer",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Google",
+      "VMware"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Kubernetes",
+      "Knative"
+    ],
+    "edgeCase": false,
+    "bio": "Google from 2007 on the early Kubernetes team and Knative, then a senior staff engineer at VMware.",
+    "source": "https://research.contrary.com/company/chainguard"
+  },
+  {
+    "id": "f:scott-nichols",
+    "name": "Scott Nichols",
+    "shortLabel": "Nichols",
+    "company": "Chainguard",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Google",
+      "VMware"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Kubernetes"
+    ],
+    "edgeCase": false,
+    "bio": "Started on Chrome, moved to Google Cloud to build the Kubernetes Service Catalog, then VMware.",
+    "source": "https://research.contrary.com/company/chainguard"
+  },
+  {
+    "id": "f:nick-schrock",
+    "name": "Nick Schrock",
+    "shortLabel": "Schrock",
+    "company": "Dagster",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Founder; CEO, now CTO and chairman",
+    "status": "role_changed",
+    "statusNote": "Handed the CEO role to Pete Hunt in November 2022 and moved to CTO and chairman.",
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Microsoft",
+      "CareEvolution",
+      "Facebook"
+    ],
+    "schools": [
+      "Michigan"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "GraphQL"
+    ],
+    "edgeCase": false,
+    "bio": "Michigan computer engineering, Microsoft, then 8 years at Facebook, where he co-created GraphQL and founded Product Infrastructure.",
+    "source": "https://qconlondon.com/london-2011/qconlondon.com/london-2011/speaker/Nick+Schrock.html"
+  },
+  {
+    "id": "f:tristan-handy",
+    "name": "Tristan Handy",
+    "shortLabel": "Handy",
+    "company": "dbt",
+    "path": "business_operator",
+    "secondaryPath": null,
+    "role": "Founder; CEO until 2026",
+    "status": "role_changed",
+    "statusNote": "President of Fivetran + dbt Labs since the June 2026 merger; George Fraser is CEO.",
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Deloitte",
+      "Squarespace",
+      "RJMetrics"
+    ],
+    "schools": [
+      "Maryland",
+      "UNC"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Finance and IT degree, 5 years at Deloitte Consulting, a UNC MBA, then startup operations roles before founding Fishtown Analytics.",
+    "source": "https://www.bigdatawire.com/people-to-watch-2022/6"
+  },
+  {
+    "id": "f:drew-banin",
+    "name": "Drew Banin",
+    "shortLabel": "Banin",
+    "company": "dbt",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder; former CPO",
+    "status": "role_changed",
+    "statusNote": "Stepped back from the Chief Product Officer role; still works with the dbt open source community.",
+    "badges": [],
+    "employers": [
+      "8tracks",
+      "RJMetrics"
+    ],
+    "schools": [
+      "Drexel"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Worked part-time at RJMetrics to pay for Drexel, then joined Handy instead of a post-grad job and wrote the first dbt prototype.",
+    "source": "https://review.firstround.com/dbt-labs-path-to-product-market-fit"
+  },
+  {
+    "id": "f:connor-mcarthur",
+    "name": "Connor McArthur",
+    "shortLabel": "McArthur",
+    "company": "dbt",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder, first CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "RJMetrics",
+      "Stitch"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Engineer and engineering manager at RJMetrics and Stitch, and dbt's first CTO.",
+    "source": "https://www.getdbt.com/about-us"
+  },
+  {
+    "id": "f:david-crawshaw",
+    "name": "David Crawshaw",
+    "shortLabel": "Crawshaw",
+    "company": "exe.dev",
+    "path": "repeat_founder",
+    "secondaryPath": "big_tech_engineer",
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "NICTA",
+      "Google",
+      "Tailscale"
+    ],
+    "schools": [
+      "Sydney"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Go"
+    ],
+    "edgeCase": false,
+    "bio": "Sydney math grad. Google staff engineer on Go and Fuchsia, then Tailscale co-founder and CTO (2019 to 2024).",
+    "source": "https://exe.dev/docs/who"
+  },
+  {
+    "id": "f:josh-bleecher-snyder",
+    "name": "Josh Bleecher Snyder",
+    "shortLabel": "Bleecher Snyder",
+    "company": "exe.dev",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source",
+      "prior_exit"
+    ],
+    "employers": [
+      "AdMob",
+      "PayPal",
+      "Tailscale"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Go"
+    ],
+    "edgeCase": false,
+    "bio": "Early AdMob engineer. Co-founded card.io (sold to PayPal in 2012) and Canopy Climate, then an early Tailscale engineer and Go contributor.",
+    "source": "https://exe.dev/docs/who"
+  },
+  {
+    "id": "f:kashish-gupta",
+    "name": "Kashish Gupta",
+    "shortLabel": "Gupta",
+    "company": "Hightouch",
+    "path": "young_builder",
+    "secondaryPath": "business_operator",
+    "role": "Co-founder, co-CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Bessemer"
+    ],
+    "schools": [
+      "Penn"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Penn alum (Wharton economics plus a robotics master's). A Bessemer VC who turned down a return offer to build a travel Slackbot.",
+    "source": "https://www.snowflake.com/blog/authors/kashish-gupta"
+  },
+  {
+    "id": "f:tejas-manohar",
+    "name": "Tejas Manohar",
+    "shortLabel": "Manohar",
+    "company": "Hightouch",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder, co-CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Segment"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Self-taught and skipped college. Moved to SF at 16 to be one of Segment's first 10 engineers.",
+    "source": "https://pulse2.com/hightouch-profile-tejas-manohar-interview/"
+  },
+  {
+    "id": "f:josh-curl",
+    "name": "Josh Curl",
+    "shortLabel": "Curl",
+    "company": "Hightouch",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Rancher Labs",
+      "Segment"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "One of Rancher Labs' first 10 engineers, then Segment's Personas team. Briefly co-founded Deviceplane.",
+    "source": "https://cloudflare.tv/shows/founder-spotlight/founder-spotlight-josh-curl/Mg6Ko4vl"
+  },
+  {
+    "id": "f:s-ren-bramer-schmidt",
+    "name": "Søren Bramer Schmidt",
+    "shortLabel": "Schmidt",
+    "company": "Prisma",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder; CTO, now CEO",
+    "status": "role_changed",
+    "statusNote": "Started as CTO and took over as CEO.",
+    "badges": [],
+    "employers": [
+      "Trustpilot"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Nearly 7 years as a developer and architect at Trustpilot. Co-founded the nutrition startup Eat Better before Prisma.",
+    "source": "https://app.welcometothejungle.com/jobs/k6ASPhV7"
+  },
+  {
+    "id": "f:johannes-schickling",
+    "name": "Johannes Schickling",
+    "shortLabel": "Schickling",
+    "company": "Prisma",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder, original CEO",
+    "status": "left",
+    "statusNote": "Left Prisma; later built Overtone and LiveStore.",
+    "badges": [],
+    "employers": [
+      "Optonaut"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Built the VR startup Optonaut and went through Entrepreneur First in London before co-founding Graphcool.",
+    "source": "https://tech.eu/2020/07/06/prisma-series-a/"
+  },
+  {
+    "id": "f:quinn-slack",
+    "name": "Quinn Slack",
+    "shortLabel": "Slack",
+    "company": "Sourcegraph",
+    "path": "repeat_founder",
+    "secondaryPath": "young_builder",
+    "role": "Co-founder; CEO until Dec 2025",
+    "status": "left",
+    "statusNote": "Now CEO of Amp Inc., the spinout; remains on Sourcegraph's board. Dan Adler is Sourcegraph CEO.",
+    "badges": [],
+    "employers": [
+      "Bleacher Report",
+      "Palantir",
+      "Blend"
+    ],
+    "schools": [
+      "Stanford"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Bleacher Report's first engineer right out of high school, then Stanford CS and Palantir. Co-founded Blend before Sourcegraph.",
+    "source": "https://handbook.sourcegraph.com/team"
+  },
+  {
+    "id": "f:beyang-liu",
+    "name": "Beyang Liu",
+    "shortLabel": "Liu",
+    "company": "Sourcegraph",
+    "path": "young_builder",
+    "secondaryPath": "big_tech_engineer",
+    "role": "Co-founder; CTO until Dec 2025",
+    "status": "left",
+    "statusNote": "Co-founded Amp Inc. with Slack; remains on Sourcegraph's board.",
+    "badges": [],
+    "employers": [
+      "Google",
+      "Palantir"
+    ],
+    "schools": [
+      "Stanford"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Stanford CS with Stanford AI Lab research. Worked at Google and Palantir before co-founding Sourcegraph at about 24.",
+    "source": "https://handbook.sourcegraph.com/team"
+  },
+  {
+    "id": "f:maxim-fateev",
+    "name": "Maxim Fateev",
+    "shortLabel": "Fateev",
+    "company": "Temporal",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder; CEO 2019 to 2024, now CTO",
+    "status": "role_changed",
+    "statusNote": "Swapped roles with Abbas in April 2024.",
+    "badges": [
+      "prior_open_source",
+      "grad_degree"
+    ],
+    "employers": [
+      "Amazon",
+      "Microsoft",
+      "Google",
+      "Uber"
+    ],
+    "schools": [
+      "Moscow State",
+      "UFRJ"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Cadence"
+    ],
+    "edgeCase": false,
+    "bio": "Physics in Moscow, a CS master's in Rio. Led what became AWS SQS and Simple Workflow, then Google and Uber, where he co-created Cadence.",
+    "source": "https://crunchbase.com/person/maxim-fateev"
+  },
+  {
+    "id": "f:samar-abbas",
+    "name": "Samar Abbas",
+    "shortLabel": "Abbas",
+    "company": "Temporal",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder; CTO 2019 to 2024, now CEO",
+    "status": "role_changed",
+    "statusNote": "Swapped roles with Fateev in April 2024.",
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Microsoft",
+      "Amazon",
+      "Uber"
+    ],
+    "schools": [
+      "GIK Institute"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Cadence"
+    ],
+    "edgeCase": false,
+    "bio": "From Karachi. Microsoft from 2000, AWS Simple Workflow, then Azure's Durable Task Framework, and co-created Cadence at Uber.",
+    "source": "https://temporal.io/in-use/keynote-building-trust-with-code"
+  },
+  {
+    "id": "f:joran-dirk-greef",
+    "name": "Joran Dirk Greef",
+    "shortLabel": "Greef",
+    "company": "TigerBeetle",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Microsoft",
+      "Coil"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": true,
+    "bio": "Self-taught coder from Cape Town and a former Microsoft security consultant. Built TigerBeetle inside Coil before spinning it out.",
+    "source": "https://interledger.org/summit/2022/speaker/joran-greef"
+  },
+  {
+    "id": "f:eli-schleifer",
+    "name": "Eli Schleifer",
+    "shortLabel": "Schleifer",
+    "company": "Trunk",
+    "path": "repeat_founder",
+    "secondaryPath": "big_tech_engineer",
+    "role": "Co-founder, co-CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "Microsoft",
+      "Google",
+      "Uber"
+    ],
+    "schools": [
+      "Columbia"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Columbia visual arts and CS. Microsoft, then co-founded Directr (sold to Google in 2014), YouTube, and ran Autonomy Systems at Uber ATG.",
+    "source": "https://developerweek2023.sched.com/speaker/eli_schleifer.24uw8c05"
+  },
+  {
+    "id": "f:david-apirian",
+    "name": "David Apirian",
+    "shortLabel": "Apirian",
+    "company": "Trunk",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, co-CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Bloomberg",
+      "BitTorrent",
+      "Uber"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Engineer at Bloomberg and BitTorrent, then Head of Autonomy Systems and Simulation at Uber ATG.",
+    "source": "https://crunchbase.com/person/david-apirian"
+  },
+  {
+    "id": "f:matt-matheson",
+    "name": "Matt Matheson",
+    "shortLabel": "Matheson",
+    "company": "Trunk",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Microsoft",
+      "Uber"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Developer at Microsoft, then tech lead manager at Uber ATG. Trunk's CTO.",
+    "source": "https://app.welcometothejungle.com/jobs/YGeKOig-"
+  },
+  {
+    "id": "f:chris-clearwater",
+    "name": "Chris Clearwater",
+    "shortLabel": "Clearwater",
+    "company": "Trunk",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Uber"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Senior autonomy engineer at Uber ATG.",
+    "source": "https://app.welcometothejungle.com/jobs/YGeKOig-"
+  },
+  {
+    "id": "f:peter-edge",
+    "name": "Peter Edge",
+    "shortLabel": "Edge",
+    "company": "Buf",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Uber"
+    ],
+    "schools": [
+      "Carnegie Mellon"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "CMU CS and math, then about five years at Uber in Toronto, where he watched every team rebuild the same schema tooling.",
+    "source": "https://runtimewire.com/article/buf-protobuf-lsp-compiler-editor-support"
+  },
+  {
+    "id": "f:mitchell-hashimoto",
+    "name": "Mitchell Hashimoto",
+    "shortLabel": "Hashimoto",
+    "company": "HashiCorp",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder; CEO, then CTO, then engineer",
+    "status": "left",
+    "statusNote": "Left HashiCorp in December 2023; built the Ghostty terminal and now co-founds Superlogical.",
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Kiip"
+    ],
+    "schools": [
+      "Univ. of Washington"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Vagrant"
+    ],
+    "edgeCase": false,
+    "bio": "Self-taught at 12. Built Vagrant in his UW dorm, was Kiip's first engineer, and started HashiCorp at about 22.",
+    "source": "https://mitchellh.com/"
+  },
+  {
+    "id": "f:armon-dadgar",
+    "name": "Armon Dadgar",
+    "shortLabel": "Dadgar",
+    "company": "HashiCorp",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": "Stayed CTO through the IBM acquisition.",
+    "badges": [],
+    "employers": [
+      "Kiip"
+    ],
+    "schools": [
+      "Univ. of Washington"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Started college at 16. UW CS, distributed systems architect at Kiip, then HashiCorp co-founder and CTO.",
+    "source": "https://hashicorp.com/about/person/armon-dadgar"
+  },
+  {
+    "id": "f:will-bryk",
+    "name": "Will Bryk",
+    "shortLabel": "Bryk",
+    "company": "Exa",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Zoox",
+      "Cresta"
+    ],
+    "schools": [
+      "Harvard"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Harvard CS and physics, where he led the robotics club. Early engineer at Cresta before co-founding Exa with his roommate.",
+    "source": "https://metaphor.systems/about"
+  },
+  {
+    "id": "f:jeff-wang",
+    "name": "Jeff Wang",
+    "shortLabel": "Wang",
+    "company": "Exa",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Plaid"
+    ],
+    "schools": [
+      "Harvard"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Harvard CS and philosophy, where he ran a GPU cluster in his dorm. Three years building data infrastructure at Plaid.",
+    "source": "https://metaphor.systems/about"
+  },
+  {
+    "id": "f:alexander-gallego",
+    "name": "Alexander Gallego",
+    "shortLabel": "Gallego",
+    "company": "Redpanda",
+    "path": "repeat_founder",
+    "secondaryPath": "big_tech_engineer",
+    "role": "Founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "FactSet",
+      "YieldMo",
+      "Akamai"
+    ],
+    "schools": [
+      "NYU"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Moved from Colombia at 14. NYU CS, FactSet and YieldMo, then co-founded Concord (sold to Akamai in 2016) and became a principal engineer there.",
+    "source": "https://research.contrary.com/company/redpanda"
+  },
+  {
+    "id": "f:sean-thorne",
+    "name": "Sean Thorne",
+    "shortLabel": "Thorne",
+    "company": "People Data Labs",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder; CEO until 2025",
+    "status": "role_changed",
+    "statusNote": "Stepped back from daily leadership in August 2025; on the board and now founding AgentScore. Ben Eisenberg is CEO.",
+    "badges": [],
+    "employers": [],
+    "schools": [
+      "Univ. of Oregon"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "University of Oregon. Traced the idea to a 2012 marketing class and ran sales while Nevue built the product.",
+    "source": "https://yespress.io/sean-thorne"
+  },
+  {
+    "id": "f:henry-nevue",
+    "name": "Henry Nevue",
+    "shortLabel": "Nevue",
+    "company": "People Data Labs",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder; President until 2025",
+    "status": "role_changed",
+    "statusNote": "Stepped back from daily leadership in August 2025.",
+    "badges": [],
+    "employers": [],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Built People Data Labs' product while Thorne ran sales. Few public details on his earlier career.",
+    "source": "https://yespress.io/people-data-labs.md"
+  },
+  {
+    "id": "f:bobby-desimone",
+    "name": "Bobby DeSimone",
+    "shortLabel": "DeSimone",
+    "company": "Pomerium",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "BeyondTrust"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Teen hacker turned founder. Sold Surelock to BeyondTrust and spent 7 years there before writing Pomerium's first code.",
+    "source": "https://pomerium.com/authors/bobby-desimone"
+  },
+  {
+    "id": "f:john-ackerly",
+    "name": "John Ackerly",
+    "shortLabel": "J. Ackerly",
+    "company": "Virtru",
+    "path": "business_operator",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "White House",
+      "Lindsay Goldberg"
+    ],
+    "schools": [
+      "Williams",
+      "Oxford",
+      "Harvard"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Williams, Rhodes Scholar, Harvard MBA. White House tech policy advisor during 9/11, then a private equity investor.",
+    "source": "https://ipo-edge.com/data-centric-cybersecurity-virtru-ceo-john-ackerly-live-from-nyse/"
+  },
+  {
+    "id": "f:will-ackerly",
+    "name": "Will Ackerly",
+    "shortLabel": "W. Ackerly",
+    "company": "Virtru",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "NSA"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Trusted Data Format"
+    ],
+    "edgeCase": false,
+    "bio": "8 to 9 years at the NSA in cloud security, where he created the Trusted Data Format that Virtru is built on.",
+    "source": "https://en.wikipedia.org/wiki/Virtru"
+  },
+  {
+    "id": "f:krishna-gade",
+    "name": "Krishna Gade",
+    "shortLabel": "Gade",
+    "company": "Fiddler",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Microsoft",
+      "Twitter",
+      "Pinterest",
+      "Facebook"
+    ],
+    "schools": [
+      "Minnesota"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Minnesota CS master's. Microsoft and Bing, Twitter, Pinterest, then Facebook, where his team built \"Why am I seeing this post?\"",
+    "source": "https://aimmediahouse.com/lists/aim-next-15-ai-ceos-in-america-2026/krishna-gade"
+  },
+  {
+    "id": "f:amit-paka",
+    "name": "Amit Paka",
+    "shortLabel": "Paka",
+    "company": "Fiddler",
+    "path": "repeat_founder",
+    "secondaryPath": "big_tech_engineer",
+    "role": "Co-founder, CPO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "Microsoft",
+      "Expedia",
+      "PayPal",
+      "Samsung"
+    ],
+    "schools": [
+      "Minnesota"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Product roles at Microsoft, Expedia, and PayPal. Sold Flockish and Parable (to Samsung) before co-founding Fiddler.",
+    "source": "https://www.oreilly.com/library/view/model-performance-management/9781098108687/colophon01.html"
+  },
+  {
+    "id": "f:henry-ward",
+    "name": "Henry Ward",
+    "shortLabel": "Ward",
+    "company": "Carta",
+    "path": "repeat_founder",
+    "secondaryPath": "business_operator",
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Trilogy",
+      "BetweenMarkets",
+      "Reddwerks"
+    ],
+    "schools": [
+      "Michigan",
+      "EDHEC"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Michigan math and CS plus a finance master's. Software and sales engineering roles, then founded Secondsight before eShares.",
+    "source": "https://www3.carta.com/executive-team/henry-ward"
+  },
+  {
+    "id": "f:manu-kumar",
+    "name": "Manu Kumar",
+    "shortLabel": "Kumar",
+    "company": "Carta",
+    "path": "business_operator",
+    "secondaryPath": null,
+    "role": "Co-founder, chairman",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "K9 Ventures"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Serial seed investor (K9 Ventures) who co-founded eShares with Ward and became chairman.",
+    "source": "https://en.wikipedia.org/wiki/Carta_(software_company)"
+  },
+  {
+    "id": "f:peter-zhou",
+    "name": "Peter Zhou",
+    "shortLabel": "Zhou",
+    "company": "Rutter",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Facebook",
+      "Atrium"
+    ],
+    "schools": [
+      "Yale"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Yale CS with stints at Facebook and Atrium. Pivoted through failed ideas before Rutter (YC S19).",
+    "source": "https://yespress.io/peter-zhou.md"
+  },
+  {
+    "id": "f:eric-yu",
+    "name": "Eric Yu",
+    "shortLabel": "Yu",
+    "company": "Rutter",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Co-founded Rutter with Zhou. Few public details on his earlier career.",
+    "source": "https://www.ycombinator.com/companies/rutter"
+  },
+  {
+    "id": "f:jeremy-tsui",
+    "name": "Jeremy Tsui",
+    "shortLabel": "Jeremy Tsui",
+    "company": "Finley",
+    "path": "business_operator",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "role_changed",
+    "statusNote": "Joined Concord as Managing Director, Capital Markets after the March 2026 acquisition.",
+    "badges": [],
+    "employers": [
+      "Goldman Sachs"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Debt investor in Goldman Sachs' Merchant Banking Division, where he saw borrowers struggle with credit agreements.",
+    "source": "https://ycombinator.com/companies/finley"
+  },
+  {
+    "id": "f:josiah-tsui",
+    "name": "Josiah Tsui",
+    "shortLabel": "Josiah Tsui",
+    "company": "Finley",
+    "path": "big_tech_engineer",
+    "secondaryPath": "young_builder",
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Palantir",
+      "Ironclad"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Worked at Palantir and Ironclad (another Haystack company) before co-founding Finley with his brother.",
+    "source": "https://ycombinator.com/companies/finley"
+  },
+  {
+    "id": "f:kevin-suh",
+    "name": "Kevin Suh",
+    "shortLabel": "Suh",
+    "company": "Finley",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Nova Credit"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "First engineer at Nova Credit before co-founding Finley.",
+    "source": "https://ycombinator.com/companies/finley"
+  }
+]

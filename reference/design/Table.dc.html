@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Founder Map · Table view</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F4F5F7}
+a{color:#2457D6;text-decoration:none}a:hover{color:#1A43AD;text-decoration:underline}
+button{font:inherit;cursor:pointer}
+input{font:inherit}
+</style>
+</helmet>
+<div style="min-height: 940px; background: #F4F5F7; color: #111418; font-family: Inter, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.45; display: flex; flex-direction: column">
+
+  <header style="background: #FFFFFF; border-bottom: 1px solid #E3E6EA">
+    <div style="max-width: 1440px; margin: 0 auto; box-sizing: border-box; padding: 0 32px; min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#111418"></rect><path d="M9 18.5 18.5 9.5M10 18l8 1.6" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path><circle cx="9" cy="18.5" r="3" fill="#FFFFFF"></circle><circle cx="19" cy="9" r="3" fill="#FFFFFF"></circle><circle cx="19.5" cy="20" r="2.4" fill="#2457D6"></circle></svg>
+        <div>
+          <h1 style="margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2">Founder Map</h1>
+          <p style="margin: 2px 0 0; font-size: 12px; color: #5B6471">Amplify Partners and Haystack portfolios, grouped by founder path</p>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 12px; color: #5B6471">54 founders · 24 companies · 23 shared employers &amp; schools · 13 open source projects</p>
+    </div>
+  </header>
+
+  <div style="max-width: 1440px; width: 100%; margin: 0 auto; box-sizing: border-box; padding: 16px 32px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+    <div style="position: relative; flex: 1 1 260px; max-width: 340px">
+      <label for="table-search" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Search founders, companies, employers, schools</label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B6471" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 12px; top: 12px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <input id="table-search" type="search" placeholder="Search founders, companies, employers, schools" style="width: 100%; box-sizing: border-box; height: 40px; padding: 0 12px 0 36px; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF; color: #111418; font-size: 13px">
+    </div>
+
+    <div role="group" aria-label="Fund" style="display: inline-flex; padding: 3px; gap: 2px; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF">
+      <button type="button" aria-pressed="true" style="height: 32px; padding: 0 12px; border: 0; border-radius: 6px; background: #111418; color: #FFFFFF; font-size: 13px; font-weight: 500">Both funds</button>
+      <button type="button" aria-pressed="false" style="height: 32px; padding: 0 12px; border: 0; border-radius: 6px; background: transparent; color: #111418; font-size: 13px; font-weight: 500">Amplify</button>
+      <button type="button" aria-pressed="false" style="height: 32px; padding: 0 12px; border: 0; border-radius: 6px; background: transparent; color: #111418; font-size: 13px; font-weight: 500">Haystack</button>
+    </div>
+
+    <div role="group" aria-label="View" style="display: inline-flex; padding: 3px; gap: 2px; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF">
+      <button type="button" aria-pressed="false" style="height: 32px; padding: 0 14px; border: 0; border-radius: 6px; background: transparent; color: #111418; font-size: 13px; font-weight: 500">Map</button>
+      <button type="button" aria-pressed="true" style="height: 32px; padding: 0 14px; border: 0; border-radius: 6px; background: #111418; color: #FFFFFF; font-size: 13px; font-weight: 500">Table</button>
+    </div>
+
+    <div style="flex: 1 1 auto"></div>
+
+    <button type="button" style="height: 40px; padding: 0 14px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #111418; border-radius: 8px; background: #FFFFFF; color: #111418; font-size: 13px; font-weight: 500">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"></path></svg>
+      Filters
+      <span style="display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: #111418; color: #FFFFFF; font-size: 11px; font-weight: 600">2</span>
+    </button>
+  </div>
+
+  <div style="max-width: 1440px; width: 100%; margin: 0 auto; box-sizing: border-box; padding: 12px 32px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px">
+    <span style="display: inline-flex; align-items: center; gap: 4px; height: 30px; padding: 0 4px 0 10px; border: 1px solid #E3E6EA; border-radius: 999px; background: #FFFFFF; color: #111418; font-size: 12px; font-weight: 500"><span style="color: #5B6471">Badge</span>&nbsp;Big tech alum<button type="button" aria-label="Remove filter Big tech alum" style="width: 22px; height: 22px; border: 0; border-radius: 50%; background: transparent; color: #5B6471; display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></span>
+    <span style="display: inline-flex; align-items: center; gap: 4px; height: 30px; padding: 0 4px 0 10px; border: 1px solid #E3E6EA; border-radius: 999px; background: #FFFFFF; color: #111418; font-size: 12px; font-weight: 500"><span style="color: #5B6471">Employer</span>&nbsp;Google<button type="button" aria-label="Remove filter Google" style="width: 22px; height: 22px; border: 0; border-radius: 50%; background: transparent; color: #5B6471; display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></span>
+    <span style="color: #5B6471; margin-left: 4px">10 of 54 founders · 6 of 24 companies</span>
+    <button type="button" style="height: 30px; padding: 0 8px; border: 0; background: transparent; color: #2457D6; font-size: 13px; font-weight: 500">Clear all</button>
+  </div>
+
+  <main style="max-width: 1440px; width: 100%; margin: 0 auto; box-sizing: border-box; padding: 12px 32px 24px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 20px">
+
+    <section aria-label="Founders table" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 12px; overflow: hidden">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 12px 16px; border-bottom: 1px solid #E3E6EA">
+        <p style="margin: 0; font-size: 13px; font-weight: 600">Founders <span style="font-weight: 400; color: #5B6471">· sorted by name</span></p>
+        <div style="display: flex; gap: 8px">
+          <button type="button" style="height: 32px; padding: 0 12px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF; color: #111418; font-size: 12px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy CSV</button>
+          <button type="button" style="height: 32px; padding: 0 12px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #E3E6EA; border-radius: 8px; background: #FFFFFF; color: #111418; font-size: 12px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M6 9l6 6 6-6M4 21h16"></path></svg>Download</button>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto">
+        <table style="width: 100%; min-width: 960px; border-collapse: collapse; font-size: 13px">
+          <thead>
+            <tr style="background: #F9FAFB">
+              <th scope="col" style="text-align: left; padding: 10px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Founder</th>
+              <th scope="col" style="text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Company</th>
+              <th scope="col" style="text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Path</th>
+              <th scope="col" style="text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Role</th>
+              <th scope="col" style="text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Status</th>
+              <th scope="col" style="text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Big tech</th>
+              <th scope="col" style="text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Badges</th>
+              <th scope="col" style="text-align: left; padding: 10px 16px 10px 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 11px 16px; border-bottom: 1px solid #E3E6EA; font-weight: 500; white-space: nowrap"><a href="#beyang-liu" style="color: #111418">Beyang Liu</a></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #111418"></span>Sourcegraph</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #B45E0A"></span>Young builder</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">Co-founder; CTO until Dec 2025</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #F1F2F4; color: #5B6471; font-size: 12px; font-weight: 500">Left</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Google, Palantir</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">—</td>
+              <td style="padding: 11px 16px 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><a href="https://handbook.sourcegraph.com/team">handbook.sourcegraph.com</a></td>
+            </tr>
+            <tr style="background: #EAF0FC">
+              <td style="padding: 11px 16px; border-bottom: 1px solid #E3E6EA; font-weight: 600; white-space: nowrap"><a href="#dan-lorenc" aria-current="true" style="color: #111418">Dan Lorenc</a></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #111418"></span>Chainguard</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">Co-founder, CEO</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #E3F3EC; color: #0A5C44; font-size: 12px; font-weight: 500">Active</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Microsoft, Google</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Prior open source</td>
+              <td style="padding: 11px 16px 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><a href="https://kccncind2026.sched.com/speaker/dlorenc">kccncind2026.sched.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 11px 16px; border-bottom: 1px solid #E3E6EA; font-weight: 500; white-space: nowrap"><a href="#david-crawshaw" style="color: #111418">David Crawshaw</a></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #111418"></span>exe.dev</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #0E7C5B"></span>Repeat founder</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">Co-founder, CEO</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #E3F3EC; color: #0A5C44; font-size: 12px; font-weight: 500">Active</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Google</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Prior open source</td>
+              <td style="padding: 11px 16px 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><a href="https://exe.dev/docs/who">exe.dev</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 11px 16px; border-bottom: 1px solid #E3E6EA; font-weight: 500; white-space: nowrap"><a href="#eli-schleifer" style="color: #111418">Eli Schleifer</a></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 2px; background: #111418"></span>Trunk</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #0E7C5B"></span>Repeat founder</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">Co-founder, co-CEO</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #E3F3EC; color: #0A5C44; font-size: 12px; font-weight: 500">Active</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Microsoft, Google, Uber</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Prior exit</td>
+              <td style="padding: 11px 16px 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><a href="https://developerweek2023.sched.com/speaker/eli_schleifer.24uw8c05">developerweek2023.sched.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 11px 16px; border-bottom: 1px solid #E3E6EA; font-weight: 500; white-space: nowrap"><a href="#kim-lewandowski" style="color: #111418">Kim Lewandowski</a></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #111418"></span>Chainguard</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">Co-founder, product</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #E3F3EC; color: #0A5C44; font-size: 12px; font-weight: 500">Active</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Google</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Prior open source</td>
+              <td style="padding: 11px 16px 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><a href="https://www.securitymagazine.com/authors/4214-kim-lewandowski">securitymagazine.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 11px 16px; border-bottom: 1px solid #E3E6EA; font-weight: 500; white-space: nowrap"><a href="#matt-moore" style="color: #111418">Matt Moore</a></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #111418"></span>Chainguard</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">Co-founder, CTO</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #E3F3EC; color: #0A5C44; font-size: 12px; font-weight: 500">Active</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Microsoft, Google</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Prior open source</td>
+              <td style="padding: 11px 16px 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><a href="https://research.contrary.com/company/chainguard">research.contrary.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 11px 16px; border-bottom: 1px solid #E3E6EA; font-weight: 500; white-space: nowrap"><a href="#maxim-fateev" style="color: #111418">Maxim Fateev</a></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #111418"></span>Temporal</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">Co-founder; CEO 2019 to 2024, now CTO</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #FBEEDC; color: #7A3E05; font-size: 12px; font-weight: 500">Role changed</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Amazon, Microsoft, Google, Uber</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Prior open source, Grad degree</td>
+              <td style="padding: 11px 16px 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><a href="https://crunchbase.com/person/maxim-fateev">crunchbase.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 11px 16px; border-bottom: 1px solid #E3E6EA; font-weight: 500; white-space: nowrap"><a href="#scott-nichols" style="color: #111418">Scott Nichols</a></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #111418"></span>Chainguard</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">Co-founder</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #E3F3EC; color: #0A5C44; font-size: 12px; font-weight: 500">Active</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Google</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Prior open source</td>
+              <td style="padding: 11px 16px 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><a href="https://research.contrary.com/company/chainguard">research.contrary.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 11px 16px; border-bottom: 1px solid #E3E6EA; font-weight: 500; white-space: nowrap"><a href="#ville-aikas" style="color: #111418">Ville Aikas</a></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #111418"></span>Chainguard</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; color: #5B6471">Co-founder, distinguished engineer</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #E3F3EC; color: #0A5C44; font-size: 12px; font-weight: 500">Active</span></td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Google</td>
+              <td style="padding: 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap">Prior open source</td>
+              <td style="padding: 11px 16px 11px 12px; border-bottom: 1px solid #E3E6EA; white-space: nowrap"><a href="https://research.contrary.com/company/chainguard">research.contrary.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 11px 16px; font-weight: 500; white-space: nowrap"><a href="#will-wilson" style="color: #111418">Will Wilson</a></td>
+              <td style="padding: 11px 12px; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #111418"></span>Antithesis</span></td>
+              <td style="padding: 11px 12px; white-space: nowrap"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span></td>
+              <td style="padding: 11px 12px; color: #5B6471">Co-founder, CEO</td>
+              <td style="padding: 11px 12px; white-space: nowrap"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; background: #E3F3EC; color: #0A5C44; font-size: 12px; font-weight: 500">Active</span></td>
+              <td style="padding: 11px 12px; white-space: nowrap">Apple, Google</td>
+              <td style="padding: 11px 12px; color: #5B6471">—</td>
+              <td style="padding: 11px 16px 11px 12px; white-space: nowrap"><a href="https://antithesis.com/company/backstory/">antithesis.com</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 10px 16px; border-top: 1px solid #E3E6EA; font-size: 12px; color: #5B6471">
+        <span>Showing 10 founders · ● Amplify ■ Haystack</span>
+        <span>Path colors match the map legend</span>
+      </div>
+    </section>
+
+    <aside style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+
+      <article aria-label="Selected founder" style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 12px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <p style="margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6471">Founder · Amplify</p>
+            <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2">Dan Lorenc</h2>
+            <p style="margin: 0; font-size: 13px; color: #5B6471">Co-founder, CEO · <a href="#chainguard">Chainguard</a></p>
+          </div>
+          <button type="button" aria-label="Close founder details" style="flex: 0 0 auto; width: 32px; height: 32px; margin: -6px -6px 0 0; border: 0; border-radius: 8px; background: transparent; color: #5B6471; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 6px">
+          <span style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: #EAF0FC; color: #111418; font-size: 12px; font-weight: 500"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2457D6"></span>Big tech engineer</span>
+          <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px solid #E3E6EA; color: #111418; font-size: 12px; font-weight: 500">Prior open source</span>
+          <span style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px solid #E3E6EA; color: #111418; font-size: 12px; font-weight: 500">Big tech alum</span>
+        </div>
+
+        <p style="margin: 0; font-size: 13px; line-height: 1.55; color: #111418">MIT mechanical engineering, then Microsoft and Google (2012 to 2021). Created Minikube and helped found Sigstore, Tekton, and SLSA.</p>
+
+        <dl style="margin: 0; display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 8px 12px; font-size: 13px">
+          <dt style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; padding-top: 2px">Worked at</dt>
+          <dd style="margin: 0"><a href="#microsoft">Microsoft</a>, <a href="#google">Google</a></dd>
+          <dt style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; padding-top: 2px">School</dt>
+          <dd style="margin: 0"><a href="#mit">MIT</a></dd>
+          <dt style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; padding-top: 2px">Prior OSS</dt>
+          <dd style="margin: 0"><a href="#kubernetes">Kubernetes</a>, <a href="#sigstore">Sigstore</a>, <a href="#slsa">SLSA</a>, <a href="#tekton">Tekton</a>, <a href="#distroless">Distroless</a></dd>
+          <dt style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471; padding-top: 2px">Co-founders</dt>
+          <dd style="margin: 0"><a href="#matt-moore">Matt Moore</a>, <a href="#kim-lewandowski">Kim Lewandowski</a>, <a href="#ville-aikas">Ville Aikas</a>, <a href="#scott-nichols">Scott Nichols</a></dd>
+        </dl>
+
+        <div id="chainguard" style="border-top: 1px solid #E3E6EA; padding-top: 14px; display: flex; flex-direction: column; gap: 4px">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px">
+            <p style="margin: 0; font-size: 14px; font-weight: 600">Chainguard</p>
+            <p style="margin: 0; font-size: 12px; color: #5B6471">Security &amp; Observability</p>
+          </div>
+          <p style="margin: 0; font-size: 13px">$356M Series D at $3.5B, Apr 2025</p>
+          <p style="margin: 0; font-size: 12px; color: #5B6471">Founded 2021 · Active · Partially open source</p>
+        </div>
+
+        <p style="margin: 0; font-size: 12px; color: #5B6471">Source: <a href="https://kccncind2026.sched.com/speaker/dlorenc">kccncind2026.sched.com</a></p>
+      </article>
+
+      <section aria-label="Filter summary" style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px">
+        <p style="margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6471">In this view</p>
+        <div style="display: flex; justify-content: space-between; font-size: 13px"><span>Big tech engineers</span><span style="font-variant-numeric: tabular-nums; color: #5B6471">7 of 10</span></div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px"><span>Prior open source</span><span style="font-variant-numeric: tabular-nums; color: #5B6471">7 of 10</span></div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px"><span>Still in founding role</span><span style="font-variant-numeric: tabular-nums; color: #5B6471">8 of 10</span></div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px"><span>Chainguard co-founders</span><span style="font-variant-numeric: tabular-nums; color: #5B6471">5 of 10</span></div>
+      </section>
+
+    </aside>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":940}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
