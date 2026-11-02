@@ -96,3 +96,29 @@ describe('app', () => {
     expect(q('#insights-list li')).not.toBeNull()
   })
 })
+
+describe('focus retention across re-renders', () => {
+  const focusClick = (sel: string) => {
+    q(sel).focus()
+    click(sel)
+  }
+  it('keeps focus on a cluster row and on a badge segment after toggling them', () => {
+    focusClick('#clusters-list [data-cluster="academic"]')
+    expect(q('#clusters-list [data-cluster="academic"]').getAttribute('aria-pressed')).toBe('true')
+    expect(document.activeElement).toBe(q('#clusters-list [data-cluster="academic"]'))
+    focusClick('#badge-rows [data-bp="prior_exit:repeat_founder"]')
+    expect(q('#badge-rows [data-bp="prior_exit:repeat_founder"]').getAttribute('aria-pressed')).toBe('true')
+    expect(document.activeElement).toBe(q('#badge-rows [data-bp="prior_exit:repeat_founder"]'))
+  })
+  it('sends focus to the Filters button when Clear all empties the row, and into the new card after a member link', () => {
+    focusClick('#clear-filters')
+    expect(q('#active-row').hasAttribute('hidden')).toBe(true)
+    expect(document.activeElement).toBe(q('#filters-btn'))
+    q('[data-id="e:google"]').dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    expect(text('#detail h2')).toBe('Google')
+    focusClick('#detail [data-select^="f:"]')
+    expect(text('#detail h2')).not.toBe('Google')
+    expect(q('#detail').contains(document.activeElement)).toBe(true)
+    click('#detail [data-close]')
+  })
+})

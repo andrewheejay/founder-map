@@ -29,11 +29,33 @@ function renderStats(doc: Document) {
   if (stats) stats.textContent = `${graph.founders.length} founders · ${graph.companies.length} companies · ${shared} shared employers & schools · ${projects} open source projects`
 }
 
-/** Swap an element's HTML only when it changed, so focus and scroll position survive unrelated updates. */
-function swap(el: HTMLElement | null, html: string, cache: Map<HTMLElement, string>) {
+const FOCUS_KEYS = ['data-select', 'data-remove', 'data-close', 'data-cluster', 'data-bp', 'data-oss', 'data-employer', 'data-path', 'data-badge']
+const FOCUSABLE = 'button:not([disabled]), a[href], input, select, [tabindex]:not([tabindex="-1"])'
+
+/** The attribute selector that identifies a control across re-renders, or null when it carries no data key. */
+function focusKey(el: Element): string | null {
+  for (const k of FOCUS_KEYS) {
+    const v = el.getAttribute(k)
+    if (v !== null) return `[${k}="${v.replace(/["\\]/g, '\\$&')}"]`
+  }
+  return null
+}
+
+/**
+ * Swap an element's HTML only when it changed, so focus and scroll position survive unrelated updates.
+ * When keyboard focus was inside, put it back on the same control in the new markup, else on the first
+ * control, else on the fallback, so a toggle or Clear all never drops focus to the body.
+ */
+function swap(el: HTMLElement | null, html: string, cache: Map<HTMLElement, string>, fallback: HTMLElement | null = null) {
   if (!el || cache.get(el) === html) return
+  const doc = el.ownerDocument
+  const active = doc.activeElement
+  const key = active && active !== doc.body && el.contains(active) ? (focusKey(active) ?? '') : null
   el.innerHTML = html
   cache.set(el, html)
+  if (key === null) return
+  const next = (key && el.querySelector<HTMLElement>(key)) || (el.closest('[hidden]') ? null : el.querySelector<HTMLElement>(FOCUSABLE)) || fallback
+  next?.focus()
 }
 
 /** Boot the app against a document: store, map, renderers, and every event handler. */
@@ -84,8 +106,8 @@ export function boot(doc: Document): void {
     map.update({ focus: focusNode, pinned: s.pinned, matched, layers: s.layers, filtersActive: active, pathFilter: s.filters.paths })
     swap(doc.getElementById('detail'), detailHTML(focusNode, s, graph, matched), cache)
     const row = doc.getElementById('active-row')
-    swap(row, activeRowHTML(activeChips(s.filters), matched.size, matchedCompanies(graph, matched).length, totals), cache)
     if (row) row.hidden = !active
+    swap(row, activeRowHTML(activeChips(s.filters), matched.size, matchedCompanies(graph, matched).length, totals), cache, doc.getElementById('filters-btn'))
     swap(doc.getElementById('clusters-list'), clustersHTML(graph, matched, active, s.filters), cache)
     swap(doc.getElementById('badge-rows'), badgeRowsHTML(graph, s.filters), cache)
     syncControls(doc, s)
