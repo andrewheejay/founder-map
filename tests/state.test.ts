@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { DEFAULT_FILTERS, DEFAULT_STATE, clearFilters, createStore, escapeClears, hoverFocusAllowed, removeFilter, toggleBadgePath, toggleOss, togglePath, toggleSelect } from '../src/state'
+import { DEFAULT_SORT, toggleSort } from '../src/state'
 
 describe('state', () => {
   it('store notifies subscribers with merged state', () => {
@@ -43,5 +44,13 @@ describe('state', () => {
     expect(removeFilter(many, 'fund').fund).toBe('all')
     expect(removeFilter(many, 'school').school).toBe('')
     expect(clearFilters()).toEqual(DEFAULT_FILTERS)
+  })
+})
+
+describe('sort state', () => {
+  it('toggleSort flips direction on the same key and resets on a new key', () => {
+    expect(toggleSort(DEFAULT_SORT, 'name')).toEqual({ key: 'name', dir: -1 })
+    expect(toggleSort({ key: 'name', dir: -1 }, 'company')).toEqual({ key: 'company', dir: 1 })
+    expect(DEFAULT_STATE.sort).toEqual({ key: 'name', dir: 1 })
   })
 })

@@ -73,3 +73,6 @@ export interface Filters {
   status: FounderStatus | ''
   oss: OssProduct | ''
 }
+
+/** Table sort keys, one per column of src/table/table.ts TABLE_COLUMNS. */
+export type SortKey = 'name' | 'fund' | 'company' | 'path' | 'role' | 'status' | 'bigtech' | 'badges' | 'schools' | 'projects' | 'ossp' | 'last' | 'src'

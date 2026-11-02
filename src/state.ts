@@ -1,4 +1,4 @@
-import type { BadgeKey, Filters, Layers, OssProduct, PathKey, Tab, View } from './types'
+import type { BadgeKey, Filters, Layers, OssProduct, PathKey, SortKey, Tab, View } from './types'
 
 export interface State {
   /** id of the hovered or selected node */
@@ -10,7 +10,16 @@ export interface State {
   view: View
   tab: Tab
   drawer: boolean
+  sort: Sort
 }
+
+/** Table sort: the column key and direction (1 ascending, -1 descending). */
+export interface Sort {
+  key: SortKey
+  dir: 1 | -1
+}
+
+export const DEFAULT_SORT: Sort = { key: 'name', dir: 1 }
 
 export const DEFAULT_LAYERS: Layers = { companies: true, employers: true, schools: true, projects: true, oneOff: false, alt: true }
 
@@ -26,7 +35,7 @@ export const DEFAULT_FILTERS: Filters = {
   oss: '',
 }
 
-export const DEFAULT_STATE: State = { focus: null, pinned: false, layers: DEFAULT_LAYERS, filters: DEFAULT_FILTERS, view: 'map', tab: 'clusters', drawer: false }
+export const DEFAULT_STATE: State = { focus: null, pinned: false, layers: DEFAULT_LAYERS, filters: DEFAULT_FILTERS, view: 'map', tab: 'clusters', drawer: false, sort: DEFAULT_SORT }
 
 export interface Store {
   get(): State
@@ -114,3 +123,6 @@ export function removeFilter(f: Filters, key: string): Filters {
 }
 
 export const clearFilters = (): Filters => DEFAULT_FILTERS
+
+/** Clicking the active column header flips the direction; any other header sorts ascending by it. */
+export const toggleSort = (s: Sort, key: SortKey): Sort => (s.key === key ? { key, dir: s.dir === 1 ? -1 : 1 } : { key, dir: 1 })
