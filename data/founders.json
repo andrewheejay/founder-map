@@ -1371,5 +1371,799 @@
     "edgeCase": false,
     "bio": "First engineer at Nova Credit before co-founding Finley.",
     "source": "https://ycombinator.com/companies/finley"
+  },
+  {
+    "id": "f:kwindla-hultman-kramer",
+    "name": "Kwindla Hultman Kramer",
+    "shortLabel": "Kramer",
+    "company": "Daily.co",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Oblong Industries",
+      "AllAfrica"
+    ],
+    "schools": [
+      "Harvard",
+      "MIT"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Founding CTO of AllAfrica, then co-founder and CEO of Oblong Industries from 2005 to 2013. Holds a Harvard AB and an MIT Media Lab MS, and started the Pipecat open source project at Daily.",
+    "source": "https://twimlai.com/network/kwindla-kramer"
+  },
+  {
+    "id": "f:nina-kuruvilla",
+    "name": "Nina Kuruvilla",
+    "shortLabel": "Kuruvilla",
+    "company": "Daily.co",
+    "path": "business_operator",
+    "secondaryPath": null,
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [],
+    "schools": [
+      "Harvard"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": true,
+    "bio": "Co-founder of Daily since January 2016 with a Harvard philosophy degree. Her public record before Daily is sparse.",
+    "source": "https://techcrunch.com/2020/05/04/daily-co-raises-4-6m-video-chat-api-service/"
+  },
+  {
+    "id": "f:doug-brunton",
+    "name": "Doug Brunton",
+    "shortLabel": "Brunton",
+    "company": "Daily.co",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder (2015 to 2017)",
+    "status": "left",
+    "statusNote": "Left in 2017 and held a board seat until 2019; VP Engineering at Plectica, then Frameable since 2021.",
+    "badges": [],
+    "employers": [
+      "Plus Three",
+      "Shutterstock",
+      "Oblong Industries"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Founding partner of Plus Three, which took the Democratic National Committee's fundraising online, then an engineer at Shutterstock and Oblong Industries. Co-founded Daily (then Pluot Communications) in 2015 and built its early hardware prototypes.",
+    "source": "https://www.linkedin.com/in/doug-brunton/"
+  },
+  {
+    "id": "f:jon-dahl",
+    "name": "Jon Dahl",
+    "shortLabel": "Dahl",
+    "company": "Mux",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_exit",
+      "grad_degree"
+    ],
+    "employers": [
+      "Zencoder",
+      "Brightcove"
+    ],
+    "schools": [
+      "Wheaton College",
+      "Trinity International University"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Co-founded Zencoder in 2010 and sold it to Brightcove in 2012, then served as Brightcove VP of Technology. Studied philosophy at Wheaton and theology at Trinity before turning to programming.",
+    "source": "https://www.heavybit.com/community/jon-dahl"
+  },
+  {
+    "id": "f:steve-heffernan",
+    "name": "Steve Heffernan",
+    "shortLabel": "Heffernan",
+    "company": "Mux",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder; Head of Product 2015 to 2021, now Product Architect",
+    "status": "role_changed",
+    "statusNote": "Stepped back from Head of Product in July 2021 and remains as co-founder and product architect, still shipping Video.js and Mux work in 2026.",
+    "badges": [
+      "prior_exit",
+      "prior_open_source",
+      "grad_degree"
+    ],
+    "employers": [
+      "Zencoder",
+      "Brightcove",
+      "Sevenwire"
+    ],
+    "schools": [
+      "Azusa Pacific"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Video.js"
+    ],
+    "edgeCase": false,
+    "bio": "Created Video.js in 2010 alongside Zencoder, which he co-founded and sold to Brightcove in 2012, then led open player technology at Brightcove. Holds a BS and an MBA from Azusa Pacific.",
+    "source": "https://www.heavybit.com/community/steve-heffernan"
+  },
+  {
+    "id": "f:matthew-mcclure",
+    "name": "Matthew McClure",
+    "shortLabel": "McClure",
+    "company": "Mux",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder, Head of Developer Experience",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Brightcove"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Video.js"
+    ],
+    "edgeCase": false,
+    "bio": "Developer evangelist and engineer on Brightcove's Zencoder and Video.js teams before co-founding Mux in 2015. Organizes the Demuxed conference for video engineers.",
+    "source": "https://www.heavybit.com/community/matt-mcclure"
+  },
+  {
+    "id": "f:adam-brown",
+    "name": "Adam Brown",
+    "shortLabel": "Brown",
+    "company": "Mux",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder, Head of Technology and Architecture",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Brightcove",
+      "Otoy"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Built cloud transcoding on Brightcove's Zencoder team and VR cloud rendering at Otoy before co-founding Mux. Leads technology and architecture at Mux.",
+    "source": "https://www.heavybit.com/community/adam-brown"
+  },
+  {
+    "id": "f:yadhu-gopalan",
+    "name": "Yadhu Gopalan",
+    "shortLabel": "Gopalan",
+    "company": "Esper",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Microsoft",
+      "Amazon"
+    ],
+    "schools": [
+      "Maine",
+      "Auburn"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Spent 19 years at Microsoft on Windows CE and Windows Phone, then five at Amazon building back-end systems for Fire OS, Amazon Go, and AWS, and holds 35 patents in embedded systems and security. Co-founded Esper in 2017 and has been its CEO since.",
+    "source": "https://www.geekwire.com/2021/devops-device-fleets-esper-lands-60m-manage-devices-used-retail-healthcare-education/"
+  },
+  {
+    "id": "f:shiv-sundar",
+    "name": "Shiv Sundar",
+    "shortLabel": "Sundar",
+    "company": "Esper",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder; COO, now Chief Business Operator",
+    "status": "role_changed",
+    "statusNote": "Esper's leadership page now lists him as Co-Founder and Chief Business Operator, with David Barclay as COO.",
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Microsoft",
+      "Samsung",
+      "Quixey",
+      "Cyanogen",
+      "Huawei"
+    ],
+    "schools": [
+      "Motilal Nehru NIT",
+      "USC"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": true,
+    "bio": "Program manager for Windows Phone partnerships at Microsoft, then product and partnerships roles at Samsung, Quixey, Cyanogen, and Huawei, where he ran global Android strategy. Co-founded Esper in 2017, launched its India operations, and leads revenue and go-to-market.",
+    "source": "https://www.esper.io/about-us"
+  },
+  {
+    "id": "f:fred-schott",
+    "name": "Fred Schott",
+    "shortLabel": "Schott",
+    "company": "Astro",
+    "path": "big_tech_engineer",
+    "secondaryPath": "young_builder",
+    "role": "Founder; Astro Project Steward until Aug 2026",
+    "status": "role_changed",
+    "statusNote": "Sold the company to Cloudflare in January 2026 and handed the Astro Project Steward role to Matthew Phillips in August 2026; his Cloudflare title is not stated publicly.",
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Box",
+      "WorkLife",
+      "Google"
+    ],
+    "schools": [
+      "Tufts"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Snowpack",
+      "Polymer"
+    ],
+    "edgeCase": false,
+    "bio": "Studied computer science at Tufts, then worked at Box, WorkLife, and Google's Polymer team on Web Components tooling. Created the Snowpack build tool, formed The Astro Technology Company around the Astro framework, and sold it to Cloudflare in January 2026.",
+    "source": "https://fredkschott.com/about/"
+  },
+  {
+    "id": "f:matthew-phillips",
+    "name": "Matthew Phillips",
+    "shortLabel": "Phillips",
+    "company": "Astro",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-creator of Astro; Project Steward since Aug 2026",
+    "status": "role_changed",
+    "statusNote": "Moved to Cloudflare with the January 2026 acquisition and became Astro's Project Steward in August 2026, taking over from Schott.",
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Bitovi"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "CanJS",
+      "StealJS",
+      "Haunted"
+    ],
+    "edgeCase": true,
+    "bio": "Louisville-based front-end engineer who spent years as a full-time open source maintainer of CanJS and StealJS at the consultancy Bitovi and wrote the Haunted web components library. Joined Fred Schott's Skypack as an engineer, co-created Astro, and now stewards the project at Cloudflare.",
+    "source": "https://www.smashingmagazine.com/2021/11/smashing-podcast-episode-43/"
+  },
+  {
+    "id": "f:ramiro-berrelleza",
+    "name": "Ramiro Berrelleza",
+    "shortLabel": "Berrelleza",
+    "company": "Okteto",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "Microsoft",
+      "ElasticBox",
+      "Atlassian"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Grew up in Guadalajara, Mexico, and spent his career on cloud services and developer tools as a software engineer on Microsoft Azure, an early engineer at ElasticBox, and an architect at Atlassian. Co-founded Okteto in 2018 and led it through Y Combinator's W19 batch as CEO.",
+    "source": "https://www.ycombinator.com/companies/okteto"
+  },
+  {
+    "id": "f:pablo-chico-de-guzman",
+    "name": "Pablo Chico de Guzmán",
+    "shortLabel": "Chico de Guzmán",
+    "company": "Okteto",
+    "path": "academic",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Tutum",
+      "Docker"
+    ],
+    "schools": [
+      "UPM Madrid"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Earned a 2012 doctorate in logic programming at the Universidad Politécnica de Madrid and worked as a postdoctoral researcher at the IMDEA Software Institute before building Docker Cloud, the container platform formerly known as Tutum. Co-founded Okteto in 2018 as CTO and leads the Docker Madrid meetup as a Docker Community Leader.",
+    "source": "https://oa.upm.es/14660/"
+  },
+  {
+    "id": "f:ramon-lamana",
+    "name": "Ramón Lamana",
+    "shortLabel": "Lamana",
+    "company": "Okteto",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder, CPO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "eyeOS",
+      "ElasticBox",
+      "Google"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Front-end engineer who built developer tools at eyeOS and ElasticBox, then worked at Google on consumer products including Inbox by Gmail and YouTube. Co-founded Okteto in 2018 and leads product.",
+    "source": "https://www.ycombinator.com/companies/okteto"
+  },
+  {
+    "id": "f:yevgeny-pats",
+    "name": "Yevgeny Pats",
+    "shortLabel": "Pats",
+    "company": "CloudQuery",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "role_changed",
+    "statusNote": "CloudQuery merged into env zero in March 2026 and Pats became CTO of the combined company.",
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "Israel Defense Forces",
+      "Check Point",
+      "GitLab"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Began as an R&D software engineer in an Israel Defense Forces cyber intelligence unit, then joined an enterprise security startup that Check Point acquired. Founded the continuous fuzzing service Fuzzit, sold it to GitLab in 2020, and started CloudQuery as an open source project in 2021.",
+    "source": "https://www.heavybit.com/library/podcasts/the-kubelist-podcast/ep-29-cloudquery-with-yevgeny-pats"
+  },
+  {
+    "id": "f:ivan-tsarynny",
+    "name": "Ivan Tsarynny",
+    "shortLabel": "Tsarynny",
+    "company": "Feroot",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "PostBeyond"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Co-founded the Toronto employee-advocacy startup PostBeyond in 2013 and led it as CEO through a 2016 Series A; Influitive acquired it in 2021. Leads an OWASP Top 10 project, sits on the Standards Council of Canada GDPR committee, and testified before the U.S.-China Economic and Security Review Commission in 2024.",
+    "source": "https://www.feroot.com/about-us/"
+  },
+  {
+    "id": "f:vitaliy-lim",
+    "name": "Vitaliy Lim",
+    "shortLabel": "Lim",
+    "company": "Feroot",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_exit",
+      "grad_degree"
+    ],
+    "employers": [
+      "PostBeyond"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Engineer and security researcher since the early 2000s who holds a master's degree in electrical and computer engineering. Founded PostBeyond in 2013, later acquired by Influitive, and co-founded Feroot in 2017 as CTO.",
+    "source": "https://www.feroot.com/about-us/"
+  },
+  {
+    "id": "f:frederic-branczyk",
+    "name": "Frederic Branczyk",
+    "shortLabel": "Branczyk",
+    "company": "Polar Signals",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Founder, CEO",
+    "status": "role_changed",
+    "statusNote": "Dash0 acquired Polar Signals in August 2026; Branczyk is now VP of Data Engineering at Dash0.",
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "CoreOS",
+      "Red Hat"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Prometheus",
+      "Thanos",
+      "Kubernetes"
+    ],
+    "edgeCase": false,
+    "bio": "Prometheus and Thanos maintainer who led observability engineering at CoreOS and then at Red Hat as senior principal engineer, and served four years as tech lead of Kubernetes SIG Instrumentation. Founded Polar Signals in Berlin at the end of 2020 and open sourced the Parca continuous profiler in 2021.",
+    "source": "https://qconsf.com/speakers/fredericbranczyk"
+  },
+  {
+    "id": "f:john-chodera",
+    "name": "John Chodera",
+    "shortLabel": "Chodera",
+    "company": "Achira",
+    "path": "academic",
+    "secondaryPath": null,
+    "role": "Co-founder, President and CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree",
+      "prior_open_source"
+    ],
+    "employers": [
+      "Memorial Sloan Kettering"
+    ],
+    "schools": [
+      "Caltech",
+      "UCSF"
+    ],
+    "taughtAt": [
+      "Weill Cornell",
+      "Charité Berlin"
+    ],
+    "priorOpenSource": [
+      "OpenMM",
+      "Open Force Field",
+      "Folding@home"
+    ],
+    "edgeCase": false,
+    "bio": "Caltech biology graduate and UCSF biophysics PhD, followed by postdocs at Stanford and as a QB3 fellow at UC Berkeley. Has led a computational chemistry lab at Memorial Sloan Kettering since late 2012, co-develops OpenMM, co-founded the Open Force Field Initiative, and is a core member of the Folding@home Consortium.",
+    "source": "https://www.choderalab.org/jdc-bios"
+  },
+  {
+    "id": "f:theofanis-karaletsos",
+    "name": "Theofanis Karaletsos",
+    "shortLabel": "Karaletsos",
+    "company": "Achira",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Co-founder",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "Geometric Intelligence",
+      "Uber",
+      "Facebook",
+      "insitro",
+      "Chan Zuckerberg Initiative"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "Pyro"
+    ],
+    "edgeCase": false,
+    "bio": "AI researcher who co-founded Uber AI Labs after Uber acquired Geometric Intelligence, co-created the Pyro probabilistic programming library, and led a probabilistic machine learning team at Meta. Served as VP of AI at insitro and Head of AI for Science at the Chan Zuckerberg Initiative before co-founding Achira.",
+    "source": "https://www.karaletsos.com/"
+  },
+  {
+    "id": "f:zavain-dar",
+    "name": "Zavain Dar",
+    "shortLabel": "Dar",
+    "company": "Achira",
+    "path": "business_operator",
+    "secondaryPath": null,
+    "role": "Co-founder, Board member",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Discovery Engine",
+      "Innovation Endeavors",
+      "Lux Capital",
+      "Dimension"
+    ],
+    "schools": [
+      "Stanford"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Stanford symbolic systems BS and computer science MS who engineered machine learning systems at Discovery Engine before investing at Innovation Endeavors and as a general partner at Lux Capital. Founded Dimension, which led Achira's seed round, and sits on Achira's board as a co-founder.",
+    "source": "https://www.dimensioncap.com/people/zavain-dar"
+  },
+  {
+    "id": "f:michael-callahan",
+    "name": "Michael Callahan",
+    "shortLabel": "Callahan",
+    "company": "Awake Security",
+    "path": "repeat_founder",
+    "secondaryPath": "big_tech_engineer",
+    "role": "Co-founder, CEO 2014 to 2018",
+    "status": "left",
+    "statusNote": "Handed the CEO role to Rahul Kashyap in July 2018 and moved to a technical role and board seat; Awake was sold to Arista in October 2020. He remains a Datadog director (on that board since 2011).",
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "Ask Jeeves",
+      "PolyServe",
+      "HP",
+      "Greylock Partners"
+    ],
+    "schools": [
+      "Harvard",
+      "Oxford"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Harvard social studies graduate and Rhodes Scholar who was a junior research fellow in mathematics at Oxford before co-founding PolyServe, a storage software company sold to HP in 2007. Incubated Awake Security as a Greylock entrepreneur in residence and was its founding CEO from August 2014 to July 2018.",
+    "source": "https://www.sec.gov/Archives/edgar/data/0001561550/000162828026028118/ddog-20260429.htm"
+  },
+  {
+    "id": "f:keith-amidon",
+    "name": "Keith Amidon",
+    "shortLabel": "Amidon",
+    "company": "Awake Security",
+    "path": "repeat_founder",
+    "secondaryPath": "big_tech_engineer",
+    "role": "Co-founder, VP Networking",
+    "status": "left",
+    "statusNote": "Awake was sold to Arista Networks in October 2020; his current role is not confirmed on any page that loaded.",
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "IntruVert Networks",
+      "McAfee",
+      "Nicira",
+      "VMware"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Co-founder of IntruVert Networks, an intrusion detection company acquired by McAfee, then an engineering director at Nicira and VMware in software-defined networking and a co-author of the Open vSwitch paper. Joined Awake's founding team in 2014 to lead high performance network processing.",
+    "source": "https://fortune.com/2017/07/17/cyber-security-startup-awake"
+  },
+  {
+    "id": "f:debabrata-dash",
+    "name": "Debabrata Dash",
+    "shortLabel": "Dash",
+    "company": "Awake Security",
+    "path": "big_tech_engineer",
+    "secondaryPath": "academic",
+    "role": "Co-founder, VP Analytics",
+    "status": "left",
+    "statusNote": "Awake was sold to Arista Networks in October 2020; his later role at Arista could not be confirmed from a page that loaded.",
+    "badges": [
+      "grad_degree"
+    ],
+    "employers": [
+      "Sun Microsystems",
+      "Jalva Media",
+      "ArcSight",
+      "HP",
+      "CipherCloud"
+    ],
+    "schools": [
+      "IIT Kanpur",
+      "Carnegie Mellon"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "IIT Kanpur engineer who was a senior software architect at ArcSight, returned to Carnegie Mellon for a databases PhD, and became a distinguished technologist at HP after it bought ArcSight. Led engineering at CipherCloud before co-founding Awake Security in 2014 to run its analytics pipeline.",
+    "source": "https://www.alexanderjarvis.com/why-greylock-invested-in-awake-security/"
+  },
+  {
+    "id": "f:gary-golomb",
+    "name": "Gary Golomb",
+    "shortLabel": "Golomb",
+    "company": "Awake Security",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder, Chief Research Officer",
+    "status": "left",
+    "statusNote": "Awake was sold to Arista in October 2020; he is now Chief Research Officer at Quantum Offense, a quantum computing threat research venture.",
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "Enterasys Networks",
+      "George Washington University",
+      "Proventsure",
+      "NetWitness",
+      "Cylance"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Former Marine Force Recon who moved into intrusion detection research at Enterasys and forensics at George Washington University, founded Proventsure (acquired by NetWitness, later RSA), and was among the first employees at Cylance. Co-founded Awake Security in 2014 as its chief research officer and lead threat investigator.",
+    "source": "https://www.govtech.com/authors/Gary-Golomb.html"
+  },
+  {
+    "id": "f:zack-kanter",
+    "name": "Zack Kanter",
+    "shortLabel": "Kanter",
+    "company": "Stedi",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "Proforged"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Started an auto parts business at 16 that became Proforged, ran it bootstrapped for more than a decade, and sold it to Drake Automotive Group, a Huron Capital portfolio company, in 2018. Founded Stedi in 2017 as a sole founder and remains its CEO.",
+    "source": "https://zackkanter.com/about/"
+  },
+  {
+    "id": "f:gavin-uhma",
+    "name": "Gavin Uhma",
+    "shortLabel": "Uhma",
+    "company": "Cape Privacy",
+    "path": "repeat_founder",
+    "secondaryPath": null,
+    "role": "Co-founder, CTO",
+    "status": "role_changed",
+    "statusNote": "Cape's 2026 About page lists him as co-founder and board member without the CTO title he held through at least 2021.",
+    "badges": [
+      "prior_exit"
+    ],
+    "employers": [
+      "Slightly Social",
+      "GoInstant",
+      "Salesforce"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Was CTO of Slightly Social and then co-founded GoInstant, a Halifax browser collaboration startup sold to Salesforce for about $70 million in 2012. After a stint at Salesforce and the Sidestory app, he co-founded Cape Privacy in 2018 as CTO and is also an angel investor.",
+    "source": "https://versionone.vc/announcing-our-investment-in-cape-privacy-a-privacy-platform-for-collaborative-data-science-and-machine-learning/"
+  },
+  {
+    "id": "f:ben-decoste",
+    "name": "Ben DeCoste",
+    "shortLabel": "DeCoste",
+    "company": "Cape Privacy",
+    "path": "young_builder",
+    "secondaryPath": null,
+    "role": "Co-founder, engineering",
+    "status": "active",
+    "statusNote": null,
+    "badges": [],
+    "employers": [
+      "GoInstant",
+      "Sidestory"
+    ],
+    "schools": [],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "GoInstant alum who was CTO of the Halifax storytelling app Sidestory alongside Gavin Uhma before the group regrouped in 2018 to start Cape Privacy. Co-authored the 2018 TF Encrypted paper on private machine learning in TensorFlow and still writes for Cape's engineering blog in 2026.",
+    "source": "https://entrevestor.com/home/entry/cape-privacy-raises-us20m"
+  },
+  {
+    "id": "f:ian-livingstone",
+    "name": "Ian Livingstone",
+    "shortLabel": "Livingstone",
+    "company": "Cape Privacy",
+    "path": "young_builder",
+    "secondaryPath": "big_tech_engineer",
+    "role": "Co-founder",
+    "status": "left",
+    "statusNote": "Left Cape Privacy in summer 2020, according to Entrevestor's April 2021 report.",
+    "badges": [],
+    "employers": [
+      "GoInstant",
+      "Salesforce",
+      "Manifold"
+    ],
+    "schools": [
+      "Dalhousie"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [],
+    "edgeCase": false,
+    "bio": "Dalhousie graduate who joined GoInstant straight out of school in 2011, led a 25-person engineering team at Salesforce after the acquisition, and worked at Manifold with GoInstant's former CEO. Co-founded Cape Privacy in 2018 and left in 2020.",
+    "source": "https://entrevestor.com/home/entry/cape-privacy-raises-us20m"
+  },
+  {
+    "id": "f:idit-levine",
+    "name": "Idit Levine",
+    "shortLabel": "Levine",
+    "company": "Solo.io",
+    "path": "big_tech_engineer",
+    "secondaryPath": null,
+    "role": "Founder, CEO",
+    "status": "active",
+    "statusNote": null,
+    "badges": [
+      "prior_open_source"
+    ],
+    "employers": [
+      "DynamicOps",
+      "VMware",
+      "CloudSwitch",
+      "Verizon",
+      "Intigua",
+      "EMC"
+    ],
+    "schools": [
+      "Bar-Ilan"
+    ],
+    "taughtAt": [],
+    "priorOpenSource": [
+      "UniK",
+      "layer-x"
+    ],
+    "edgeCase": false,
+    "bio": "Former professional basketball player in Israel who taught herself to code, studied computer science and biology at Bar-Ilan, and built cloud infrastructure at DynamicOps, CloudSwitch, and Intigua before becoming CTO of EMC's cloud management division, where she created the open source UniK unikernel platform. Founded Solo.io in Boston in 2017 as a sole founder and still runs it.",
+    "source": "https://www.betaboom.com/magazine/article/from-the-court-to-the-cloud-how-idit-levines-athletic-mindset-built-a-unicorn"
   }
 ]

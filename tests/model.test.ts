@@ -4,17 +4,17 @@ import { PATH_ORDER, slug } from '../src/model'
 
 describe('model', () => {
   it('totals come from the data', () => {
-    expect(graph.founders).toHaveLength(54)
-    expect(graph.companies).toHaveLength(24)
+    expect(graph.founders).toHaveLength(84)
+    expect(graph.companies).toHaveLength(37)
     expect(graph.all).toHaveLength(Object.keys(layout.nodes).length)
   })
   it('per-path counts by fund match section 5.1', () => {
     const want: Record<string, [number, number]> = {
-      big_tech_engineer: [12, 7],
-      young_builder: [7, 9],
-      repeat_founder: [6, 5],
-      business_operator: [1, 3],
-      academic: [4, 0],
+      big_tech_engineer: [13, 16],
+      young_builder: [7, 13],
+      repeat_founder: [6, 17],
+      business_operator: [2, 4],
+      academic: [5, 1],
     }
     for (const c of graph.clusters) expect([c.counts.amplify, c.counts.haystack], c.key).toEqual(want[c.key])
     expect(graph.clusters.map((c) => c.key)).toEqual(PATH_ORDER)

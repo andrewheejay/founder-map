@@ -30,10 +30,10 @@ describe('filters', () => {
     expect(matchFounder(lorenc, F({ status: 'left' }))).toBe(lorenc.status === 'left')
     expect(matchFounder(lorenc, F({ oss: lorenc.company.openSourceProduct }))).toBe(true)
   })
-  it('Big tech alum + Google shows 10 of 54 founders and 6 of 24 companies', () => {
+  it('Big tech alum + Google shows 12 of 84 founders and 8 of 37 companies', () => {
     const m = matchedFounders(graph, F({ badges: new Set(['big_tech_alum']), employers: new Set(['Google']) }))
-    expect(m.size).toBe(10)
-    expect(matchedCompanies(graph, m)).toHaveLength(6)
+    expect(m.size).toBe(12)
+    expect(matchedCompanies(graph, m)).toHaveLength(8)
   })
   it('counts active filters and lists chips in order with remove keys', () => {
     expect(activeFilterCount(DEFAULT_FILTERS)).toBe(0)

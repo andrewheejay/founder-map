@@ -19,20 +19,20 @@ beforeAll(() => {
 })
 
 describe('app', () => {
-  it('opens the drawer, filters Big tech alum + Google to 10 of 54 and 6 of 24, removes and clears', () => {
+  it('opens the drawer, filters Big tech alum + Google to 12 of 84 and 8 of 37, removes and clears', () => {
     expect(q('#filters-drawer').hasAttribute('hidden')).toBe(true)
     click('#filters-btn')
     expect(q('#filters-drawer').hasAttribute('hidden')).toBe(false)
     expect(q('#filters-btn').getAttribute('aria-expanded')).toBe('true')
     click('[data-badge="big_tech_alum"]')
     click('[data-employer="Google"]')
-    expect(text('#active-row .active__count')).toBe('10 of 54 founders · 6 of 24 companies')
+    expect(text('#active-row .active__count')).toBe('12 of 84 founders · 8 of 37 companies')
     expect(text('#filters-count')).toBe('2')
     expect([...document.querySelectorAll('#map g.lbl.cluster text')].some((t) => /· \d+\/\d+$/.test(t.textContent ?? ''))).toBe(true)
     expect([...document.querySelectorAll('#map g.node.founder')].some((n) => (n as HTMLElement).style.opacity === '0.07')).toBe(true)
     expect(q('#clusters-list [data-cluster="big_tech_engineer"] .cluster-row__count').textContent).toMatch(new RegExp(` of ${graph.clusters[0].founders.length}$`))
     click('[data-remove="employer:Google"]')
-    expect(text('#active-row .active__count')).toMatch(new RegExp(`^${graph.founders.filter((f) => f.badges.includes('big_tech_alum')).length} of 54 founders`))
+    expect(text('#active-row .active__count')).toMatch(new RegExp(`^${graph.founders.filter((f) => f.badges.includes('big_tech_alum')).length} of 84 founders`))
     click('#clear-filters')
     expect(q('#active-row').hasAttribute('hidden')).toBe(true)
     expect(q('#filters-count').hasAttribute('hidden')).toBe(true)
@@ -59,7 +59,7 @@ describe('app', () => {
     const input = q<HTMLInputElement>('#map-search')
     input.value = 'lorenc'
     input.dispatchEvent(new Event('input', { bubbles: true }))
-    expect(text('#active-row .active__count')).toBe('1 of 54 founders · 1 of 24 companies')
+    expect(text('#active-row .active__count')).toBe('1 of 84 founders · 1 of 37 companies')
     expect(text('#active-row .achip')).toContain('“lorenc”')
     click('#clear-filters')
     expect(input.value).toBe('')
@@ -94,7 +94,7 @@ describe('app', () => {
     expect(q('#tab-about').hasAttribute('hidden')).toBe(false)
     expect(q('[data-tab="about"]').getAttribute('aria-selected')).toBe('true')
     click('[data-fund="haystack"]')
-    expect(text('#active-row .active__count')).toMatch(/^\d+ of 54 founders · 12 of 24 companies$/)
+    expect(text('#active-row .active__count')).toMatch(/^\d+ of 84 founders · 24 of 37 companies$/)
     click('#clear-filters')
     expect(q('#insights-list li')).not.toBeNull()
   })

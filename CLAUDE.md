@@ -33,8 +33,8 @@ founder-map/
   index.html
   package.json
   data/
-    founders.json           54 founders
-    companies.json          24 companies
+    founders.json           84 founders
+    companies.json          37 companies
     layout.json             node positions, viewBox 0 0 1100 840
   design/
     tokens.json             colors, type, radii, spacing (section 5)
@@ -115,7 +115,7 @@ Unique ids; every founder's company exists; path enums; every node id has a layo
 | young_builder | Young builder | Started within a few years of school or a first startup job. |
 | academic | Academic | Came out of a PhD lab or a professorship. |
 
-Display order is the table order above. Current counts (Amplify · Haystack): Big tech engineer 12 · 7, Young builder 7 · 9, Repeat founder 6 · 5, Business operator 1 · 3, Academic 4 · 0. Total 54 founders, 24 companies. Keep these numbers computed from data, never typed in.
+Display order is the table order above. Current counts (Amplify · Haystack): Big tech engineer 13 · 16, Young builder 7 · 13, Repeat founder 6 · 17, Business operator 2 · 4, Academic 5 · 1. Total 84 founders, 37 companies. Keep these numbers computed from data, never typed in.
 
 ### 5.2 Badges (zero or more per founder, shown as neutral chips)
 
@@ -139,7 +139,7 @@ Employers and schools shared by two or more founders, plus every prior open sour
 
 **Filter drawer** (grid of groups): Path (5 chips with counts), Badges (4 chips with counts), Big tech employer (9 chips with counts), More (selects: School, Vertical, Status, Open source product), Map layers (Companies, Employers, Schools, Prior open source, One-off ties, Also-fits stubs).
 
-**Active filters row**: one removable chip per active filter, then "N of 54 founders · M of 24 companies", then Clear all. Hidden when nothing is active.
+**Active filters row**: one removable chip per active filter, then "N of 84 founders · M of 37 companies", then Clear all. Hidden when nothing is active.
 
 **Map**
 - SVG with viewBox `0 0 1100 840`, `preserveAspectRatio xMidYMid meet`, positions from layout.json.
@@ -252,7 +252,7 @@ Real `<button>`, `<a>`, `<input>` + `<label>`; `aria-pressed` on toggles, `aria-
 - [ ] Map loads with identical positions on every refresh; no simulation at runtime.
 - [ ] Every feature in section 6 works on desktop and at 390px.
 - [ ] Selecting Dan Lorenc reproduces `reference/design/Main.dc.html`: ring on his node, neighbors (Chainguard, MIT, Google, Microsoft, Kubernetes, Sigstore, SLSA, Tekton, Distroless) at full opacity, rest dimmed.
-- [ ] Filtering Big tech alum + Google shows 10 of 54 founders, 6 of 24 companies (matches `Table.dc.html`).
+- [ ] Filtering Big tech alum + Google shows 12 of 84 founders, 8 of 37 companies (10 of 54 and 6 of 24 in the prototype's `Table.dc.html`; the Astro, Okteto, and Achira founders added two Google alumni).
 - [ ] Lighthouse accessibility 100; keyboard-only walkthrough works; dark theme passes contrast.
 - [ ] Production build under 300 KB JS gzipped (D3 imported selectively).
 
