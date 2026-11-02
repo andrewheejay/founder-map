@@ -149,6 +149,11 @@ describe('phone layout', () => {
     expect(body(b, '.cluster-row')).toMatch(/min-height: var\(--space-rowMinH\)/)
     expect(body(b, '.tab')).toMatch(/height: var\(--space-tabHPhone\)/)
   })
+  it('the narrow-screen blocks come after every base component rule so their sizes win the cascade', () => {
+    const i980 = css.indexOf('@media (max-width: 980px)')
+    for (const sel of ['.card__close {', '.select {', '.cluster-row {', '.tab {', '.btn {', '.search input {']) expect(css.lastIndexOf('\n' + sel), sel).toBeLessThan(i980)
+    expect(i980).toBeLessThan(css.indexOf('@media (max-width: 640px)'))
+  })
   it('under 640px the toolbar becomes a two-column grid with the search and fund control full width', () => {
     const b = mediaBlock(css, '(max-width: 640px)')
     expect(body(b, '.toolbar')).toMatch(/grid-template-columns: 1fr auto/)

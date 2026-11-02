@@ -386,53 +386,6 @@
   line-height: 1.55;
 }
 
-/* Phone and narrow windows: side column drops under the map, taller controls */
-@media (max-width: 980px) {
-  .side {
-    flex-basis: 100%;
-  }
-
-  .wrap {
-    padding-inline: 16px;
-  }
-
-  .search input,
-  .btn {
-    height: var(--space-controlHPhone);
-  }
-
-  .seg button {
-    height: calc(var(--space-controlHPhone) - 8px);
-  }
-
-  .zoombar button {
-    width: var(--space-controlHPhone);
-    height: var(--space-controlHPhone);
-  }
-
-  .map-stage > svg {
-    max-height: none;
-  }
-
-  .select {
-    height: var(--space-controlHPhone);
-  }
-
-  .card__close {
-    width: var(--space-closeBtnPhone);
-    height: var(--space-closeBtnPhone);
-    margin: -10px -12px 0 0;
-  }
-
-  .cluster-row {
-    min-height: var(--space-rowMinH);
-  }
-
-  .tab {
-    height: var(--space-tabHPhone);
-  }
-}
-
 /* ---------- Filter drawer ---------- */
 .drawer {
   margin-top: 12px;
@@ -1260,6 +1213,53 @@ button.chip:hover {
 
 .toast.is-on {
   opacity: 1;
+}
+
+/* Phone and narrow windows: side column drops under the map, taller controls */
+@media (max-width: 980px) {
+  .side {
+    flex-basis: 100%;
+  }
+
+  .wrap {
+    padding-inline: 16px;
+  }
+
+  .search input,
+  .btn {
+    height: var(--space-controlHPhone);
+  }
+
+  .seg button {
+    height: calc(var(--space-controlHPhone) - 8px);
+  }
+
+  .zoombar button {
+    width: var(--space-controlHPhone);
+    height: var(--space-controlHPhone);
+  }
+
+  .map-stage > svg {
+    max-height: none;
+  }
+
+  .select {
+    height: var(--space-controlHPhone);
+  }
+
+  .card__close {
+    width: var(--space-closeBtnPhone);
+    height: var(--space-closeBtnPhone);
+    margin: -10px -12px 0 0;
+  }
+
+  .cluster-row {
+    min-height: var(--space-rowMinH);
+  }
+
+  .tab {
+    height: var(--space-tabHPhone);
+  }
 }
 
 /* ---------- Phone (Phone.dc.html, 390px) ---------- */
