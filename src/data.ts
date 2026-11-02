@@ -6,7 +6,7 @@ import type { CompanyRecord, FounderRecord, Layout } from './types'
 
 export const founders = foundersJson as FounderRecord[]
 export const companies = companiesJson as CompanyRecord[]
-export const layout = layoutJson as Layout
+export const layout = layoutJson as unknown as Layout
 
 /** The graph every view renders from. Built once at module load from the three JSON files. */
 export const graph = buildGraph(founders, companies, layout)
