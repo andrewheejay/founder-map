@@ -70,5 +70,19 @@ Both columns come from the same scripted walkthrough (`.superpowers` workspace, 
 
 ## Known gaps (deferred, not failures of section 9)
 
-- The map SVG uses `role="group"` rather than the spec's `role="img"` because it contains 171 focusable buttons; `role="img"` would hide them from assistive technology (Prompt 1 ruling).
 - Hover never focuses on touch pointers or while a node is pinned (by design); tap focuses instead.
+- The table keeps a 1280px minimum width and scrolls inside its card at every desktop width, because the card shares its row with the 320px side column; thirteen columns in the remaining width would wrap into tall rows.
+
+## Polish pass (2026-11-02, branch polish)
+
+Closed every item the three code reviews left open, and added the search zoom. Checked with the vitest suite (22 files, 141 tests, all green), both type-check configs, `npm run build` (JS 143.05 kB, gzip 46.47 kB; CSS 24.75 kB, gzip 5.27 kB), Lighthouse 13.6.0 accessibility against `vite preview` (1.00 mobile, 1.00 desktop, no failing audits), and Chrome at 1456x827 on the dev server.
+
+New behavior:
+
+- Searching or filtering zooms the map to fit the matched founders (420 ms, instant under reduced motion, at most 2.4x); clearing the filters zooms back out. Browser: typing `microsoft` moved the viewport from none to `scale(2.24)` at 250 ms and `scale(2.4)` at 700 ms with all 11 matches in view; clearing returned `translate(0,0) scale(1)`.
+- The map is one Tab stop. Browser: Tab from Filters lands on the leftmost node, ArrowRight moves to the next (SLSA), the card previews it, Enter pins it (hash `#o-slsa`), Tab leaves to Zoom in.
+- Table rows select on click and clear on a second click; the founder name is a button for keyboard and assistive tech. Browser: row 1 selected Alexander Gallego, the second click cleared it, the name button on row 3 selected Armon Dadgar with focus kept on the button (`aria-pressed="true"`); exactly one header carries `aria-sort`.
+- The CSV fallback has a Close button. Browser (clipboard API removed): the panel went from `display: none` to `flex` with the 20 kB textarea focused and the toast "Select the text and copy it manually"; Close hid it and returned focus to Copy.
+- The header brand mark follows the theme (ink square, surface lines, accent dot) instead of hex literals; confirmed inverted in dark mode.
+
+Fixes without visible change: whitespace-only search is not a filter; unknown `data-select` ids are ignored; layer chips get `aria-pressed` from an argument; one shared close icon; Insights and badge rows survive a graph with no hubs; badge segments have accessible names; reducer purity is tested; `syncControls` has no casts; map dim and filtered opacities come from `design/tokens.json`; the validator rejects a hub listed twice and a secondary path equal to the path; `placeLabels` uses a loop without casts; browser code is type-checked without Node globals (`tsconfig.json`) and scripts and tests with them (`tsconfig.node.json`); a layer-hidden hub is shown while it is the focus; reduced motion is followed live; the Source column sorts by hostname with one accent-insensitive collator; the layout script uses `fileURLToPath`; the download tests exercise both branches without jsdom noise; the contrast test covers accent on accentTint and tableHead; README says `localhost`; `CLAUDE.md` 7.7 now says `role="group"` and section 6 describes the keyboard model and the search zoom.

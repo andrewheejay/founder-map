@@ -231,7 +231,7 @@ Required (the prototype has one; the canvas shows light only). Use `prefers-colo
 
 ### 7.7 Accessibility
 
-Real `<button>`, `<a>`, `<input>` + `<label>`; `aria-pressed` on toggles, `aria-selected` on tabs, `aria-label` on icon-only buttons and on every map node; `role="img"` + label on the SVG; `prefers-reduced-motion` disables transitions; text contrast 4.5:1 including the 11px labels.
+Real `<button>`, `<a>`, `<input>` + `<label>`; `aria-pressed` on toggles, `aria-selected` on tabs, `aria-label` on icon-only buttons and on every map node; `role="group"` + label on the SVG (not `img`: the img role hides the focusable node buttons from assistive technology); `prefers-reduced-motion` disables transitions; text contrast 4.5:1 including the 11px labels.
 
 ## 8. Build order
 
