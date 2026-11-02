@@ -57,3 +57,19 @@ export interface Layers {
   oneOff: boolean
   alt: boolean
 }
+
+export type View = 'map' | 'table'
+export type Tab = 'clusters' | 'insights' | 'about'
+
+/** Toolbar, drawer, and search state. Sets are treated as immutable: reducers return new sets. */
+export interface Filters {
+  fund: Fund | 'all'
+  q: string
+  paths: ReadonlySet<PathKey>
+  badges: ReadonlySet<BadgeKey>
+  employers: ReadonlySet<string>
+  school: string
+  vertical: string
+  status: FounderStatus | ''
+  oss: OssProduct | ''
+}

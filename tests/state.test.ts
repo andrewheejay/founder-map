@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { DEFAULT_LAYERS, createStore, escapeClears, hoverFocusAllowed, toggleSelect } from '../src/state'
+import { DEFAULT_FILTERS, DEFAULT_STATE, clearFilters, createStore, escapeClears, hoverFocusAllowed, removeFilter, toggleBadgePath, toggleOss, togglePath, toggleSelect } from '../src/state'
 
 describe('state', () => {
   it('store notifies subscribers with merged state', () => {
-    const s = createStore({ focus: null, pinned: false, layers: DEFAULT_LAYERS })
+    const s = createStore(DEFAULT_STATE)
     const seen: unknown[] = []
     s.subscribe((v) => seen.push(v.focus))
     s.set({ focus: 'f:dan-lorenc' })
@@ -22,8 +22,26 @@ describe('state', () => {
     expect(escapeClears(undefined)).toBe(true)
   })
   it('toggle pins, and unpins the same node', () => {
-    expect(toggleSelect({ focus: null, pinned: false, layers: DEFAULT_LAYERS }, 'a')).toEqual({ focus: 'a', pinned: true })
-    expect(toggleSelect({ focus: 'a', pinned: true, layers: DEFAULT_LAYERS }, 'a')).toEqual({ focus: null, pinned: false })
-    expect(toggleSelect({ focus: 'a', pinned: true, layers: DEFAULT_LAYERS }, 'b')).toEqual({ focus: 'b', pinned: true })
+    expect(toggleSelect(DEFAULT_STATE, 'a')).toEqual({ focus: 'a', pinned: true })
+    expect(toggleSelect({ ...DEFAULT_STATE, focus: 'a', pinned: true }, 'a')).toEqual({ focus: null, pinned: false })
+    expect(toggleSelect({ ...DEFAULT_STATE, focus: 'a', pinned: true }, 'b')).toEqual({ focus: 'b', pinned: true })
+  })
+  it('path, badge+path segment, oss, remove, clear', () => {
+    const f0 = DEFAULT_FILTERS
+    const f1 = togglePath(f0, 'academic')
+    expect([...f1.paths]).toEqual(['academic'])
+    expect(togglePath(f1, 'academic').paths.size).toBe(0)
+    const seg = toggleBadgePath({ ...f1, fund: 'amplify', paths: new Set(['academic', 'repeat_founder']) }, 'prior_exit', 'repeat_founder')
+    expect([...seg.badges]).toEqual(['prior_exit'])
+    expect([...seg.paths]).toEqual(['repeat_founder'])
+    expect(seg.fund).toBe('amplify')
+    const off = toggleBadgePath(seg, 'prior_exit', 'repeat_founder')
+    expect(off.badges.size + off.paths.size).toBe(0)
+    expect(toggleOss(toggleOss(f0, 'yes'), 'yes').oss).toBe('')
+    const many = { ...f0, fund: 'haystack' as const, q: 'a', employers: new Set(['Google', 'Uber']), school: 'MIT' }
+    expect(removeFilter(many, 'employer:Google').employers.has('Uber')).toBe(true)
+    expect(removeFilter(many, 'fund').fund).toBe('all')
+    expect(removeFilter(many, 'school').school).toBe('')
+    expect(clearFilters()).toEqual(DEFAULT_FILTERS)
   })
 })

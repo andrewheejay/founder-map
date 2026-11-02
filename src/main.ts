@@ -4,7 +4,7 @@ import './styles/components.css'
 import './styles/map.css'
 import { graph } from './data'
 import { createMap } from './map/map'
-import { DEFAULT_LAYERS, createStore, escapeClears, hoverFocusAllowed, toggleSelect, type State } from './state'
+import { DEFAULT_STATE, createStore, escapeClears, hoverFocusAllowed, toggleSelect, type State } from './state'
 
 function renderStats() {
   const shared = graph.hubs.filter((h) => !h.oneOff && h.htype !== 'o').length
@@ -20,7 +20,7 @@ function boot() {
   const svg = document.getElementById('map') as SVGSVGElement | null
   if (!svg) return
 
-  const store = createStore({ focus: null, pinned: false, layers: DEFAULT_LAYERS })
+  const store = createStore(DEFAULT_STATE)
   const clear = () => {
     const s = store.get()
     if (s.focus || s.pinned) store.set({ focus: null, pinned: false })
