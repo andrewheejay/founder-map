@@ -23,7 +23,7 @@ describe('map', () => {
   })
   it('renders every node with an aria-label, five hulls, every link and stub', () => {
     const { svg } = mount()
-    expect(svg.querySelectorAll('g.node[aria-label][tabindex="0"]')).toHaveLength(graph.all.length)
+    expect(svg.querySelectorAll('g.node[aria-label][role="button"][tabindex]')).toHaveLength(graph.all.length)
     expect(svg.querySelectorAll('path.hull')).toHaveLength(5)
     expect(svg.querySelectorAll('line.link')).toHaveLength(graph.links.length)
     expect(svg.querySelectorAll('g.alt')).toHaveLength(graph.founders.filter((f) => f.secondaryPath).length)
@@ -155,5 +155,42 @@ describe('zoomTo', () => {
     expect(Number(m[1])).toBeCloseTo(550 - n.x * 2, 3)
     expect(Number(m[2])).toBeCloseTo(420 - n.y * 2, 3)
     expect(() => map.zoomTo('f:nobody')).not.toThrow()
+  })
+})
+
+describe('map keyboard', () => {
+  const tabbable = (svg: SVGSVGElement) => [...svg.querySelectorAll('g.node[tabindex="0"]')].map((n) => n.getAttribute('data-id'))
+  it('exactly one node is in the Tab order: the leftmost visible node, then the pinned node', () => {
+    const { svg, map } = mount()
+    const visible = graph.all.filter((d) => (svg.querySelector(`g.node[data-id="${d.id}"]`) as HTMLElement).getAttribute('display') !== 'none')
+    const leftmost = visible.reduce((p, d) => (d.x < p.x || (d.x === p.x && d.y < p.y) ? d : p))
+    expect(tabbable(svg)).toEqual([leftmost.id])
+    expect(svg.querySelectorAll('g.node[tabindex="-1"]')).toHaveLength(graph.all.length - 1)
+    map.update({ ...base(), focus: graph.byId.get('f:dan-lorenc')!, pinned: true })
+    expect(tabbable(svg)).toEqual(['f:dan-lorenc'])
+  })
+  it('arrow keys move focus between nodes, focus previews the node, and leaving the map clears the preview', () => {
+    const hovers: (string | null)[] = []
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg') as SVGSVGElement
+    document.body.append(svg)
+    const map = createMap(svg, graph, { onHover: (id) => hovers.push(id), onToggle() {}, onCanvasClick() {} }, { reduceMotion: true })
+    map.update(base())
+    const first = svg.querySelector<SVGGElement>('g.node[tabindex="0"]')!
+    first.focus()
+    expect(document.activeElement).toBe(first)
+    expect(hovers).toEqual([first.getAttribute('data-id')])
+    first.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true }))
+    const second = document.activeElement as SVGGElement
+    expect(second).not.toBe(first)
+    expect(second.getAttribute('tabindex')).toBe('0')
+    expect(first.getAttribute('tabindex')).toBe('-1')
+    expect(Number(graph.byId.get(second.getAttribute('data-id')!)!.x)).toBeGreaterThanOrEqual(graph.byId.get(first.getAttribute('data-id')!)!.x)
+    expect(hovers.at(-1)).toBe(second.getAttribute('data-id'))
+    const outside = document.createElement('button')
+    document.body.append(outside)
+    outside.focus()
+    expect(hovers.at(-1)).toBeNull()
+    expect(tabbable(svg)).toEqual([second.getAttribute('data-id')])
+    outside.remove()
   })
 })

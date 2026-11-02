@@ -7,6 +7,7 @@ import { MAP_DIM_OPACITY, MAP_FILTERED_OPACITY } from '../tokens'
 import type { Layers, PathKey } from '../types'
 import { altStub, clusterGeometry, hubRadius, nodeRadius, type ClusterGeometry, type Pt } from './geometry'
 import { placeLabels, type LabelItem, type Placement, type Rect } from './labels'
+import { mapNavKey } from './nav'
 
 export interface MapInput {
   focus: AnyNode | null
@@ -174,7 +175,6 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     .attr('class', (d) => `node ${d.kind}${d.kind === 'hub' ? ' ' + d.htype : ''}`)
     .attr('data-id', (d) => d.id)
     .attr('style', (d) => (d.kind === 'founder' ? `--c: var(--path-${d.path})` : null))
-    .attr('tabindex', 0)
     .attr('role', 'button')
     .attr('aria-label', ariaLabel)
   nodeSel.each(function (d) {
@@ -229,6 +229,22 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     d.kind === 'company' ? input.layers.companies : d.kind === 'hub' ? hubLayerOn(d) && (!d.oneOff || input.layers.oneOff) : true
   /** Layer-visible, or the focused node itself: a card link to a layer-hidden hub still shows that hub. */
   const visible = (d: AnyNode): boolean => shown(d) || d === input.focus
+
+  /* ---------- keyboard: one Tab stop, arrows between nodes ---------- */
+  /** The last node the keyboard visited or the user pinned; null until then. */
+  let roving: AnyNode | null = null
+  /** The single node in the Tab order: the roving node while visible, else the leftmost visible node. */
+  const rovingNode = (): AnyNode | null => {
+    if (roving && visible(roving)) return roving
+    let best: AnyNode | null = null
+    for (const d of graph.all) if (visible(d) && (!best || d.x < best.x || (d.x === best.x && d.y < best.y))) best = d
+    return best
+  }
+  const applyTabindex = () => {
+    const stop = rovingNode()
+    nodeSel.attr('tabindex', (d) => (d === stop ? 0 : -1))
+  }
+  const nodeEl = (d: AnyNode) => svgEl.querySelector<SVGGElement>(`g.node[data-id="${d.id}"]`)
 
   /* ---------- scale, measure, place ---------- */
   function applyScale() {
@@ -309,6 +325,7 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
       .attr('display', (d) => (visible(d) ? null : 'none'))
       .style('opacity', (d) => String(opacity(d)))
       .classed('pinned', (d) => pinned && focus === d)
+    applyTabindex()
     lblSel.attr('display', (d) => (visible(d) && (!crowded(d) || (E?.has(d) ?? false)) ? null : 'none')).style('opacity', (d) => String(opacity(d)))
     linkSel
       .attr('display', (l) => (visible(l.target) ? null : 'none'))
@@ -371,7 +388,24 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
       if (ev.key === 'Enter' || ev.key === ' ') {
         ev.preventDefault()
         handlers.onToggle(d.id)
+        return
       }
+      const target = mapNavKey(ev.key, d, graph.all.filter(visible))
+      if (!target) return
+      ev.preventDefault()
+      roving = target
+      applyTabindex()
+      nodeEl(target)?.focus()
+    })
+    // Keyboard focus previews a node like a mouse hover (same pin rule); leaving the map clears the preview.
+    .on('focus', (_ev: FocusEvent, d) => {
+      roving = d
+      applyTabindex()
+      handlers.onHover(d.id, 'keyboard')
+    })
+    .on('blur', (ev: FocusEvent) => {
+      const to = ev.relatedTarget as Node | null
+      if (!to || !svgEl.contains(to)) handlers.onHover(null, 'keyboard')
     })
   svg.on('click', () => handlers.onCanvasClick())
 
@@ -389,6 +423,7 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     update(next) {
       const layersChanged = next.layers !== input.layers
       input = next
+      if (next.pinned && next.focus) roving = next.focus
       // A layer-hidden focus node has no label placement yet, so place again when one appears.
       if (layersChanged || (next.focus && !shown(next.focus))) place()
       render()

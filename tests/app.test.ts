@@ -235,6 +235,14 @@ describe('hash and keyboard', () => {
     expect(document.activeElement).toBe(tabs[0])
     expect(q('#tab-clusters').hasAttribute('hidden')).toBe(false)
   })
+  it('the map is one Tab stop and keyboard focus previews a node in the card', () => {
+    expect(document.querySelectorAll('#map g.node[tabindex="0"]')).toHaveLength(1)
+    const node = q('[data-id="c:temporal"]')
+    node.focus()
+    expect(text('#detail h2')).toBe('Temporal')
+    q('#zoom-in').focus()
+    expect(text('#detail h2')).toBe('Pick any dot or station')
+  })
   it('ignores a data-select whose id is not in the graph', () => {
     const about = q('#tab-about')
     about.insertAdjacentHTML('beforeend', '<button type="button" id="ghost" data-select="x:nobody">ghost</button>')
