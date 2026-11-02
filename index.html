@@ -2,10 +2,83 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Founder Map</title>
+    <meta name="description" content="An interactive network map of the founders behind the Amplify Partners and Haystack portfolios, grouped by the career path that led them to start a company." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
   </head>
   <body>
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <div class="brand">
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#111418"></rect><path d="M9 18.5 18.5 9.5M10 18l8 1.6" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path><circle cx="9" cy="18.5" r="3" fill="#FFFFFF"></circle><circle cx="19" cy="9" r="3" fill="#FFFFFF"></circle><circle cx="19.5" cy="20" r="2.4" fill="#2457D6"></circle></svg>
+          <div>
+            <h1 class="site-title">Founder Map</h1>
+            <p class="site-subtitle">Amplify Partners and Haystack portfolios, grouped by founder path</p>
+          </div>
+        </div>
+        <p class="site-stats num" id="stats"></p>
+      </div>
+    </header>
+
+    <div class="wrap toolbar" id="toolbar">
+      <div class="search">
+        <label for="map-search" class="sr-only">Search founders, companies, employers, schools</label>
+        <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <input id="map-search" type="search" placeholder="Search founders, companies, employers, schools" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="seg" role="group" aria-label="Fund" id="fund-seg">
+        <button type="button" data-fund="all" aria-pressed="true">Both funds</button>
+        <button type="button" data-fund="amplify" aria-pressed="false">Amplify</button>
+        <button type="button" data-fund="haystack" aria-pressed="false">Haystack</button>
+      </div>
+      <div class="seg" role="group" aria-label="View" id="view-seg">
+        <button type="button" data-view="map" aria-pressed="true">Map</button>
+        <button type="button" data-view="table" aria-pressed="false">Table</button>
+      </div>
+      <span class="toolbar__spacer"></span>
+      <button type="button" class="btn" id="filters-btn" aria-expanded="false" aria-controls="filters-drawer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"></path></svg>
+        Filters
+        <span class="btn__count num" id="filters-count" hidden></span>
+      </button>
+    </div>
+
+    <main class="wrap main">
+      <section class="card map-card" id="map-card" aria-label="Founder map">
+        <div class="map-stage">
+          <svg id="map" role="group" aria-label="Founder network map"></svg>
+          <div class="zoombar">
+            <button type="button" id="zoom-in" aria-label="Zoom in"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
+            <button type="button" id="zoom-out" aria-label="Zoom out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path></svg></button>
+            <button type="button" id="zoom-fit" aria-label="Fit map to view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"></path></svg></button>
+          </div>
+        </div>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="swatch" style="--c: var(--path-big_tech_engineer)"></span>Big tech engineer</li>
+          <li><span class="swatch" style="--c: var(--path-repeat_founder)"></span>Repeat founder</li>
+          <li><span class="swatch" style="--c: var(--path-business_operator)"></span>Business operator</li>
+          <li><span class="swatch" style="--c: var(--path-young_builder)"></span>Young builder</li>
+          <li><span class="swatch" style="--c: var(--path-academic)"></span>Academic</li>
+          <li class="legend__group"><span class="swatch swatch--ink"></span>Amplify</li>
+          <li><span class="swatch swatch--ink swatch--square"></span>Haystack</li>
+          <li><span class="swatch swatch--hub"></span>Employer</li>
+          <li><span class="swatch swatch--hub swatch--school"></span>School</li>
+          <li><span class="swatch swatch--hub swatch--dashed"></span>Open source project</li>
+          <li><span class="swatch swatch--alt"></span>Also fits another path</li>
+        </ul>
+      </section>
+
+      <aside class="side">
+        <section class="card detail" id="detail" aria-live="polite">
+          <p class="eyebrow">Start here</p>
+          <h2 class="card-title">Pick any dot or station</h2>
+          <p class="body">Colored dots are founders, placed by career path. Gray circles are the employers, schools, and projects they share. Hover or tap one to see its ties.</p>
+        </section>
+      </aside>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
