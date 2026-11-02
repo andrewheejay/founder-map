@@ -33,7 +33,7 @@ describe('tokens', () => {
     expect(css).toMatch(/--space-chipH: 26px/)
     expect(css).toMatch(/--space-tabH: 42px/)
     expect(css).toMatch(/--space-closeBtn: 32px/)
-    expect(css).toMatch(/--space-dlLabelW: 88px/)
+    expect(css).toMatch(/--space-dlLabelW: 96px/)
     expect(css).toMatch(/--text-chip: 12px/)
   })
 })
