@@ -62,7 +62,7 @@ founder-map/
 | id | `c:<slug>` | slug = lowercase, accents stripped, non-alphanumerics to `-` |
 | name | string | |
 | fund | `amplify` \| `haystack` | |
-| vertical | string | one of: Developer Tools, AI & Cloud Infrastructure, Security & Observability, Data Infrastructure, Fintech Infrastructure |
+| vertical | string | one of: Developer Tools, AI & Cloud Infrastructure, Security & Observability, Data Infrastructure, Fintech Infrastructure, Digital Biology |
 | founded | number | year |
 | avgFounderAgeAtFounding | number \| null | estimated; null when unknown |
 | openSourceProduct | `yes` \| `partial` \| `no` | company attribute, see section 5.3 |

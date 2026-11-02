@@ -17,6 +17,11 @@ describe('validateData', () => {
     d.f[0].company = 'Nope'
     expect(validateData(d.f, d.c, d.l).join()).toMatch(/f:will-wilson.*Nope/)
   })
+  it('accepts the Digital Biology vertical', () => {
+    const d = clone()
+    d.c[0].vertical = 'Digital Biology'
+    expect(validateData(d.f, d.c, d.l)).toEqual([])
+  })
   it('bad path enum', () => {
     const d = clone()
     d.f[0].path = 'hacker'
