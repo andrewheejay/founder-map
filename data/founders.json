@@ -29,11 +29,12 @@
     "company": "Antithesis",
     "path": "repeat_founder",
     "secondaryPath": null,
-    "role": "Co-founder, CTO",
+    "role": "Co-founder",
     "status": "active",
     "statusNote": null,
     "badges": [
-      "prior_exit"
+      "prior_exit",
+      "prior_open_source"
     ],
     "employers": [
       "Visual Sciences",
@@ -43,9 +44,11 @@
       "Carnegie Mellon"
     ],
     "taughtAt": [],
-    "priorOpenSource": [],
+    "priorOpenSource": [
+      "VPython"
+    ],
     "edgeCase": false,
-    "bio": "Co-founded Visual Sciences (sold, later part of Adobe) and FoundationDB (bought by Apple), where he was chief architect.",
+    "bio": "Created the open source VPython library as a Carnegie Mellon sophomore. Co-founded Visual Sciences (sold in 2006, later part of Adobe) and FoundationDB (bought by Apple), where he was chief architect.",
     "source": "https://www.startupgrind.com/blog/foundationdb-how-this-startup-got-funded-by-ron-conway/"
   },
   {
@@ -91,6 +94,8 @@
     ],
     "employers": [],
     "schools": [
+      "Würzburg",
+      "Cambridge",
       "UC Berkeley"
     ],
     "taughtAt": [],
@@ -98,7 +103,7 @@
       "Ray"
     ],
     "edgeCase": false,
-    "bio": "Berkeley CS PhD (2013 to 2019) in distributed systems and ML. Went straight from the PhD to Anyscale CTO.",
+    "bio": "Physics at Würzburg and a Cambridge math master's, then a Berkeley CS PhD (2013 to 2019) in distributed systems and ML. Went straight from the PhD to Anyscale CTO.",
     "source": "https://www.clay.com/dossier/anyscale-cto"
   },
   {
@@ -120,6 +125,7 @@
       "Conviva"
     ],
     "schools": [
+      "Polytechnic Bucharest",
       "Carnegie Mellon"
     ],
     "taughtAt": [
@@ -129,7 +135,7 @@
       "Ray"
     ],
     "edgeCase": false,
-    "bio": "Berkeley professor with a CMU PhD. Co-founded Conviva and Databricks (its first CEO) before Anyscale.",
+    "bio": "Berkeley professor with a CMU PhD after a master's in Bucharest. Co-founded Conviva and Databricks (its first CEO) before Anyscale.",
     "source": "https://www.anyscale.com/press/anyscale-names-industry-veteran-keerti-melkote-chief-executive-officer"
   },
   {
@@ -146,14 +152,18 @@
       "grad_degree"
     ],
     "employers": [],
-    "schools": [],
+    "schools": [
+      "LSU",
+      "Arizona State",
+      "UC San Diego"
+    ],
     "taughtAt": [
       "UC Berkeley",
       "MIT"
     ],
     "priorOpenSource": [],
     "edgeCase": false,
-    "bio": "Berkeley professor of CS and statistics, previously at MIT, and one of the most influential ML researchers.",
+    "bio": "UC San Diego cognitive science PhD. Berkeley professor of CS and statistics, previously at MIT, and one of the most influential ML researchers.",
     "source": "https://www2.eecs.berkeley.edu/Faculty/Homepages/jordan.html"
   },
   {
@@ -168,14 +178,17 @@
     "statusNote": null,
     "badges": [],
     "employers": [
+      "Salesforce",
       "Twitter",
       "Lyft"
     ],
-    "schools": [],
+    "schools": [
+      "Stanford"
+    ],
     "taughtAt": [],
     "priorOpenSource": [],
     "edgeCase": false,
-    "bio": "Ran Twitter's 100+ engineer platform group, then joined Lyft as VP of Engineering in 2015.",
+    "bio": "Salesforce R&D director, then ran Twitter's 100+ engineer platform group and joined Lyft as VP of Engineering in 2015. Attended Stanford without finishing a degree.",
     "source": "https://techcrunch.com/2015/03/10/lyft-peter-morelli-vp-engineering/amp/"
   },
   {
@@ -189,7 +202,8 @@
     "status": "active",
     "statusNote": null,
     "badges": [
-      "prior_open_source"
+      "prior_open_source",
+      "grad_degree"
     ],
     "employers": [
       "Microsoft",
@@ -197,13 +211,16 @@
       "Twitter",
       "Lyft"
     ],
-    "schools": [],
+    "schools": [
+      "Duke",
+      "Univ. of Washington"
+    ],
     "taughtAt": [],
     "priorOpenSource": [
       "Envoy"
     ],
     "edgeCase": false,
-    "bio": "20+ years in low-level systems at Microsoft, AWS EC2, and Twitter. Created Envoy at Lyft and chose not to commercialize it.",
+    "bio": "Duke CS and a UW master's, then 20+ years in low-level systems at Microsoft, AWS EC2, and Twitter. Created Envoy at Lyft, sat on the CNCF governing board, and chose not to commercialize Envoy.",
     "source": "https://www.usenix.org/conference/srecon17americas/program/presentation/klein"
   },
   {
@@ -212,19 +229,20 @@
     "shortLabel": "Conte Mac Donell",
     "company": "bitdrift",
     "path": "big_tech_engineer",
-    "secondaryPath": null,
+    "secondaryPath": "repeat_founder",
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
     "badges": [],
     "employers": [
+      "Kicksend",
       "Lyft"
     ],
     "schools": [],
     "taughtAt": [],
     "priorOpenSource": [],
     "edgeCase": false,
-    "bio": "Lyft engineer who teamed up with Morelli and Klein there. Few public details on his earlier career.",
+    "bio": "Founded the Buenos Aires studio Atommica (later Jampp, sold to Affle in 2021), then joined Kicksend, which Lyft acquired in 2014. Nine years at Lyft running security, privacy, and infrastructure engineering alongside Morelli and Klein.",
     "source": "https://app.dealroom.co/companies/bitdrift"
   },
   {
@@ -274,15 +292,18 @@
     ],
     "employers": [
       "Microsoft",
-      "Google"
+      "Google",
+      "VMware"
     ],
-    "schools": [],
+    "schools": [
+      "Carnegie Mellon"
+    ],
     "taughtAt": [],
     "priorOpenSource": [
       "Distroless"
     ],
     "edgeCase": false,
-    "bio": "Microsoft from 2005, then Disqus and Google, where he led container tooling and co-created the distroless image.",
+    "bio": "CMU CS, Microsoft from 2005, then Google, where he led container tooling (gcr.io, Cloud Run) and co-created the distroless image. VMware senior engineer and Knative steering member before Chainguard.",
     "source": "https://research.contrary.com/company/chainguard"
   },
   {
@@ -296,20 +317,23 @@
     "status": "active",
     "statusNote": null,
     "badges": [
-      "prior_open_source"
+      "prior_open_source",
+      "prior_exit"
     ],
     "employers": [
       "Lawrence Livermore",
       "Google"
     ],
-    "schools": [],
+    "schools": [
+      "Florida State"
+    ],
     "taughtAt": [],
     "priorOpenSource": [
       "SLSA",
       "Tekton"
     ],
     "edgeCase": false,
-    "bio": "Started in security at Lawrence Livermore Lab. Google PM from 2014 who created SLSA and co-created Tekton.",
+    "bio": "Started in security at Lawrence Livermore Lab and founded the pet-sitting marketplace Spotwag (sold to Rover). Google PM from 2014 who created SLSA and co-created Tekton.",
     "source": "https://www.securitymagazine.com/authors/4214-kim-lewandowski"
   },
   {
@@ -329,14 +353,16 @@
       "Google",
       "VMware"
     ],
-    "schools": [],
+    "schools": [
+      "Univ. of Washington"
+    ],
     "taughtAt": [],
     "priorOpenSource": [
       "Kubernetes",
       "Knative"
     ],
     "edgeCase": false,
-    "bio": "Google from 2007 on the early Kubernetes team and Knative, then a senior staff engineer at VMware.",
+    "bio": "UW computer engineering, then Google from 2007 as the first engineer on Kubernetes and a Knative lead. Senior staff engineer at VMware before Chainguard.",
     "source": "https://research.contrary.com/company/chainguard"
   },
   {
