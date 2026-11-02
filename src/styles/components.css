@@ -195,7 +195,7 @@
   position: relative;
 }
 
-.map-stage svg {
+.map-stage > svg {
   display: block;
   width: 100%;
   height: auto;
@@ -208,7 +208,7 @@
   -webkit-user-select: none;
 }
 
-.map-stage svg:active {
+.map-stage > svg:active {
   cursor: grabbing;
 }
 
@@ -410,7 +410,7 @@
     height: var(--space-controlHPhone);
   }
 
-  .map-stage svg {
+  .map-stage > svg {
     max-height: none;
   }
 }
