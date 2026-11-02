@@ -1213,13 +1213,25 @@ button.chip:hover {
   text-align: center;
 }
 
-.csv-box {
+.csv-fallback {
   position: fixed;
   left: 16px;
   top: 16px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* The panel shows exactly while copyText has revealed its textarea, so the Close button never flashes during a clipboard write. */
+.csv-fallback:has(> .csv-box[hidden]) {
+  display: none;
+}
+
+.csv-box {
   width: min(90vw, 600px);
   height: 200px;
-  z-index: 20;
   padding: 10px;
   border: 1px solid var(--color-ink);
   border-radius: var(--radius-control);

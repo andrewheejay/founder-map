@@ -163,6 +163,25 @@ describe('table view', () => {
     click('#clear-filters')
     click('[data-view="map"]')
   })
+  it('without a clipboard, Copy shows the CSV panel; Close and Esc hide it and return focus to Copy', async () => {
+    Object.defineProperty(navigator, 'clipboard', { value: undefined, configurable: true })
+    click('[data-view="table"]')
+    click('#csv-copy')
+    await new Promise((r) => setTimeout(r, 0))
+    expect(q('#csv-box').hasAttribute('hidden')).toBe(false)
+    expect(document.activeElement).toBe(q('#csv-box'))
+    expect(text('#toast')).toBe('Select the text and copy it manually')
+    click('#csv-close')
+    expect(q('#csv-box').hasAttribute('hidden')).toBe(true)
+    expect(document.activeElement).toBe(q('#csv-copy'))
+    click('#csv-copy')
+    await new Promise((r) => setTimeout(r, 0))
+    expect(q('#csv-box').hasAttribute('hidden')).toBe(false)
+    q('#csv-box').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
+    expect(q('#csv-box').hasAttribute('hidden')).toBe(true)
+    expect(document.activeElement).toBe(q('#csv-copy'))
+    click('[data-view="map"]')
+  })
   it('copies the CSV of the sorted, filtered rows and toasts', async () => {
     const writes: string[] = []
     Object.defineProperty(navigator, 'clipboard', {

@@ -82,7 +82,10 @@
           </div>
         </div>
         <div class="table__scroll"><table class="table" id="founder-table"></table></div>
-        <textarea id="csv-box" class="csv-box" aria-label="CSV text, select all and copy" hidden></textarea>
+        <div class="csv-fallback" id="csv-fallback">
+          <textarea id="csv-box" class="csv-box" aria-label="CSV text, select all and copy" hidden></textarea>
+          <button type="button" class="btn btn--sm" id="csv-close">Close</button>
+        </div>
       </section>
 
       <aside class="side">

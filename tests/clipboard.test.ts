@@ -35,7 +35,24 @@ describe('clipboard', () => {
     expect(el.classList.contains('is-on')).toBe(false)
     vi.useRealTimers()
   })
-  it('downloadText is a no-op without createObjectURL', () => {
-    expect(() => downloadText(document, 'x.csv', 'a')).not.toThrow()
+  it('downloadText is a no-op when the window has no createObjectURL', () => {
+    const doc = { defaultView: { URL: {} } } as unknown as Document
+    expect(() => downloadText(doc, 'x.csv', 'a')).not.toThrow()
+  })
+  it('downloadText clicks a temporary download link and revokes the object URL', () => {
+    const clicks: string[] = []
+    const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (this: HTMLAnchorElement) {
+      clicks.push(`${this.download}|${this.href}`)
+    })
+    const create = vi.fn(() => 'blob:fake')
+    const revoke = vi.fn()
+    Object.defineProperty(window.URL, 'createObjectURL', { value: create, configurable: true })
+    Object.defineProperty(window.URL, 'revokeObjectURL', { value: revoke, configurable: true })
+    downloadText(document, 'founder-map.csv', 'a,b')
+    expect(clicks).toEqual(['founder-map.csv|blob:fake'])
+    expect(create).toHaveBeenCalledTimes(1)
+    expect(revoke).toHaveBeenCalledWith('blob:fake')
+    expect(document.querySelector('a[download]')).toBeNull()
+    click.mockRestore()
   })
 })

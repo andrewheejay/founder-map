@@ -176,6 +176,15 @@ export function boot(doc: Document): void {
   const say = (message: string) => {
     if (toastEl) toast(toastEl, message)
   }
+  // The manual-copy fallback: a fixed panel (shown by CSS while its textarea is not hidden) with a Close button.
+  const csvPanel = doc.getElementById('csv-fallback')
+  const csvBox = () => doc.getElementById('csv-box') as HTMLTextAreaElement | null
+  const csvOpen = () => csvBox()?.hidden === false
+  const closeCsv = () => {
+    const box = csvBox()
+    if (box) box.hidden = true
+    doc.getElementById('csv-copy')?.focus()
+  }
 
   doc.addEventListener('click', (ev) => {
     const t = ev.target as Element | null
@@ -188,13 +197,14 @@ export function boot(doc: Document): void {
     if ((el = hit('[data-sort]'))) return store.set({ sort: toggleSort(store.get().sort, data(el, 'data-sort') as SortKey) })
     if (hit('#csv-copy')) {
       const rows = sortedRows()
-      const box = doc.getElementById('csv-box') as HTMLTextAreaElement | null
+      const box = csvBox()
       if (!box) return
       void copyText(csv(rows), win?.navigator.clipboard, box).then((r) =>
         say(r === 'copied' ? `Copied ${rows.length} row${rows.length === 1 ? '' : 's'} as CSV` : 'Select the text and copy it manually'),
       )
       return
     }
+    if (hit('#csv-close')) return closeCsv()
     if (hit('#csv-download')) {
       downloadText(doc, 'founder-map.csv', csv(sortedRows()))
       return say('Downloaded founder-map.csv')
@@ -244,12 +254,7 @@ export function boot(doc: Document): void {
       }
     }
     if (ev.key !== 'Escape') return
-    const box = doc.getElementById('csv-box') as HTMLTextAreaElement | null
-    if (box && !box.hidden && doc.activeElement === box) {
-      box.hidden = true
-      doc.getElementById('csv-copy')?.focus()
-      return
-    }
+    if (csvOpen() && csvPanel?.contains(doc.activeElement)) return closeCsv()
     if (escapeClears(doc.activeElement?.tagName)) clear()
   })
   doc.getElementById('zoom-in')?.addEventListener('click', () => map.zoomIn())
