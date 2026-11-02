@@ -13,7 +13,7 @@ export interface MapInput {
   matched: Set<FounderNode>
   layers: Layers
   filtersActive: boolean
-  pathFilter: Set<PathKey>
+  pathFilter: ReadonlySet<PathKey>
 }
 
 export interface MapHandlers {
