@@ -126,6 +126,16 @@ describe('focus retention across re-renders', () => {
 })
 
 describe('table view', () => {
+  it('Enter on the Source link inside a row opens the link instead of selecting the row', () => {
+    click('[data-view="table"]')
+    const link = q('#founder-table tbody tr.row a[href]')
+    const ev = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+    link.dispatchEvent(ev)
+    expect(ev.defaultPrevented).toBe(false)
+    expect(document.querySelector('#founder-table tr.is-selected')).toBeNull()
+    expect(text('#detail h2')).toBe('Pick any dot or station')
+  })
+
   it('renders the filtered rows, sorts on header click, selects on row click and Enter', () => {
     click('[data-view="table"]')
     expect(document.querySelectorAll('#founder-table tbody tr.row')).toHaveLength(graph.founders.length)

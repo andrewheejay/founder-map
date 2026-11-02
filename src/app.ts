@@ -236,7 +236,8 @@ export function boot(doc: Document): void {
         return store.set({ tab: tabs[next].getAttribute('data-tab') as Tab })
       }
     }
-    const row = target?.closest?.<HTMLElement>('tr.row[data-select]')
+    // Keyboard twin of the a[href] click guard: Enter on a link or button inside a row must activate it, not the row.
+    const row = target?.closest?.('a[href], button') ? null : target?.closest?.<HTMLElement>('tr.row[data-select]')
     if (row && (ev.key === 'Enter' || ev.key === ' ')) {
       ev.preventDefault()
       return store.set({ focus: row.getAttribute('data-select'), pinned: true })
