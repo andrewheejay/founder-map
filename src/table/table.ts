@@ -75,7 +75,7 @@ function cells(f: FounderNode): string {
   const c = f.company
   return [
     `<td class="name"><span class="pdot${f.fund === 'haystack' ? ' pdot--square' : ''}" style="--c: var(--path-${f.path})"></span>${esc(f.name)}</td>`,
-    `<td>${FUND_LABEL[f.fund]}</td>`,
+    `<td class="nowrap">${FUND_LABEL[f.fund]}</td>`,
     `<td>${esc(c.name)}${mini(c.vertical)}</td>`,
     `<td>${esc(PATHS[f.path].name)}${f.secondaryPath ? mini('also ' + PATHS[f.secondaryPath].name) : ''}</td>`,
     `<td>${esc(f.role)}</td>`,

@@ -110,4 +110,8 @@ describe('table shell', () => {
     expect(document.querySelector('#toast')?.getAttribute('role')).toBe('status')
     expect(document.body.textContent).not.toMatch(/Table view arrives/)
   })
+  it('the table keeps a wide minimum so 13 columns do not wrap into tall rows', () => {
+    const rule = rules(read('src/styles/components.css')).find((r) => r.selector === '.table')
+    expect(rule?.body.replace(/\s+/g, ' ')).toMatch(/min-width: 1280px/)
+  })
 })

@@ -1085,7 +1085,7 @@ button.chip:hover {
 
 .table {
   width: 100%;
-  min-width: 960px;
+  min-width: 1280px;
   border-collapse: collapse;
   font-size: var(--text-tableCell);
 }
@@ -1142,9 +1142,13 @@ button.chip:hover {
   vertical-align: top;
 }
 
+.table td.name,
+.table td.nowrap {
+  white-space: nowrap;
+}
+
 .table td.name {
   font-weight: var(--weight-medium);
-  white-space: nowrap;
 }
 
 .row {
