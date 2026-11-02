@@ -1156,6 +1156,17 @@ button.chip:hover {
   background: var(--color-accentTint);
 }
 
+/* The founder name is the row's keyboard control; the whole row stays a click target. */
+.rowbtn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
 .pdot {
   display: inline-block;
   width: 8px;

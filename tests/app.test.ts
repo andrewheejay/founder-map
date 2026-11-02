@@ -136,7 +136,7 @@ describe('table view', () => {
     expect(text('#detail h2')).toBe('Pick any dot or station')
   })
 
-  it('renders the filtered rows, sorts on header click, selects on row click and Enter', () => {
+  it('renders the filtered rows, sorts on header click, selects and clears on row clicks, name button keeps focus', () => {
     click('[data-view="table"]')
     expect(document.querySelectorAll('#founder-table tbody tr.row')).toHaveLength(graph.founders.length)
     expect(text('#table-count')).toBe(`${graph.founders.length} founders · sorted by founder`)
@@ -147,14 +147,16 @@ describe('table view', () => {
     const first = q('#founder-table tbody tr.row')
     first.dispatchEvent(new MouseEvent('click', { bubbles: true }))
     expect(q('#founder-table tr.is-selected').getAttribute('data-select')).toBe(first.getAttribute('data-select'))
-    expect(text('#detail h2')).toBe(first.querySelector('td')!.textContent!.trim())
-    click('#detail [data-close]')
+    expect(text('#detail h2')).toBe(first.querySelector('.rowbtn')!.textContent)
+    q('#founder-table tr.is-selected').dispatchEvent(new MouseEvent('click', { bubbles: true }))
     expect(document.querySelector('#founder-table tr.is-selected')).toBeNull()
-    const second = document.querySelectorAll('#founder-table tbody tr.row')[1] as HTMLElement
-    const ev = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
-    second.dispatchEvent(ev)
-    expect(ev.defaultPrevented).toBe(true)
-    expect(q('#founder-table tr.is-selected').getAttribute('data-select')).toBe(second.getAttribute('data-select'))
+    expect(text('#detail h2')).toBe('Pick any dot or station')
+    const btn = document.querySelectorAll<HTMLElement>('#founder-table .rowbtn')[1]
+    btn.focus()
+    btn.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    expect(q('#founder-table tr.is-selected').getAttribute('data-select')).toBe(btn.getAttribute('data-row'))
+    expect(document.activeElement?.getAttribute('data-row')).toBe(btn.getAttribute('data-row'))
+    expect(document.activeElement?.getAttribute('aria-pressed')).toBe('true')
     click('#detail [data-close]')
     click('[data-badge="big_tech_alum"]')
     expect(document.querySelectorAll('#founder-table tbody tr.row')).toHaveLength(graph.founders.filter((f) => f.badges.includes('big_tech_alum')).length)

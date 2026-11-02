@@ -27,19 +27,17 @@ export const TABLE_COLUMNS: Column[] = [
   { key: 'projects', label: 'Prior OSS', get: (f) => join(f.priorOpenSource) },
   { key: 'ossp', label: 'OSS product', get: (f) => OSS_LABEL[f.company.openSourceProduct] },
   { key: 'last', label: 'Company latest', get: (f) => f.company.latest },
-  { key: 'src', label: 'Source', get: (f) => f.source },
+  { key: 'src', label: 'Source', get: (f) => hostOf(f.source) },
 ]
 
 const column = (key: SortKey): Column => TABLE_COLUMNS.find((c) => c.key === key) ?? TABLE_COLUMNS[0]
 
-/** Case-insensitive sort by the column's text, ties by founder name, reversed when dir is -1. Never mutates. */
+const collator = new Intl.Collator('en', { sensitivity: 'base', numeric: true })
+
+/** Sort by the column's text with one case- and accent-insensitive collator, ties by founder name, reversed when dir is -1. Never mutates. */
 export function sortFounders(rows: FounderNode[], sort: Sort): FounderNode[] {
   const col = column(sort.key)
-  return [...rows].sort((a, b) => {
-    const va = col.get(a).toLowerCase()
-    const vb = col.get(b).toLowerCase()
-    return (va < vb ? -1 : va > vb ? 1 : a.name.localeCompare(b.name)) * sort.dir
-  })
+  return [...rows].sort((a, b) => (collator.compare(col.get(a), col.get(b)) || collator.compare(a.name, b.name)) * sort.dir)
 }
 
 /** The prototype's 23 CSV columns, verbatim. */
@@ -71,10 +69,10 @@ export const csv = (rows: FounderNode[]): string => [[...CSV_HEADER], ...rows.ma
 const mini = (s: string) => `<div class="mini">${esc(s)}</div>`
 const orNone = (s: string, none = 'none') => (s ? esc(s) : `<span class="mini">${none}</span>`)
 
-function cells(f: FounderNode): string {
+function cells(f: FounderNode, selected: boolean): string {
   const c = f.company
   return [
-    `<td class="name"><span class="pdot${f.fund === 'haystack' ? ' pdot--square' : ''}" style="--c: var(--path-${f.path})"></span>${esc(f.name)}</td>`,
+    `<td class="name"><span class="pdot${f.fund === 'haystack' ? ' pdot--square' : ''}" style="--c: var(--path-${f.path})"></span><button type="button" class="rowbtn" data-row="${esc(f.id)}" aria-pressed="${selected}">${esc(f.name)}</button></td>`,
     `<td class="nowrap">${FUND_LABEL[f.fund]}</td>`,
     `<td>${esc(c.name)}${mini(c.vertical)}</td>`,
     `<td>${esc(PATHS[f.path].name)}${f.secondaryPath ? mini('also ' + PATHS[f.secondaryPath].name) : ''}</td>`,
@@ -90,16 +88,22 @@ function cells(f: FounderNode): string {
   ].join('')
 }
 
-/** thead + tbody for the founders table: sortable headers with aria-sort, focusable rows, the selected row marked. */
+/**
+ * thead + tbody for the founders table: aria-sort on the sorted header only, rows that select on click
+ * (and clear on a second click), a name button per row for keyboard and assistive tech, the selected row marked.
+ */
 export function tableHTML(rows: FounderNode[], focus: string | null, sort: Sort): string {
   const head = TABLE_COLUMNS.map((c) => {
     const on = c.key === sort.key
-    const ariaSort = on ? (sort.dir > 0 ? 'ascending' : 'descending') : 'none'
+    const ariaSort = on ? ` aria-sort="${sort.dir > 0 ? 'ascending' : 'descending'}"` : ''
     const arrow = on ? (sort.dir > 0 ? '▲' : '▼') : ''
-    return `<th scope="col" aria-sort="${ariaSort}"><button type="button" class="th${on ? ' is-on' : ''}" data-sort="${c.key}">${c.label}<span class="th__arrow" aria-hidden="true">${arrow}</span></button></th>`
+    return `<th scope="col"${ariaSort}><button type="button" class="th${on ? ' is-on' : ''}" data-sort="${c.key}">${c.label}<span class="th__arrow" aria-hidden="true">${arrow}</span></button></th>`
   }).join('')
   const body = rows.length
-    ? rows.map((f) => `<tr class="row${f.id === focus ? ' is-selected' : ''}" data-select="${f.id}" tabindex="0">${cells(f)}</tr>`).join('')
+    ? rows.map((f) => {
+        const on = f.id === focus
+        return `<tr class="row${on ? ' is-selected' : ''}" data-select="${f.id}" data-toggle${on ? ' aria-current="true"' : ''}>${cells(f, on)}</tr>`
+      }).join('')
     : `<tr><td colspan="${TABLE_COLUMNS.length}" class="table__empty">No founders match these filters.</td></tr>`
   return `<thead><tr>${head}</tr></thead><tbody>${body}</tbody>`
 }

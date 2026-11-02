@@ -34,7 +34,7 @@ function renderStats(doc: Document) {
   if (stats) stats.textContent = `${graph.founders.length} founders · ${graph.companies.length} companies · ${shared} shared employers & schools · ${projects} open source projects`
 }
 
-const FOCUS_KEYS = ['data-select', 'data-remove', 'data-close', 'data-cluster', 'data-bp', 'data-oss', 'data-employer', 'data-path', 'data-badge', 'data-sort']
+const FOCUS_KEYS = ['data-select', 'data-row', 'data-remove', 'data-close', 'data-cluster', 'data-bp', 'data-oss', 'data-employer', 'data-path', 'data-badge', 'data-sort']
 const FOCUSABLE = 'button:not([disabled]), a[href], input, select, [tabindex]:not([tabindex="-1"])'
 
 /** The attribute selector that identifies a control across re-renders, or null when it carries no data key. */
@@ -199,7 +199,8 @@ export function boot(doc: Document): void {
       downloadText(doc, 'founder-map.csv', csv(sortedRows()))
       return say('Downloaded founder-map.csv')
     }
-    if ((el = hit('[data-select]'))) return select(data(el, 'data-select'), false)
+    if ((el = hit('[data-row]'))) return select(data(el, 'data-row'), true)
+    if ((el = hit('[data-select]'))) return select(data(el, 'data-select'), el.hasAttribute('data-toggle'))
     if ((el = hit('[data-remove]'))) return setFilters((f) => removeFilter(f, data(el!, 'data-remove')))
     if ((el = hit('[data-cluster]'))) return setFilters((f) => togglePath(f, data(el!, 'data-cluster') as PathKey))
     if ((el = hit('[data-path]'))) return setFilters((f) => togglePath(f, data(el!, 'data-path') as PathKey))
@@ -241,12 +242,6 @@ export function boot(doc: Document): void {
         tabs[next].focus()
         return store.set({ tab: tabs[next].getAttribute('data-tab') as Tab })
       }
-    }
-    // Keyboard twin of the a[href] click guard: Enter on a link or button inside a row must activate it, not the row.
-    const row = target?.closest?.('a[href], button') ? null : target?.closest?.<HTMLElement>('tr.row[data-select]')
-    if (row && (ev.key === 'Enter' || ev.key === ' ')) {
-      ev.preventDefault()
-      return select(row.getAttribute('data-select') ?? '', false)
     }
     if (ev.key !== 'Escape') return
     const box = doc.getElementById('csv-box') as HTMLTextAreaElement | null
