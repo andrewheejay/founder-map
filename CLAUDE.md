@@ -165,7 +165,7 @@ Employers and schools shared by two or more founders, plus every prior open sour
 
 **URL**: selection is mirrored in the hash (`#f-dan-lorenc`, `#c-temporal`, `#e-google`); loading a hash selects that node. (Optional v1.1: encode filters in the query string.)
 
-**Keyboard**: nodes are focusable (Tab) and activate with Enter/Space; Esc clears selection unless focus is in an input or select; visible focus rings everywhere.
+**Keyboard**: the map is one Tab stop; arrow keys move between nodes (Left/Right by position across, Up/Down by position down, Home/End to the ends), Enter/Space pins, and a focused node previews in the card like hover; Esc clears selection unless focus is in an input or select; visible focus rings everywhere.
 
 ## 7. Design spec (from the approved canvas)
 
