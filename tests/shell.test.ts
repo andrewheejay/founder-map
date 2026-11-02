@@ -71,4 +71,16 @@ describe('page shell', () => {
     expect(matching.length).toBeGreaterThan(0)
     expect(matching.filter((s) => !/zoombar|\.btn/.test(s))).toEqual([])
   })
+  it('drawer, active row, table shell, and tabs are in the shell', () => {
+    expect(document.querySelector('#filters-btn')?.getAttribute('aria-controls')).toBe('filters-drawer')
+    expect(document.querySelector('#filters-drawer')?.hasAttribute('hidden')).toBe(true)
+    expect(document.querySelector('#active-row')?.hasAttribute('hidden')).toBe(true)
+    expect(document.querySelector('main #table-card')?.hasAttribute('hidden')).toBe(true)
+    const tabs = [...document.querySelectorAll('#tabs [role="tab"]')]
+    expect(tabs.map((t) => t.getAttribute('data-tab'))).toEqual(['clusters', 'insights', 'about'])
+    expect(tabs.map((t) => t.getAttribute('aria-selected'))).toEqual(['true', 'false', 'false'])
+    expect(tabs.every((t) => document.getElementById(t.getAttribute('aria-controls')!)?.getAttribute('role') === 'tabpanel')).toBe(true)
+    expect(document.querySelector('#tab-about a[href*="claude.ai"]')).not.toBeNull()
+    expect(document.querySelector('#tab-about')?.hasAttribute('hidden')).toBe(true)
+  })
 })

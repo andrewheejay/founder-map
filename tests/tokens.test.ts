@@ -28,4 +28,12 @@ describe('tokens', () => {
   it('generated file is in sync with the source', () => {
     expect(readFileSync(new URL('../src/styles/tokens.css', import.meta.url), 'utf8')).toBe(css)
   })
+  it('emits the Prompt 2 sizing tokens', () => {
+    const css = readFileSync(new URL('../src/styles/tokens.css', import.meta.url), 'utf8')
+    expect(css).toMatch(/--space-chipH: 26px/)
+    expect(css).toMatch(/--space-tabH: 42px/)
+    expect(css).toMatch(/--space-closeBtn: 32px/)
+    expect(css).toMatch(/--space-dlLabelW: 88px/)
+    expect(css).toMatch(/--text-chip: 12px/)
+  })
 })

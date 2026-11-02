@@ -46,6 +46,9 @@
       </button>
     </div>
 
+    <section class="wrap" id="filters-drawer" aria-label="Filters" hidden></section>
+    <div class="wrap active" id="active-row" hidden></div>
+
     <main class="wrap main">
       <section class="card map-card" id="map-card" aria-label="Founder map">
         <div class="map-stage">
@@ -70,12 +73,39 @@
           <li><span class="swatch swatch--alt"></span>Also fits another path</li>
         </ul>
       </section>
+      <section class="card table-card" id="table-card" aria-label="Founders table" hidden>
+        <p class="body">Table view arrives in the next step.</p>
+      </section>
 
       <aside class="side">
         <section class="card detail" id="detail" aria-live="polite">
           <p class="eyebrow">Start here</p>
           <h2 class="card-title">Pick any dot or station</h2>
           <p class="body">Colored dots are founders, placed by career path. Gray circles are the employers, schools, and projects they share. Hover or tap one to see its ties.</p>
+        </section>
+        <section class="card tabs-card" aria-label="Clusters, insights, and about">
+          <div class="tabs" role="tablist" id="tabs">
+            <button type="button" class="tab" role="tab" data-tab="clusters" aria-selected="true" aria-controls="tab-clusters">Clusters</button>
+            <button type="button" class="tab" role="tab" data-tab="insights" aria-selected="false" aria-controls="tab-insights">Insights</button>
+            <button type="button" class="tab" role="tab" data-tab="about" aria-selected="false" aria-controls="tab-about">About</button>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="tab-clusters">
+            <div class="tabpanel__head"><span>Path</span><span class="num">Amplify · Haystack</span></div>
+            <div id="clusters-list"></div>
+            <div class="tabpanel__head"><span>Badges by path</span><span>tap a segment to filter</span></div>
+            <div id="badge-rows"></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="tab-insights" hidden>
+            <div class="tabpanel__head"><span>What the map shows</span></div>
+            <ul class="insights" id="insights-list"></ul>
+          </div>
+          <div class="tabpanel about" role="tabpanel" id="tab-about" hidden>
+            <div class="tabpanel__head"><span>How it is built</span></div>
+            <p><b>Paths.</b> Each founder sits in one cluster for the main career path that led to this company, from public bios as of October 2026. A dashed stub points toward a second path that also fits.</p>
+            <p><b>Open source is a badge, not a path.</b> Prior open source means the founder created or co-created a notable project before this company (Envoy, Ray, Vagrant). Open source product is a company attribute: whether the core product is open, partial (open tooling or standard, commercial core), or closed.</p>
+            <p><b>Big tech</b> means Google, Facebook (Meta), Microsoft, Amazon, Apple, Twitter, Uber, Lyft, or Palantir. Big tech engineer is a path (years building inside a large company or agency, such as the NSA); Big tech alum is a badge (worked at one of the nine).</p>
+            <p><b>Stations</b> are employers and schools shared by two or more founders, plus every prior open source project; turn on One-off ties in Filters for the rest. Valuations and rounds are the latest public figures. Full bios and sources live in <a href="https://claude.ai/code/artifact/619f117c-df06-44e8-abac-ee2e6b95b82d" target="_blank" rel="noopener">Amplify Portfolio: Founder Briefs</a>.</p>
+          </div>
         </section>
       </aside>
     </main>

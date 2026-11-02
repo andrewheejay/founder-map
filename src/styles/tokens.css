@@ -37,6 +37,8 @@
   --text-mapCompany: 13px;
   --text-mapHub: 10.5px;
   --text-mapCluster: 13px;
+  --text-chip: 12px;
+  --text-mini: 12px;
   --leading-base: 1.45;
   --tracking-title: -0.01em;
   --tracking-eyebrow: 0.08em;
@@ -59,6 +61,10 @@
   --space-controlHPhone: 44px;
   --space-sideW: 320px;
   --space-zoomBtn: 36px;
+  --space-chipH: 26px;
+  --space-tabH: 42px;
+  --space-closeBtn: 32px;
+  --space-dlLabelW: 88px;
   --map-hullFillOpacity: 0.06;
   --map-hullStrokeOpacity: 0.28;
   --map-hullStrokeWidth: 1.2;
