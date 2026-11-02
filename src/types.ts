@@ -47,3 +47,13 @@ export interface Layout {
   note?: string
   nodes: Record<string, { x: number; y: number }>
 }
+
+/** Map layer toggles (the "Map layers" group of the filter drawer). */
+export interface Layers {
+  companies: boolean
+  employers: boolean
+  schools: boolean
+  projects: boolean
+  oneOff: boolean
+  alt: boolean
+}
