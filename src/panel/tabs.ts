@@ -32,7 +32,8 @@ export function badgeRowsHTML(graph: Graph, filters: Filters): string {
       .map((s) => {
         const on = filters.badges.has(b) && filters.paths.size === 1 && filters.paths.has(s.p)
         const dim = filters.badges.has(b) && filters.paths.size > 0 && !filters.paths.has(s.p)
-        return `<button type="button" class="bseg${dim ? ' is-dim' : ''}" data-bp="${b}:${s.p}" aria-pressed="${on}" style="--c: var(--path-${s.p}); flex: ${s.n}" title="${esc(PATHS[s.p].name)}: ${s.n}">${s.n}</button>`
+        const name = `${BADGE_LABEL[b]}, ${PATHS[s.p].name}: ${s.n} of ${fs.length} founders`
+        return `<button type="button" class="bseg${dim ? ' is-dim' : ''}" data-bp="${b}:${s.p}" aria-pressed="${on}" aria-label="${esc(name)}" style="--c: var(--path-${s.p}); flex: ${s.n}" title="${esc(PATHS[s.p].name)}: ${s.n}">${s.n}</button>`
       })
       .join('')
     return `<div class="brow"><div class="brow__label">${esc(BADGE_LABEL[b])}<small>${fs.length} founders</small></div><div class="bbar">${bar}</div></div>`
@@ -40,7 +41,7 @@ export function badgeRowsHTML(graph: Graph, filters: Filters): string {
   const ossKeys: OssProduct[] = ['yes', 'partial', 'no']
   const count = (k: OssProduct) => graph.companies.filter((c) => c.openSourceProduct === k).length
   const ossBar = ossKeys
-    .map((k, i) => `<button type="button" class="bseg${['', ' bseg--light', ' bseg--faint'][i]}" data-oss="${k}" aria-pressed="${filters.oss === k}" style="--c: var(--path-repeat_founder); flex: ${count(k)}" title="${OSS_LABEL[k]}: ${count(k)} companies">${count(k)}</button>`)
+    .map((k, i) => `<button type="button" class="bseg${['', ' bseg--light', ' bseg--faint'][i]}" data-oss="${k}" aria-pressed="${filters.oss === k}" aria-label="${OSS_LABEL[k]}: ${count(k)} of ${graph.companies.length} companies" style="--c: var(--path-repeat_founder); flex: ${count(k)}" title="${OSS_LABEL[k]}: ${count(k)} companies">${count(k)}</button>`)
     .join('')
   rows.push(`<div class="brow"><div class="brow__label">Open source product<small>company level</small></div><div class="bbar">${ossBar}</div></div>`)
   const oss = graph.founders.filter((f) => f.badges.includes('prior_open_source'))
@@ -69,12 +70,13 @@ export function insightsHTML(graph: Graph): string {
   const mixed = graph.companies.filter((c) => new Set(c.members.map((m) => m.path)).size > 1)
   const moved = graph.founders.filter((f) => f.status !== 'active')
   const left = moved.filter((f) => f.status === 'left')
+  const none = 'none yet'
   const items = [
     `<b>Amplify leans on one path.</b> ${A.n} of its ${A.total} founders are ${lowerPlural(A.k)}. Haystack's biggest group is ${lowerPlural(H.k)}, ${H.n} of ${H.total}.`,
-    `<b>Busiest stations:</b> ${busiest.map((h) => `${link(h)} (${h.degree})`).join(', ')}. ${big} of the ${riders.size} founders who passed through them are big tech engineers, which is why that neighborhood is so dense.`,
-    `<b>Shared by both funds:</b> ${both.length} stations, led by ${both.slice(0, 5).map(link).join(', ')}. This is where the two portfolios draw from the same talent.`,
-    `<b>Most mixed stations:</b> ${most.slice(0, 4).map(link).join(', ')} each connect ${mixedness(multi[0])} different paths.`,
-    `<b>Mixed teams:</b> ${mixed.length} of ${graph.companies.length} companies pair founders from different paths, such as ${mixed.slice(0, 3).map(link).join(', ')}.`,
+    `<b>Busiest stations:</b> ${busiest.length ? busiest.map((h) => `${link(h)} (${h.degree})`).join(', ') : none}. ${big} of the ${riders.size} founders who passed through them are big tech engineers, which is why that neighborhood is so dense.`,
+    `<b>Shared by both funds:</b> ${both.length} stations, led by ${both.length ? both.slice(0, 5).map(link).join(', ') : none}. This is where the two portfolios draw from the same talent.`,
+    multi.length ? `<b>Most mixed stations:</b> ${most.slice(0, 4).map(link).join(', ')} each connect ${mixedness(multi[0])} different paths.` : `<b>Most mixed stations:</b> ${none}.`,
+    `<b>Mixed teams:</b> ${mixed.length} of ${graph.companies.length} companies pair founders from different paths${mixed.length ? `, such as ${mixed.slice(0, 3).map(link).join(', ')}` : ''}.`,
     `<b>Founder turnover:</b> ${moved.length} of ${graph.founders.length} founders have changed role or left${left.length ? `, including ${left.map(link).join(', ')}` : ''}. Filter Status to see them.`,
   ]
   return items.map((s) => `<li>${s}</li>`).join('')

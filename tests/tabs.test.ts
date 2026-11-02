@@ -3,9 +3,10 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { graph } from '../src/data'
-import { PATH_ORDER } from '../src/model'
+import { PATH_ORDER, buildGraph } from '../src/model'
 import { badgeRowsHTML, clustersHTML, insightsHTML } from '../src/panel/tabs'
 import { DEFAULT_FILTERS } from '../src/state'
+import type { CompanyRecord, FounderRecord, Layout } from '../src/types'
 import { contrast, hex, mix } from './helpers/contrast'
 
 const el = (html: string) => {
@@ -84,5 +85,39 @@ describe('badge segment contrast', () => {
           expect(contrast(th.ink, mix(c, th.surface, pct / 100)), `${th.name} ${p} at ${pct}%`).toBeGreaterThanOrEqual(4.5)
         }
       }
+  })
+})
+
+const tiny = buildGraph(
+  [{ id: 'f:ann-lee', name: 'Ann Lee', shortLabel: 'A. Lee', company: 'Acme', path: 'academic', secondaryPath: null, role: 'CEO', status: 'active', statusNote: null, badges: [], employers: [], schools: [], taughtAt: [], priorOpenSource: [], edgeCase: false, bio: 'x', source: 'https://a.example' } satisfies FounderRecord],
+  [{ id: 'c:acme', name: 'Acme', fund: 'amplify', vertical: 'Developer Tools', founded: 2020, avgFounderAgeAtFounding: null, openSourceProduct: 'no', status: 'Active', latest: 'Seed', description: 'd' } satisfies CompanyRecord],
+  { viewBox: [0, 0, 1100, 840], nodes: { 'f:ann-lee': { x: 100, y: 100 }, 'c:acme': { x: 120, y: 120 } } } satisfies Layout,
+)
+
+describe('tabs on a graph with no hubs', () => {
+  it('insights render six bullets with "none yet" instead of throwing', () => {
+    const d = el(insightsHTML(tiny))
+    const items = [...d.querySelectorAll('li')]
+    expect(items).toHaveLength(6)
+    expect(items[1].textContent).toContain('none yet')
+    expect(items[3].textContent).toContain('none yet')
+    expect(d.textContent).not.toMatch(/undefined|NaN/)
+  })
+  it('badge rows render for a graph with no badged founders', () => {
+    const d = el(badgeRowsHTML(tiny, DEFAULT_FILTERS))
+    expect(d.querySelectorAll('.brow')).toHaveLength(5)
+    expect(d.querySelector('.bnote')?.textContent).not.toMatch(/undefined|NaN/)
+  })
+})
+
+describe('badge segment names', () => {
+  it('every segment has an aria-label naming the badge, path, and count', () => {
+    const d = el(badgeRowsHTML(graph, DEFAULT_FILTERS))
+    const seg = d.querySelector('[data-bp="prior_open_source:big_tech_engineer"]')!
+    const total = graph.founders.filter((f) => f.badges.includes('prior_open_source')).length
+    expect(seg.getAttribute('aria-label')).toBe(`Prior open source, Big tech engineer: ${seg.textContent} of ${total} founders`)
+    const oss = d.querySelector('[data-oss="partial"]')!
+    expect(oss.getAttribute('aria-label')).toBe(`Partially open: ${oss.textContent} of ${graph.companies.length} companies`)
+    expect([...d.querySelectorAll('.bseg')].every((b) => b.getAttribute('aria-label'))).toBe(true)
   })
 })
