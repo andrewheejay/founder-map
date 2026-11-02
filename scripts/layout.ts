@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY, type SimulationLinkDatum, type SimulationNodeDatum } from 'd3-force'
 import { hubRadius } from '../src/map/geometry'
 import { hubRefs } from '../src/model'
@@ -163,10 +164,13 @@ export function computeLayout(founders: FounderRecord[], companies: CompanyRecor
   }
 }
 
+/** Where `npm run layout` writes without --out. */
+export const DEFAULT_OUT = fileURLToPath(new URL('../data/layout.json', import.meta.url))
+
 function main() {
   const args = process.argv.slice(2)
   const outIndex = args.indexOf('--out')
-  const out = outIndex >= 0 ? args[outIndex + 1] : new URL('../data/layout.json', import.meta.url).pathname
+  const out = outIndex >= 0 ? args[outIndex + 1] : DEFAULT_OUT
   const read = (name: string) => JSON.parse(readFileSync(new URL(`../data/${name}`, import.meta.url), 'utf8'))
   const layout = computeLayout(read('founders.json') as FounderRecord[], read('companies.json') as CompanyRecord[])
   writeFileSync(out, JSON.stringify(layout, null, 1) + '\n')

@@ -3,6 +3,7 @@ import { curveCatmullRomClosed, line } from 'd3-shape'
 import 'd3-transition'
 import { zoom, zoomIdentity, type D3ZoomEvent, type ZoomTransform } from 'd3-zoom'
 import { FUND_LABEL, HUB_TYPE_LABEL, PATHS, type AnyNode, type Cluster, type FounderNode, type Graph, type HubNode } from '../model'
+import { MAP_DIM_OPACITY, MAP_FILTERED_OPACITY } from '../tokens'
 import type { Layers, PathKey } from '../types'
 import { altStub, clusterGeometry, hubRadius, nodeRadius, type ClusterGeometry, type Pt } from './geometry'
 import { placeLabels, type LabelItem, type Placement, type Rect } from './labels'
@@ -296,7 +297,7 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     const { focus, pinned, matched, layers, filtersActive, pathFilter } = input
     const E = focus ? new Set<AnyNode>([focus, ...(graph.neighbors.get(focus) ?? [])]) : null
     const matchedNode = (d: AnyNode) => (d.kind === 'founder' ? matched.has(d) : d.members.some((m) => matched.has(m)))
-    const opacity = (d: AnyNode) => (!matchedNode(d) ? 0.07 : E ? (E.has(d) ? 1 : 0.32) : 1)
+    const opacity = (d: AnyNode) => (!matchedNode(d) ? MAP_FILTERED_OPACITY : E ? (E.has(d) ? 1 : MAP_DIM_OPACITY) : 1)
     const crowded = (d: AnyNode) => placements.get(d.id)?.crowded ?? true
 
     nodeSel

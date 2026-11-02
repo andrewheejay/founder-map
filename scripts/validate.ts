@@ -88,7 +88,15 @@ export function validateData(founders: unknown, companies: unknown, layout: unkn
         if (b === 'big_tech_alum') err(`${id}: badges contains "big_tech_alum", which is derived from employers and never stored`)
         else if (!STORED_BADGES.includes(b as string)) err(`${id}: badge ${JSON.stringify(b)} is not one of ${list(STORED_BADGES)}`)
       }
-    for (const field of ['employers', 'schools', 'taughtAt', 'priorOpenSource']) if (!isTextArray(f[field])) err(`${id}: ${field} must be an array of non-empty strings`)
+    for (const field of ['employers', 'schools', 'taughtAt', 'priorOpenSource']) {
+      const xs = f[field]
+      if (!isTextArray(xs)) err(`${id}: ${field} must be an array of non-empty strings`)
+      else {
+        const dup = xs.find((x, i) => xs.indexOf(x) !== i)
+        if (dup !== undefined) err(`${id}: ${field} lists "${dup}" twice`)
+      }
+    }
+    if (f.secondaryPath !== null && f.secondaryPath === f.path) err(`${id}: secondaryPath equals path`)
     if (typeof f.edgeCase !== 'boolean') err(`${id}: edgeCase must be true or false`)
     checkText(id, 'bio', f.bio)
     if (!isText(f.source) || !/^https?:\/\//.test(f.source)) err(`${id}: source must be an http(s) URL`)

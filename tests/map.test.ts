@@ -1,7 +1,10 @@
 // @vitest-environment jsdom
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { graph } from '../src/data'
 import { createMap, type MapInput } from '../src/map/map'
+import { MAP_DIM_OPACITY, MAP_FILTERED_OPACITY } from '../src/tokens'
 
 const layers = { companies: true, employers: true, schools: true, projects: true, oneOff: false, alt: true }
 const base = (): MapInput => ({ focus: null, pinned: false, matched: new Set(graph.founders), layers, filtersActive: false, pathFilter: new Set() })
@@ -111,6 +114,14 @@ describe('map', () => {
     ;(SVGElement.prototype as any).getBBox = () => ({ x: 0, y: 0, width: 0, height: 0 })
     map.relayout()
     expect(shown(svg)).toEqual(measured)
+  })
+  it('dim and filtered opacities come from design/tokens.json, not literals in map.ts', () => {
+    const t = JSON.parse(readFileSync(resolve(process.cwd(), 'design/tokens.json'), 'utf8'))
+    expect(MAP_DIM_OPACITY).toBe(t.map.dimOpacity)
+    expect(MAP_FILTERED_OPACITY).toBe(t.map.filteredOpacity)
+    const src = readFileSync(resolve(process.cwd(), 'src/map/map.ts'), 'utf8')
+    expect(src).not.toMatch(/[?:] 0\.(32|07)\b/)
+    expect(src).toContain('MAP_DIM_OPACITY')
   })
 })
 

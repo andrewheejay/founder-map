@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ANCHORS, computeLayout } from '../scripts/layout'
+import { ANCHORS, DEFAULT_OUT, computeLayout } from '../scripts/layout'
 import { companies, founders, layout as shipped } from '../src/data'
 import { hubRefs } from '../src/model'
 
@@ -28,5 +28,10 @@ describe('layout script', () => {
       const cy = fs.reduce((s, f) => s + out.nodes[f.id].y, 0) / fs.length
       expect(Math.hypot(cx - ax, cy - ay), k).toBeLessThan(160)
     }
+  })
+  it('default output path is a plain file path to data/layout.json', () => {
+    expect(DEFAULT_OUT).toMatch(/\/data\/layout\.json$/)
+    expect(DEFAULT_OUT.startsWith('/')).toBe(true)
+    expect(DEFAULT_OUT).not.toContain('%')
   })
 })

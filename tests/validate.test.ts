@@ -50,4 +50,14 @@ describe('validateData', () => {
     d.c[0].id = 'c:wrong'
     expect(validateData(d.f, d.c, d.l).join()).toMatch(/c:wrong/)
   })
+  it('a hub listed twice for one founder', () => {
+    const d = clone()
+    d.f[0].employers.push(d.f[0].employers[0])
+    expect(validateData(d.f, d.c, d.l).join()).toMatch(/f:will-wilson: employers lists ".+" twice/)
+  })
+  it('secondaryPath equal to path', () => {
+    const d = clone()
+    d.f[0].secondaryPath = d.f[0].path
+    expect(validateData(d.f, d.c, d.l).join()).toMatch(/f:will-wilson: secondaryPath equals path/)
+  })
 })

@@ -96,7 +96,9 @@ export function placeLabels(items: LabelItem[], reserved: Rect[], k: number, bou
     const area = d.lw * d.lh * s * s
     let best: { c: Candidate; r: Rect } | null = null
     let bestScore = Infinity
-    candidates(d, W / 2).forEach((c, i) => {
+    const cs = candidates(d, W / 2)
+    for (let i = 0; i < cs.length; i++) {
+      const c = cs[i]
       const r = rectFor(d, c, s)
       let score = i * 0.5
       for (const ob of obstacles) if (ob.o !== d) score += overlapArea(r, ob.r)
@@ -106,11 +108,11 @@ export function placeLabels(items: LabelItem[], reserved: Rect[], k: number, bou
         bestScore = score
         best = { c, r }
       }
-    })
+    }
     if (!best) continue
     const crowded = bestScore > 0.18 * area + 2
-    out.set(d.id, { c: (best as { c: Candidate }).c, crowded })
-    if (!crowded) placed.push((best as { r: Rect }).r)
+    out.set(d.id, { c: best.c, crowded })
+    if (!crowded) placed.push(best.r)
   }
   return out
 }
