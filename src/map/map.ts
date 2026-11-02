@@ -31,9 +31,15 @@ export interface MapView {
   fit(): void
 }
 
+/** The subset of document.fonts the map needs; injectable for tests. */
+export interface FontsLike {
+  readonly ready: Promise<unknown>
+  addEventListener?(type: 'loadingdone', listener: () => void): void
+}
+
 export interface MapOptions {
   reduceMotion?: boolean
-  fontsReady?: Promise<unknown>
+  fonts?: FontsLike
 }
 
 interface ClusterView extends ClusterGeometry {
@@ -65,13 +71,20 @@ const ariaLabel = (d: AnyNode): string =>
 
 const labelText = (d: AnyNode): string => (d.kind === 'hub' ? d.name.toUpperCase() : d.kind === 'founder' ? d.shortLabel : d.name)
 
-/** getBBox is unavailable in some environments (detached SVG, jsdom, hidden ancestors); fall back to a rough estimate. */
-function textBox(t: SVGTextElement, text: string): Measure {
+const estimateBox = (text: string): Measure => ({ lw: text.length * 6, lh: 14, la: 11 })
+
+/**
+ * getBBox throws in some environments (jsdom, some detached SVGs) and returns an empty rect in others
+ * (Chromium with a hidden ancestor). Both mean "not measurable": return null so the caller keeps a
+ * previous measurement or falls back to a rough estimate.
+ */
+function textBox(t: SVGTextElement): Measure | null {
   try {
     const b = t.getBBox()
+    if (b.width === 0 && b.height === 0) return null
     return { lw: b.width, lh: b.height, la: -b.y }
   } catch {
-    return { lw: text.length * 6, lh: 14, la: 11 }
+    return null
   }
 }
 
@@ -226,14 +239,18 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
       t.setAttribute('text-anchor', 'start')
       t.setAttribute('x', '0')
       t.setAttribute('y', '0')
-      measures.set(d.id, textBox(t, labelText(d)))
+      const m = textBox(t)
+      if (m) measures.set(d.id, m)
+      else if (!measures.has(d.id)) measures.set(d.id, estimateBox(labelText(d)))
     })
     clSel.each(function (c) {
       const t = this.firstChild as SVGTextElement
       const n = c.cluster.founders.length
       const widest = `${c.cluster.name.toUpperCase()} · ${n}/${n}`
       t.textContent = widest
-      Object.assign(c, textBox(t, widest))
+      const m = textBox(t)
+      if (m) Object.assign(c, m)
+      else if (!(c.lw > 0)) Object.assign(c, estimateBox(widest))
       if (c.anchor === 'start') c.lx = Math.min(c.lx0, W - 10 - c.lw)
       else if (c.anchor === 'end') c.lx = Math.max(c.lx0, 10 + c.lw)
       else c.lx = Math.min(Math.max(c.lx0, 10 + c.lw / 2), W - 10 - c.lw / 2)
@@ -348,7 +365,10 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
   measure()
   place()
   render()
-  opts.fontsReady?.then(relayout, () => undefined)
+  // Read fonts.ready only after the first measurement: measuring triggers the font loads, and a promise
+  // captured earlier may already be resolved. loadingdone covers a font stylesheet that arrives later.
+  opts.fonts?.ready.then(relayout, () => undefined)
+  opts.fonts?.addEventListener?.('loadingdone', relayout)
 
   return {
     update(next) {

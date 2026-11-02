@@ -42,7 +42,7 @@ function boot() {
     },
     {
       reduceMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      fontsReady: document.fonts?.ready,
+      fonts: document.fonts,
     },
   )
 

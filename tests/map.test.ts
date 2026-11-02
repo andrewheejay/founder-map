@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { graph } from '../src/data'
 import { createMap, type MapInput } from '../src/map/map'
 
@@ -15,6 +15,9 @@ const mount = (opts = {}) => {
 const style = (svg: SVGSVGElement, id: string) => (svg.querySelector(`[data-id="${id}"]`) as HTMLElement).style.opacity
 
 describe('map', () => {
+  afterEach(() => {
+    delete (SVGElement.prototype as any).getBBox
+  })
   it('renders every node with an aria-label, five hulls, every link and stub', () => {
     const { svg } = mount()
     expect(svg.querySelectorAll('g.node[aria-label][tabindex="0"]')).toHaveLength(graph.all.length)
@@ -61,13 +64,52 @@ describe('map', () => {
   })
   it('survives a missing getBBox and re-measures when fonts are ready', async () => {
     let ready!: () => void
-    const { svg, map } = mount({ fontsReady: new Promise<void>((r) => (ready = r)) })
+    const { svg, map } = mount({ fonts: { ready: new Promise<void>((r) => (ready = r)) } })
     expect([...svg.querySelectorAll('g.lbl.founder')].some((l) => l.getAttribute('display') !== 'none')).toBe(true)
     ;(SVGElement.prototype as any).getBBox = () => ({ x: 0, y: -11, width: 5000, height: 14 })
     ready()
     await new Promise((r) => setTimeout(r, 0))
     expect([...svg.querySelectorAll('g.lbl.founder')].every((l) => l.getAttribute('display') === 'none')).toBe(true)
-    delete (SVGElement.prototype as any).getBBox
     void map
+  })
+  it('reads fonts.ready only after the first measurement and re-measures on loadingdone', () => {
+    // Reading document.fonts.ready before measuring can capture an already-resolved promise; the loads that
+    // measuring triggers then never re-place the labels. The listener covers stylesheets that arrive later.
+    let bboxCalls = 0
+    let callsWhenReadyRead = -1
+    ;(SVGElement.prototype as any).getBBox = () => {
+      bboxCalls++
+      return { x: 0, y: -11, width: 10, height: 14 }
+    }
+    const listeners: Record<string, () => void> = {}
+    const fonts = {
+      get ready() {
+        callsWhenReadyRead = bboxCalls
+        return new Promise<void>(() => undefined)
+      },
+      addEventListener(type: 'loadingdone', fn: () => void) {
+        listeners[type] = fn
+      },
+    }
+    const { svg } = mount({ fonts })
+    expect(callsWhenReadyRead).toBeGreaterThan(0)
+    expect([...svg.querySelectorAll('g.lbl.founder')].some((l) => l.getAttribute('display') !== 'none')).toBe(true)
+    ;(SVGElement.prototype as any).getBBox = () => ({ x: 0, y: -11, width: 5000, height: 14 })
+    listeners.loadingdone()
+    expect([...svg.querySelectorAll('g.lbl.founder')].every((l) => l.getAttribute('display') === 'none')).toBe(true)
+  })
+  it('treats an empty getBBox as a failed measurement', () => {
+    // Chromium returns a 0x0 rect for text inside a hidden ancestor instead of throwing.
+    const shown = (svg: SVGSVGElement) => [...svg.querySelectorAll('g.lbl')].map((l) => l.getAttribute('display'))
+    const estimated = shown(mount().svg)
+    ;(SVGElement.prototype as any).getBBox = () => ({ x: 0, y: 0, width: 0, height: 0 })
+    expect(shown(mount().svg)).toEqual(estimated)
+    ;(SVGElement.prototype as any).getBBox = () => ({ x: 0, y: -11, width: 10, height: 14 })
+    const { svg, map } = mount()
+    const measured = shown(svg)
+    expect(measured).not.toEqual(estimated)
+    ;(SVGElement.prototype as any).getBBox = () => ({ x: 0, y: 0, width: 0, height: 0 })
+    map.relayout()
+    expect(shown(svg)).toEqual(measured)
   })
 })
