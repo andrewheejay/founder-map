@@ -65,6 +65,9 @@
   --space-tabH: 42px;
   --space-closeBtn: 32px;
   --space-dlLabelW: 96px;
+  --space-tabHPhone: 46px;
+  --space-closeBtnPhone: 44px;
+  --space-rowMinH: 44px;
   --map-hullFillOpacity: 0.06;
   --map-hullStrokeOpacity: 0.28;
   --map-hullStrokeWidth: 1.2;

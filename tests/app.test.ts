@@ -9,8 +9,10 @@ const q = <T extends Element = HTMLElement>(sel: string) => document.querySelect
 const click = (sel: string) => q(sel).dispatchEvent(new MouseEvent('click', { bubbles: true }))
 const text = (sel: string) => q(sel)?.textContent ?? ''
 
+const indexHtml = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8').replace(/<script[^>]*><\/script>/g, '')
+
 beforeAll(() => {
-  document.documentElement.innerHTML = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8').replace(/<script[^>]*><\/script>/g, '')
+  document.documentElement.innerHTML = indexHtml
   ;(window as unknown as { matchMedia: () => { matches: boolean } }).matchMedia = () => ({ matches: false })
   boot(document)
 })
@@ -201,5 +203,24 @@ describe('hash and keyboard', () => {
     tabs[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }))
     expect(document.activeElement).toBe(tabs[0])
     expect(q('#tab-clusters').hasAttribute('hidden')).toBe(false)
+  })
+})
+
+describe('phone behaviors', () => {
+  it('zooms to the pinned node and scrolls the card into view only on narrow screens, never on hover', () => {
+    const calls: string[] = []
+    const mm = (window as unknown as { matchMedia: unknown }).matchMedia
+    ;(window as unknown as { matchMedia: unknown }).matchMedia = (q: string) => ({ matches: true, media: q })
+    const doc2 = new DOMParser().parseFromString(indexHtml, 'text/html')
+    ;(doc2.getElementById('detail') as unknown as { scrollIntoView: () => void }).scrollIntoView = () => calls.push('scroll')
+    boot(doc2)
+    const node = doc2.querySelector('[data-id="f:dan-lorenc"]')!
+    node.dispatchEvent(new Event('pointerenter'))
+    expect(calls).toEqual([])
+    node.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    expect(calls).toEqual(['scroll'])
+    expect(doc2.querySelector('#map g.viewport')!.getAttribute('transform')).toMatch(/scale\(2\.4\)/)
+    ;(window as unknown as { matchMedia: unknown }).matchMedia = mm
+    history.replaceState(null, '', location.pathname)
   })
 })

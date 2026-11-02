@@ -68,7 +68,7 @@ export function boot(doc: Document): void {
   renderStats(doc)
   const svg = doc.getElementById('map') as SVGSVGElement | null
   if (!svg) return
-  const win = doc.defaultView
+  const win = doc.defaultView ?? (typeof window !== 'undefined' ? window : null)
   const store = createStore(DEFAULT_STATE)
   const setFilters = (next: (f: State['filters']) => State['filters']) => store.set({ filters: next(store.get().filters) })
   const clear = () => {
@@ -76,6 +76,9 @@ export function boot(doc: Document): void {
     if (s.focus || s.pinned) store.set({ focus: null, pinned: false })
   }
 
+  const reduceMotion = win?.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
+  const phone = win?.matchMedia?.('(max-width: 640px)')
+  const narrow = win?.matchMedia?.('(max-width: 980px)')
   const map = createMap(
     svg,
     graph,
@@ -91,7 +94,7 @@ export function boot(doc: Document): void {
       onCanvasClick: clear,
     },
     {
-      reduceMotion: win?.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false,
+      reduceMotion,
       fonts: doc.fonts,
     },
   )
@@ -135,6 +138,12 @@ export function boot(doc: Document): void {
     lastPinned = id
     const announce = doc.getElementById('announce')
     if (announce) announce.textContent = announceText(id ? (graph.byId.get(id) ?? null) : null)
+    if (id) {
+      // Phone: zoom the map to the selection; narrow screens: bring the card (below the map) into view.
+      if (phone?.matches) map.zoomTo(id)
+      const detail = doc.getElementById('detail')
+      if (narrow?.matches && typeof detail?.scrollIntoView === 'function') detail.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' })
+    }
     if (!win) return
     if (id) {
       const h = '#' + idToHash(id)

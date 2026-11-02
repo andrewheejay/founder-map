@@ -413,6 +413,24 @@
   .map-stage > svg {
     max-height: none;
   }
+
+  .select {
+    height: var(--space-controlHPhone);
+  }
+
+  .card__close {
+    width: var(--space-closeBtnPhone);
+    height: var(--space-closeBtnPhone);
+    margin: -10px -12px 0 0;
+  }
+
+  .cluster-row {
+    min-height: var(--space-rowMinH);
+  }
+
+  .tab {
+    height: var(--space-tabHPhone);
+  }
 }
 
 /* ---------- Filter drawer ---------- */
@@ -1242,4 +1260,70 @@ button.chip:hover {
 
 .toast.is-on {
   opacity: 1;
+}
+
+/* ---------- Phone (Phone.dc.html, 390px) ---------- */
+@media (max-width: 640px) {
+  .site-header__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-block: 12px;
+  }
+
+  .toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+
+  .search {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  #fund-seg {
+    grid-column: 1 / -1;
+    display: flex;
+  }
+
+  #view-seg {
+    display: flex;
+    min-width: 0;
+  }
+
+  .seg button {
+    flex: 1 1 0;
+    padding: 0 8px;
+  }
+
+  .toolbar__spacer {
+    display: none;
+  }
+
+  .btn {
+    height: 46px;
+  }
+
+  .drawer {
+    grid-template-columns: 1fr;
+  }
+
+  .main {
+    gap: 16px;
+  }
+
+  .tabs {
+    padding: 0 6px;
+  }
+
+  .tab {
+    flex: 1 1 0;
+    padding: 0 6px;
+    text-align: center;
+  }
+
+  .legend {
+    gap: 6px 14px;
+  }
 }

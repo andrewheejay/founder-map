@@ -123,3 +123,40 @@ describe('announcer and tab order', () => {
     expect([...document.querySelectorAll('#tabs [role="tab"]')].map((t) => t.getAttribute('tabindex'))).toEqual(['0', '-1', '-1'])
   })
 })
+
+/** The body of one @media block (brace-matched), so rules inside it can be checked apart from the base rules. */
+function mediaBlock(css: string, query: string): string {
+  const start = css.indexOf(`@media ${query}`)
+  if (start < 0) return ''
+  const open = css.indexOf('{', start)
+  let depth = 1
+  let k = open + 1
+  while (k < css.length && depth > 0) {
+    if (css[k] === '{') depth++
+    else if (css[k] === '}') depth--
+    k++
+  }
+  return css.slice(open + 1, k - 1)
+}
+
+describe('phone layout', () => {
+  const css = read('src/styles/components.css')
+  const body = (block: string, selector: string) => rules(block).find((r) => r.selector.split(',').map((x) => x.trim()).includes(selector))?.body.replace(/\s+/g, ' ') ?? ''
+  it('under 980px the selects, close button, cluster rows, and tabs grow to touch size', () => {
+    const b = mediaBlock(css, '(max-width: 980px)')
+    expect(body(b, '.select')).toMatch(/height: var\(--space-controlHPhone\)/)
+    expect(body(b, '.card__close')).toMatch(/width: var\(--space-closeBtnPhone\)/)
+    expect(body(b, '.cluster-row')).toMatch(/min-height: var\(--space-rowMinH\)/)
+    expect(body(b, '.tab')).toMatch(/height: var\(--space-tabHPhone\)/)
+  })
+  it('under 640px the toolbar becomes a two-column grid with the search and fund control full width', () => {
+    const b = mediaBlock(css, '(max-width: 640px)')
+    expect(body(b, '.toolbar')).toMatch(/grid-template-columns: 1fr auto/)
+    expect(body(b, '.search')).toMatch(/grid-column: 1 \/ -1/)
+    expect(body(b, '#fund-seg')).toMatch(/grid-column: 1 \/ -1/)
+    expect(body(b, '.seg button')).toMatch(/flex: 1 1 0/)
+    expect(body(b, '.toolbar__spacer')).toMatch(/display: none/)
+    expect(body(b, '.drawer')).toMatch(/grid-template-columns: 1fr/)
+    expect(body(b, '.tab')).toMatch(/flex: 1 1 0/)
+  })
+})

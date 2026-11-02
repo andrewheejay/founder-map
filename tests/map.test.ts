@@ -113,3 +113,17 @@ describe('map', () => {
     expect(shown(svg)).toEqual(measured)
   })
 })
+
+describe('zoomTo', () => {
+  it('centers a node at the given scale', () => {
+    const { svg, map } = mount({ reduceMotion: true })
+    map.zoomTo('f:dan-lorenc', 2)
+    const n = graph.byId.get('f:dan-lorenc')!
+    const tf = svg.querySelector('g.viewport')!.getAttribute('transform')!
+    const m = /translate\(([-\d.]+),([-\d.]+)\) scale\(([\d.]+)\)/.exec(tf)!
+    expect(Number(m[3])).toBe(2)
+    expect(Number(m[1])).toBeCloseTo(550 - n.x * 2, 3)
+    expect(Number(m[2])).toBeCloseTo(420 - n.y * 2, 3)
+    expect(() => map.zoomTo('f:nobody')).not.toThrow()
+  })
+})

@@ -43,3 +43,12 @@ describe('tokens', () => {
     expect(css).toMatch(/--text-chip: 12px/)
   })
 })
+
+describe('phone tokens', () => {
+  it('emits the phone sizing tokens', () => {
+    const css = readFileSync(new URL('../src/styles/tokens.css', import.meta.url), 'utf8')
+    expect(css).toMatch(/--space-tabHPhone: 46px/)
+    expect(css).toMatch(/--space-closeBtnPhone: 44px/)
+    expect(css).toMatch(/--space-rowMinH: 44px/)
+  })
+})

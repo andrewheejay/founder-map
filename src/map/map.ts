@@ -1,7 +1,7 @@
 import { select } from 'd3-selection'
 import { curveCatmullRomClosed, line } from 'd3-shape'
 import 'd3-transition'
-import { zoom, zoomIdentity, type D3ZoomEvent } from 'd3-zoom'
+import { zoom, zoomIdentity, type D3ZoomEvent, type ZoomTransform } from 'd3-zoom'
 import { FUND_LABEL, HUB_TYPE_LABEL, PATHS, type AnyNode, type Cluster, type FounderNode, type Graph, type HubNode } from '../model'
 import type { Layers, PathKey } from '../types'
 import { altStub, clusterGeometry, hubRadius, nodeRadius, type ClusterGeometry, type Pt } from './geometry'
@@ -29,6 +29,8 @@ export interface MapView {
   zoomIn(): void
   zoomOut(): void
   fit(): void
+  /** Center a node at `scale` (default 2.4): the phone layout zooms to the selection on select. */
+  zoomTo(id: string, scale?: number): void
 }
 
 /** The subset of document.fonts the map needs; injectable for tests. */
@@ -343,6 +345,11 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
       render()
     })
   svg.call(zoomBehavior).on('dblclick.zoom', null)
+  // With reduced motion the transform is applied synchronously, so the end handler (place + render) runs at once.
+  const go = (t: ZoomTransform) => {
+    if (duration) svg.transition().duration(duration).call(zoomBehavior.transform, t)
+    else svg.call(zoomBehavior.transform, t)
+  }
 
   /* ---------- events ---------- */
   nodeSel
@@ -380,6 +387,12 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     relayout,
     zoomIn: () => svg.transition().duration(duration).call(zoomBehavior.scaleBy, 1.5),
     zoomOut: () => svg.transition().duration(duration).call(zoomBehavior.scaleBy, 1 / 1.5),
-    fit: () => svg.transition().duration(duration).call(zoomBehavior.transform, zoomIdentity),
+    fit: () => go(zoomIdentity),
+    zoomTo(id, scale = 2.4) {
+      const n = graph.byId.get(id)
+      if (!n) return
+      const k = Math.max(0.8, Math.min(5, scale))
+      go(zoomIdentity.translate(W / 2 - n.x * k, H / 2 - n.y * k).scale(k))
+    },
   }
 }
