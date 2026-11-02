@@ -40,7 +40,7 @@ export function badgeRowsHTML(graph: Graph, filters: Filters): string {
   const ossKeys: OssProduct[] = ['yes', 'partial', 'no']
   const count = (k: OssProduct) => graph.companies.filter((c) => c.openSourceProduct === k).length
   const ossBar = ossKeys
-    .map((k, i) => `<button type="button" class="bseg" data-oss="${k}" aria-pressed="${filters.oss === k}" style="--c: var(--path-repeat_founder); opacity: ${[1, 0.6, 0.3][i]}; flex: ${count(k)}" title="${OSS_LABEL[k]}: ${count(k)} companies">${count(k)}</button>`)
+    .map((k, i) => `<button type="button" class="bseg${['', ' bseg--light', ' bseg--faint'][i]}" data-oss="${k}" aria-pressed="${filters.oss === k}" style="--c: var(--path-repeat_founder); flex: ${count(k)}" title="${OSS_LABEL[k]}: ${count(k)} companies">${count(k)}</button>`)
     .join('')
   rows.push(`<div class="brow"><div class="brow__label">Open source product<small>company level</small></div><div class="bbar">${ossBar}</div></div>`)
   const oss = graph.founders.filter((f) => f.badges.includes('prior_open_source'))

@@ -980,8 +980,21 @@ button.chip:hover {
   outline-offset: -2px;
 }
 
+/* Partial, closed, and filtered-out segments are tinted toward the surface with ink text, never faded:
+   white 11px counts on a faded fill fall under 4.5:1 (spec 7.7). */
+.bseg--light {
+  background: color-mix(in srgb, var(--c) 45%, var(--color-surface));
+  color: var(--color-ink);
+}
+
+.bseg--faint {
+  background: color-mix(in srgb, var(--c) 22%, var(--color-surface));
+  color: var(--color-ink);
+}
+
 .bseg.is-dim {
-  opacity: 0.35;
+  background: color-mix(in srgb, var(--c) 30%, var(--color-surface));
+  color: var(--color-ink);
 }
 
 .bnote {

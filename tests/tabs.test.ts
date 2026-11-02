@@ -1,4 +1,6 @@
 // @vitest-environment jsdom
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { graph } from '../src/data'
 import { PATH_ORDER } from '../src/model'
@@ -51,5 +53,45 @@ describe('tabs', () => {
     const moved = graph.founders.filter((f) => f.status !== 'active').length
     expect(items[5].textContent).toContain(`${moved} of ${graph.founders.length} founders`)
     expect(d.textContent).not.toMatch(/—/)
+  })
+})
+
+describe('badge segment contrast', () => {
+  const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16))
+  const lum = ([r, g, b]: number[]) => {
+    const lin = (v: number) => (v / 255 <= 0.03928 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4)
+    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
+  }
+  const contrast = (a: number[], b: number[]) => {
+    const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x)
+    return (hi + 0.05) / (lo + 0.05)
+  }
+  const mix = (a: number[], b: number[], t: number) => a.map((v, i) => v * t + b[i] * (1 - t))
+  it('tints partial, closed, and dimmed segments instead of fading them, and every 11px count keeps 4.5:1 in both themes', () => {
+    const d = el(badgeRowsHTML(graph, { ...DEFAULT_FILTERS, badges: new Set(['prior_exit']), paths: new Set(['repeat_founder']) }))
+    for (const b of d.querySelectorAll<HTMLElement>('.bseg')) expect(b.style.opacity).toBe('')
+    expect(d.querySelector('[data-oss="partial"]')?.classList.contains('bseg--light')).toBe(true)
+    expect(d.querySelector('[data-oss="no"]')?.classList.contains('bseg--faint')).toBe(true)
+    const css = readFileSync(resolve(process.cwd(), 'src/styles/components.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
+    const seg = css.match(/\.bseg[^{]*\{[^}]*\}/g) ?? []
+    expect(seg.length).toBeGreaterThan(0)
+    expect(seg.filter((r) => /opacity/.test(r))).toEqual([])
+    const tinted = seg.filter((r) => /color-mix\(in srgb, var\(--c\) \d+%, var\(--color-surface\)\)/.test(r))
+    expect(tinted.map((r) => r.split('{')[0].trim()).sort()).toEqual(['.bseg--faint', '.bseg--light', '.bseg.is-dim'])
+    const t = JSON.parse(readFileSync(resolve(process.cwd(), 'design/tokens.json'), 'utf8'))
+    const themes = [
+      { name: 'light', ink: hex(t.color.ink), surface: hex(t.color.surface), path: t.path as Record<string, string> },
+      { name: 'dark', ink: hex(t.dark.color.ink), surface: hex(t.dark.color.surface), path: t.dark.path as Record<string, string> },
+    ]
+    for (const th of themes)
+      for (const p of PATH_ORDER) {
+        const c = hex(th.path[p])
+        expect(contrast(th.surface, c), `${th.name} ${p} full segment`).toBeGreaterThanOrEqual(4.5)
+        for (const r of tinted) {
+          expect(r).toMatch(/color: var\(--color-ink\)/)
+          const pct = Number(/var\(--c\) (\d+)%/.exec(r)![1])
+          expect(contrast(th.ink, mix(c, th.surface, pct / 100)), `${th.name} ${p} at ${pct}%`).toBeGreaterThanOrEqual(4.5)
+        }
+      }
   })
 })
