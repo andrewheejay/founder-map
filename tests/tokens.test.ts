@@ -50,5 +50,6 @@ describe('phone tokens', () => {
     expect(css).toMatch(/--space-tabHPhone: 46px/)
     expect(css).toMatch(/--space-closeBtnPhone: 44px/)
     expect(css).toMatch(/--space-rowMinH: 44px/)
+    expect(css).toMatch(/--space-targetMin: 24px/)
   })
 })

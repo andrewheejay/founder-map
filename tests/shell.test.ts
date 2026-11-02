@@ -163,5 +163,15 @@ describe('phone layout', () => {
     expect(body(b, '.toolbar__spacer')).toMatch(/display: none/)
     expect(body(b, '.drawer')).toMatch(/grid-template-columns: 1fr/)
     expect(body(b, '.tab')).toMatch(/flex: 1 1 0/)
+    expect(body(b, '.drawer .chip')).toMatch(/min-height: var\(--space-controlHPhone\)/)
+  })
+})
+
+describe('badge bar target size', () => {
+  it('badge bar segments are at least 24px tall and wide (WCAG 2.5.8, Lighthouse target-size)', () => {
+    const css = read('src/styles/components.css')
+    const body = (selector: string) => rules(css).find((r) => r.selector === selector)?.body.replace(/\s+/g, ' ') ?? ''
+    expect(body('.bbar')).toMatch(/height: var\(--space-targetMin\)/)
+    expect(body('.bseg')).toMatch(/min-width: var\(--space-targetMin\)/)
   })
 })

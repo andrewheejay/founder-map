@@ -927,14 +927,15 @@ button.chip:hover {
 
 .bbar {
   display: flex;
-  height: 16px;
+  height: var(--space-targetMin);
   border-radius: 4px;
   overflow: hidden;
   background: var(--color-hairline);
 }
 
+/* Every segment is a button: 24px is the WCAG 2.5.8 minimum target size that Lighthouse checks. */
 .bseg {
-  min-width: 0;
+  min-width: var(--space-targetMin);
   padding: 0;
   border: 0;
   background: var(--c);
@@ -1307,6 +1308,10 @@ button.chip:hover {
 
   .drawer {
     grid-template-columns: 1fr;
+  }
+
+  .drawer .chip {
+    min-height: var(--space-controlHPhone);
   }
 
   .main {
