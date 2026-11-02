@@ -436,6 +436,7 @@
     "employers": [
       "Deloitte",
       "Squarespace",
+      "Argyle Social",
       "RJMetrics"
     ],
     "schools": [
@@ -487,7 +488,9 @@
       "RJMetrics",
       "Stitch"
     ],
-    "schools": [],
+    "schools": [
+      "Villanova"
+    ],
     "taughtAt": [],
     "priorOpenSource": [],
     "edgeCase": false,
@@ -542,7 +545,9 @@
       "PayPal",
       "Tailscale"
     ],
-    "schools": [],
+    "schools": [
+      "Stanford"
+    ],
     "taughtAt": [],
     "priorOpenSource": [
       "Go"
@@ -776,7 +781,7 @@
     "name": "Joran Dirk Greef",
     "shortLabel": "Greef",
     "company": "TigerBeetle",
-    "path": "big_tech_engineer",
+    "path": "young_builder",
     "secondaryPath": null,
     "role": "Founder, CEO",
     "status": "active",
@@ -785,14 +790,17 @@
       "prior_open_source"
     ],
     "employers": [
-      "Microsoft",
       "Coil"
     ],
-    "schools": [],
+    "schools": [
+      "Cape Town"
+    ],
     "taughtAt": [],
-    "priorOpenSource": [],
+    "priorOpenSource": [
+      "Ronomon"
+    ],
     "edgeCase": true,
-    "bio": "Self-taught coder from Cape Town and a former Microsoft security consultant. Built TigerBeetle inside Coil before spinning it out.",
+    "bio": "Self-taught coder from Cape Town who gave up an engineering scholarship to study accounting at UCT. Wrote Node.js libraries under Ronomon, then built TigerBeetle inside Coil and spun it out in 2022.",
     "source": "https://interledger.org/summit/2022/speaker/joran-greef"
   },
   {
@@ -920,11 +928,12 @@
     "secondaryPath": null,
     "role": "Co-founder; CEO, then CTO, then engineer",
     "status": "left",
-    "statusNote": "Left HashiCorp in December 2023; built the Ghostty terminal and now co-founds Superlogical.",
+    "statusNote": "Left HashiCorp in December 2023; built the Ghostty terminal, joined Vercel's board in March 2026, and started Superlogical in July 2026.",
     "badges": [
       "prior_open_source"
     ],
     "employers": [
+      "Citrusbyte",
       "Kiip"
     ],
     "schools": [

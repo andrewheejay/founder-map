@@ -10,8 +10,8 @@ describe('model', () => {
   })
   it('per-path counts by fund match section 5.1', () => {
     const want: Record<string, [number, number]> = {
-      big_tech_engineer: [13, 7],
-      young_builder: [6, 9],
+      big_tech_engineer: [12, 7],
+      young_builder: [7, 9],
       repeat_founder: [6, 5],
       business_operator: [1, 3],
       academic: [4, 0],

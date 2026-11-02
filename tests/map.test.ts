@@ -62,9 +62,10 @@ describe('map', () => {
   it('cluster labels show counts, and matched/total when filters are active', () => {
     const { svg, map } = mount()
     const text = () => [...svg.querySelectorAll('g.lbl.cluster text')].map((t) => t.textContent)
-    expect(text()).toContain('BIG TECH ENGINEER · 20')
+    const bt = graph.founders.filter((f) => f.path === 'big_tech_engineer')
+    expect(text()).toContain(`BIG TECH ENGINEER · ${bt.length}`)
     map.update({ ...base(), matched: new Set(graph.founders.filter((f) => f.fund === 'amplify')), filtersActive: true })
-    expect(text()).toContain('BIG TECH ENGINEER · 13/20')
+    expect(text()).toContain(`BIG TECH ENGINEER · ${bt.filter((f) => f.fund === 'amplify').length}/${bt.length}`)
   })
   it('survives a missing getBBox and re-measures when fonts are ready', async () => {
     let ready!: () => void

@@ -115,7 +115,7 @@ Unique ids; every founder's company exists; path enums; every node id has a layo
 | young_builder | Young builder | Started within a few years of school or a first startup job. |
 | academic | Academic | Came out of a PhD lab or a professorship. |
 
-Display order is the table order above. Current counts (Amplify · Haystack): Big tech engineer 13 · 7, Young builder 6 · 9, Repeat founder 6 · 5, Business operator 1 · 3, Academic 4 · 0. Total 54 founders, 24 companies. Keep these numbers computed from data, never typed in.
+Display order is the table order above. Current counts (Amplify · Haystack): Big tech engineer 12 · 7, Young builder 7 · 9, Repeat founder 6 · 5, Business operator 1 · 3, Academic 4 · 0. Total 54 founders, 24 companies. Keep these numbers computed from data, never typed in.
 
 ### 5.2 Badges (zero or more per founder, shown as neutral chips)
 
