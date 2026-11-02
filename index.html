@@ -74,7 +74,15 @@
         </ul>
       </section>
       <section class="card table-card" id="table-card" aria-label="Founders table" hidden>
-        <p class="body">Table view arrives in the next step.</p>
+        <div class="table__bar">
+          <p class="table__count num" id="table-count"></p>
+          <div class="table__actions">
+            <button type="button" class="btn btn--sm" id="csv-copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy table as CSV</button>
+            <button type="button" class="btn btn--sm" id="csv-download"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M6 9l6 6 6-6M4 21h16"></path></svg>Download CSV</button>
+          </div>
+        </div>
+        <div class="table__scroll"><table class="table" id="founder-table"></table></div>
+        <textarea id="csv-box" class="csv-box" aria-label="CSV text, select all and copy" hidden></textarea>
       </section>
 
       <aside class="side">
@@ -109,6 +117,7 @@
         </section>
       </aside>
     </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

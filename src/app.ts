@@ -5,6 +5,8 @@ import { activeChips, activeFilterCount, matchedCompanies, matchedFounders } fro
 import { createMap } from './map/map'
 import { detailHTML } from './panel/card'
 import { badgeRowsHTML, clustersHTML, insightsHTML } from './panel/tabs'
+import { copyText, downloadText, toast } from './table/clipboard'
+import { countText, csv, sortFounders, tableHTML } from './table/table'
 import {
   DEFAULT_STATE,
   clearFilters,
@@ -18,9 +20,10 @@ import {
   toggleOss,
   togglePath,
   toggleSelect,
+  toggleSort,
   type State,
 } from './state'
-import type { BadgeKey, Fund, Layers, OssProduct, PathKey, Tab, View } from './types'
+import type { BadgeKey, Fund, Layers, OssProduct, PathKey, SortKey, Tab, View } from './types'
 
 function renderStats(doc: Document) {
   const shared = graph.hubs.filter((h) => !h.oneOff && h.htype !== 'o').length
@@ -29,7 +32,7 @@ function renderStats(doc: Document) {
   if (stats) stats.textContent = `${graph.founders.length} founders · ${graph.companies.length} companies · ${shared} shared employers & schools · ${projects} open source projects`
 }
 
-const FOCUS_KEYS = ['data-select', 'data-remove', 'data-close', 'data-cluster', 'data-bp', 'data-oss', 'data-employer', 'data-path', 'data-badge']
+const FOCUS_KEYS = ['data-select', 'data-remove', 'data-close', 'data-cluster', 'data-bp', 'data-oss', 'data-employer', 'data-path', 'data-badge', 'data-sort']
 const FOCUSABLE = 'button:not([disabled]), a[href], input, select, [tabindex]:not([tabindex="-1"])'
 
 /** The attribute selector that identifies a control across re-renders, or null when it carries no data key. */
@@ -110,6 +113,10 @@ export function boot(doc: Document): void {
     swap(row, activeRowHTML(activeChips(s.filters), matched.size, matchedCompanies(graph, matched).length, totals), cache, doc.getElementById('filters-btn'))
     swap(doc.getElementById('clusters-list'), clustersHTML(graph, matched, active, s.filters), cache)
     swap(doc.getElementById('badge-rows'), badgeRowsHTML(graph, s.filters), cache)
+    const rows = sortFounders([...matched], s.sort)
+    swap(doc.getElementById('founder-table'), tableHTML(rows, s.pinned ? s.focus : null, s.sort), cache)
+    const count = doc.getElementById('table-count')
+    if (count) count.textContent = countText(rows.length, s.sort)
     syncControls(doc, s)
     if (s.view === 'map' && lastView !== 'map') map.relayout()
     lastView = s.view
@@ -117,13 +124,37 @@ export function boot(doc: Document): void {
   store.subscribe(push)
   push(store.get())
 
+  const sortedRows = () => {
+    const s = store.get()
+    return sortFounders([...matchedFounders(graph, s.filters)], s.sort)
+  }
+  const toastEl = doc.getElementById('toast')
+  const say = (message: string) => {
+    if (toastEl) toast(toastEl, message)
+  }
+
   doc.addEventListener('click', (ev) => {
     const t = ev.target as Element | null
     if (!t) return
     const hit = (sel: string) => t.closest<HTMLElement>(sel)
     const data = (el: HTMLElement, name: string) => el.getAttribute(name) ?? ''
     let el: HTMLElement | null
+    if (hit('a[href]')) return
     if (hit('[data-close]')) return clear()
+    if ((el = hit('[data-sort]'))) return store.set({ sort: toggleSort(store.get().sort, data(el, 'data-sort') as SortKey) })
+    if (hit('#csv-copy')) {
+      const rows = sortedRows()
+      const box = doc.getElementById('csv-box') as HTMLTextAreaElement | null
+      if (!box) return
+      void copyText(csv(rows), win?.navigator.clipboard, box).then((r) =>
+        say(r === 'copied' ? `Copied ${rows.length} row${rows.length === 1 ? '' : 's'} as CSV` : 'Select the text and copy it manually'),
+      )
+      return
+    }
+    if (hit('#csv-download')) {
+      downloadText(doc, 'founder-map.csv', csv(sortedRows()))
+      return say('Downloaded founder-map.csv')
+    }
     if ((el = hit('[data-select]'))) return store.set({ focus: data(el, 'data-select'), pinned: true })
     if ((el = hit('[data-remove]'))) return setFilters((f) => removeFilter(f, data(el!, 'data-remove')))
     if ((el = hit('[data-cluster]'))) return setFilters((f) => togglePath(f, data(el!, 'data-cluster') as PathKey))
@@ -156,7 +187,20 @@ export function boot(doc: Document): void {
   onSelect('sel-oss', (f, v) => ({ ...f, oss: v as State['filters']['oss'] }))
 
   doc.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Escape' && escapeClears(doc.activeElement?.tagName)) clear()
+    const target = ev.target as Element | null
+    const row = target?.closest?.<HTMLElement>('tr.row[data-select]')
+    if (row && (ev.key === 'Enter' || ev.key === ' ')) {
+      ev.preventDefault()
+      return store.set({ focus: row.getAttribute('data-select'), pinned: true })
+    }
+    if (ev.key !== 'Escape') return
+    const box = doc.getElementById('csv-box') as HTMLTextAreaElement | null
+    if (box && !box.hidden && doc.activeElement === box) {
+      box.hidden = true
+      doc.getElementById('csv-copy')?.focus()
+      return
+    }
+    if (escapeClears(doc.activeElement?.tagName)) clear()
   })
   doc.getElementById('zoom-in')?.addEventListener('click', () => map.zoomIn())
   doc.getElementById('zoom-out')?.addEventListener('click', () => map.zoomOut())

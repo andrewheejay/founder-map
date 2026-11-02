@@ -122,3 +122,48 @@ describe('focus retention across re-renders', () => {
     click('#detail [data-close]')
   })
 })
+
+describe('table view', () => {
+  it('renders the filtered rows, sorts on header click, selects on row click and Enter', () => {
+    click('[data-view="table"]')
+    expect(document.querySelectorAll('#founder-table tbody tr.row')).toHaveLength(graph.founders.length)
+    expect(text('#table-count')).toBe(`${graph.founders.length} founders · sorted by founder`)
+    click('#founder-table [data-sort="company"]')
+    expect(q('#founder-table th[aria-sort="ascending"] button').getAttribute('data-sort')).toBe('company')
+    click('#founder-table [data-sort="company"]')
+    expect(q('#founder-table th[aria-sort="descending"] button').getAttribute('data-sort')).toBe('company')
+    const first = q('#founder-table tbody tr.row')
+    first.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    expect(q('#founder-table tr.is-selected').getAttribute('data-select')).toBe(first.getAttribute('data-select'))
+    expect(text('#detail h2')).toBe(first.querySelector('td')!.textContent!.trim())
+    click('#detail [data-close]')
+    expect(document.querySelector('#founder-table tr.is-selected')).toBeNull()
+    const second = document.querySelectorAll('#founder-table tbody tr.row')[1] as HTMLElement
+    const ev = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+    second.dispatchEvent(ev)
+    expect(ev.defaultPrevented).toBe(true)
+    expect(q('#founder-table tr.is-selected').getAttribute('data-select')).toBe(second.getAttribute('data-select'))
+    click('#detail [data-close]')
+    click('[data-badge="big_tech_alum"]')
+    expect(document.querySelectorAll('#founder-table tbody tr.row')).toHaveLength(graph.founders.filter((f) => f.badges.includes('big_tech_alum')).length)
+    click('#clear-filters')
+    click('[data-view="map"]')
+  })
+  it('copies the CSV of the sorted, filtered rows and toasts', async () => {
+    const writes: string[] = []
+    Object.defineProperty(navigator, 'clipboard', {
+      value: {
+        writeText: (t: string) => {
+          writes.push(t)
+          return Promise.resolve()
+        },
+      },
+      configurable: true,
+    })
+    click('#csv-copy')
+    await new Promise((r) => setTimeout(r, 0))
+    expect(writes[0].split('\r\n')).toHaveLength(graph.founders.length + 1)
+    expect(writes[0].startsWith('"Name","Fund","Company"')).toBe(true)
+    expect(text('#toast')).toBe(`Copied ${graph.founders.length} rows as CSV`)
+  })
+})

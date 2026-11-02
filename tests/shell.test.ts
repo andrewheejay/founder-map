@@ -99,3 +99,15 @@ describe('filters button', () => {
     count.setAttribute('hidden', '')
   })
 })
+
+describe('table shell', () => {
+  it('table card has the bar, actions, scroll wrapper, csv box, and toast', () => {
+    expect(document.querySelector('#table-card #table-count')).not.toBeNull()
+    expect(document.querySelector('#table-card #csv-copy')?.textContent?.trim()).toBe('Copy table as CSV')
+    expect(document.querySelector('#table-card #csv-download')?.textContent?.trim()).toBe('Download CSV')
+    expect(document.querySelector('#table-card .table__scroll table#founder-table')).not.toBeNull()
+    expect(document.querySelector('#csv-box')?.hasAttribute('hidden')).toBe(true)
+    expect(document.querySelector('#toast')?.getAttribute('role')).toBe('status')
+    expect(document.body.textContent).not.toMatch(/Table view arrives/)
+  })
+})
