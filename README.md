@@ -8,7 +8,7 @@ The full specification lives in [CLAUDE.md](CLAUDE.md). The working prototype an
 
 ```bash
 npm install
-npm run dev        # http://127.0.0.1:5173
+npm run dev        # http://localhost:5173
 npm test           # vitest, jsdom
 npm run validate   # schema and referential checks on data/*.json
 npm run build      # validate, regenerate tokens.css, type-check, then vite build into dist/

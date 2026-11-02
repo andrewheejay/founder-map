@@ -42,6 +42,26 @@
   gap: 12px;
 }
 
+/* The brand mark follows the theme: ink square, surface lines and nodes, accent dot. */
+.brand__bg {
+  fill: var(--color-ink);
+}
+
+.brand__line {
+  fill: none;
+  stroke: var(--color-surface);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.brand__node {
+  fill: var(--color-surface);
+}
+
+.brand__dot {
+  fill: var(--color-accent);
+}
+
 .site-title {
   margin: 0;
   font-size: var(--text-title);

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run validate && npm run tokens && tsc --noEmit && vite build",
+    "build": "npm run validate && npm run tokens && tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "validate": "tsx scripts/validate.ts",

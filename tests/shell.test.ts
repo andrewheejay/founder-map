@@ -184,7 +184,27 @@ describe('badge bar target size', () => {
 describe('README', () => {
   it('documents the data model, adding a founder or fund, regenerating the layout, and has no em dashes', () => {
     const md = read('README.md')
-    for (const s of ['npm run validate', 'npm run layout', 'npm run build', 'founders.json', 'companies.json', 'layout.json', 'Add a founder', 'Add a fund', 'docs/acceptance.md']) expect(md, s).toContain(s)
+    for (const s of ['http://localhost:5173', 'npm run validate', 'npm run layout', 'npm run build', 'founders.json', 'companies.json', 'layout.json', 'Add a founder', 'Add a fund', 'docs/acceptance.md']) expect(md, s).toContain(s)
     expect(md).not.toMatch(/—/)
+  })
+})
+
+describe('type-check configs and brand mark', () => {
+  it('browser code is checked without Node globals; scripts and tests get them from tsconfig.node.json', () => {
+    const app = JSON.parse(read('tsconfig.json'))
+    expect(app.compilerOptions.types).toEqual(['vite/client'])
+    expect(app.include).toEqual(['src'])
+    const node = JSON.parse(read('tsconfig.node.json'))
+    expect(node.compilerOptions.types).toContain('node')
+    expect(node.include).toEqual(expect.arrayContaining(['scripts', 'tests', 'vite.config.ts']))
+    expect(JSON.parse(read('package.json')).scripts.build).toContain('tsc --noEmit -p tsconfig.node.json')
+  })
+  it('the brand mark takes its colors from tokens, not hex literals', () => {
+    expect(document.querySelector('.brand svg')?.outerHTML).not.toMatch(/#[0-9a-fA-F]{3,6}\b/)
+    const css = read('src/styles/components.css')
+    const body = (selector: string) => rules(css).find((r) => r.selector === selector)?.body.replace(/\s+/g, ' ') ?? ''
+    expect(body('.brand__bg')).toMatch(/fill: var\(--color-ink\)/)
+    expect(body('.brand__line')).toMatch(/stroke: var\(--color-surface\)/)
+    expect(body('.brand__dot')).toMatch(/fill: var\(--color-accent\)/)
   })
 })

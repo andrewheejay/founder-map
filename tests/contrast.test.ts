@@ -24,6 +24,8 @@ describe('contrast', () => {
         ['muted on accentTint', th.c.muted, th.c.accentTint],
         ['accent on surface', th.c.accent, th.c.surface],
         ['accent on page', th.c.accent, th.c.page],
+        ['accent on accentTint', th.c.accent, th.c.accentTint],
+        ['accent on tableHead', th.c.accent, th.c.tableHead],
         ['surface on ink', th.c.surface, th.c.ink],
         ['surface on accent', th.c.surface, th.c.accent],
         ...Object.entries(th.status).map(([k, v]) => [`status ${k}`, v.text, v.bg] as [string, string, string]),
