@@ -97,3 +97,11 @@ describe('detail card', () => {
     expect(detailHTML(null, DEFAULT_STATE, graph, new Set(graph.founders))).toContain('Pick any dot or station')
   })
 })
+
+describe('founder card status note', () => {
+  it('shows the note on an active founder too (prototype parity)', () => {
+    const d = el(founderCardHTML({ ...lorenc, statusNote: 'Stayed CTO through the deal.' }))
+    expect(d.querySelector('.card__status')?.textContent).toBe(`${STATUS_LABEL.active}. Stayed CTO through the deal.`)
+    expect(el(founderCardHTML({ ...lorenc, statusNote: null })).querySelector('.card__status')).toBeNull()
+  })
+})

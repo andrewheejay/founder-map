@@ -92,7 +92,7 @@ export function founderCardHTML(f: FounderNode): string {
     head(`Founder · ${FUND_LABEL[f.fund]}`, f.name, `${esc(f.role)} · ${link(c)}`) +
     `<div class="chips">${chips}</div>` +
     `<p class="body">${esc(f.bio)}</p>` +
-    (f.status !== 'active' ? `<p class="card__status"><b>${STATUS_LABEL[f.status]}.</b> ${esc(f.statusNote ?? '')}</p>` : '') +
+    (f.status !== 'active' || f.statusNote ? `<p class="card__status"><b>${STATUS_LABEL[f.status]}.</b> ${esc(f.statusNote ?? '')}</p>` : '') +
     (f.edgeCase ? '<p class="card__note">Edge case: no clean path fits, so this placement is tentative.</p>' : '') +
     (rows.length ? dl(rows) : '') +
     `<div class="card__company"><div class="card__company-row"><p class="card__company-name">${link(c)}</p><p class="mini">${esc(c.vertical)}</p></div><p class="body">${esc(c.latest)}</p><p class="mini">Founded ${c.founded} · ${esc(c.status)} · ${OSS_LABEL[c.openSourceProduct]}</p></div>` +
