@@ -15,7 +15,7 @@ export interface Tokens {
   radius: Group
   space: Group
   map: Group
-  dark: { color?: Group; path?: Group }
+  dark: { color?: Group; path?: Group; status?: Group }
 }
 
 /** Groups whose bare numbers are pixel lengths. Everything else stays unitless or passes through as written. */
@@ -36,7 +36,7 @@ function declarations(group: string, values: Group | undefined): string[] {
 
 export function tokensToCss(t: Tokens): string {
   const light = LIGHT_GROUPS.flatMap((g) => declarations(g, t[g]))
-  const dark = [...declarations('color', t.dark?.color), ...declarations('path', t.dark?.path), '  color-scheme: dark;']
+  const dark = [...declarations('color', t.dark?.color), ...declarations('path', t.dark?.path), ...declarations('status', t.dark?.status), '  color-scheme: dark;']
   return [
     '/* generated from design/tokens.json by scripts/tokens.ts; do not edit */',
     ':root {',

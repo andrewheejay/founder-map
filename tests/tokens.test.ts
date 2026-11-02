@@ -25,6 +25,12 @@ describe('tokens', () => {
     expect(css).toMatch(/:root\[data-theme="dark"\]\s*\{[^}]*--color-page: #0F1216;/)
     expect(css).toMatch(/@media \(prefers-color-scheme: dark\)\s*\{\s*:root:not\(\[data-theme="light"\]\)\s*\{[^}]*--path-academic: #B489EC;/)
   })
+  it('emits dark status tokens in both dark blocks, after the light block', () => {
+    expect(css).toMatch(/:root\[data-theme="dark"\]\s*\{[^}]*--status-active-bg: #123B2E;/)
+    expect(css).toMatch(/@media \(prefers-color-scheme: dark\)\s*\{\s*:root:not\(\[data-theme="light"\]\)\s*\{[^}]*--status-left-text: #B4BCC7;/)
+    expect(css.indexOf(':root {')).toBeLessThan(css.indexOf(':root[data-theme="dark"]'))
+    expect(css.indexOf(':root[data-theme="dark"]')).toBeLessThan(css.indexOf('@media (prefers-color-scheme: dark)'))
+  })
   it('generated file is in sync with the source', () => {
     expect(readFileSync(new URL('../src/styles/tokens.css', import.meta.url), 'utf8')).toBe(css)
   })

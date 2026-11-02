@@ -6,6 +6,7 @@ import { graph } from '../src/data'
 import { PATH_ORDER } from '../src/model'
 import { badgeRowsHTML, clustersHTML, insightsHTML } from '../src/panel/tabs'
 import { DEFAULT_FILTERS } from '../src/state'
+import { contrast, hex, mix } from './helpers/contrast'
 
 const el = (html: string) => {
   const d = document.createElement('div')
@@ -57,16 +58,6 @@ describe('tabs', () => {
 })
 
 describe('badge segment contrast', () => {
-  const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16))
-  const lum = ([r, g, b]: number[]) => {
-    const lin = (v: number) => (v / 255 <= 0.03928 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4)
-    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
-  }
-  const contrast = (a: number[], b: number[]) => {
-    const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x)
-    return (hi + 0.05) / (lo + 0.05)
-  }
-  const mix = (a: number[], b: number[], t: number) => a.map((v, i) => v * t + b[i] * (1 - t))
   it('tints partial, closed, and dimmed segments instead of fading them, and every 11px count keeps 4.5:1 in both themes', () => {
     const d = el(badgeRowsHTML(graph, { ...DEFAULT_FILTERS, badges: new Set(['prior_exit']), paths: new Set(['repeat_founder']) }))
     for (const b of d.querySelectorAll<HTMLElement>('.bseg')) expect(b.style.opacity).toBe('')

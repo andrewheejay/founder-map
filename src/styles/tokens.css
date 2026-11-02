@@ -91,6 +91,12 @@
   --path-business_operator: #EF6C89;
   --path-young_builder: #F29A4B;
   --path-academic: #B489EC;
+  --status-active-bg: #123B2E;
+  --status-active-text: #8EE0BF;
+  --status-role_changed-bg: #3E2A10;
+  --status-role_changed-text: #F2C48A;
+  --status-left-bg: #262B33;
+  --status-left-text: #B4BCC7;
   color-scheme: dark;
 }
 
@@ -111,6 +117,12 @@
     --path-business_operator: #EF6C89;
     --path-young_builder: #F29A4B;
     --path-academic: #B489EC;
+    --status-active-bg: #123B2E;
+    --status-active-text: #8EE0BF;
+    --status-role_changed-bg: #3E2A10;
+    --status-role_changed-text: #F2C48A;
+    --status-left-bg: #262B33;
+    --status-left-text: #B4BCC7;
     color-scheme: dark;
   }
 }
