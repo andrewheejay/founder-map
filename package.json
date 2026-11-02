@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "validate": "tsx scripts/validate.ts",
-    "tokens": "tsx scripts/tokens.ts"
+    "tokens": "tsx scripts/tokens.ts",
+    "layout": "tsx scripts/layout.ts"
   },
   "dependencies": {
     "d3-polygon": "^3.0.1",
@@ -19,12 +20,14 @@
     "d3-zoom": "^3.0.0"
   },
   "devDependencies": {
+    "@types/d3-force": "^3.0.10",
     "@types/d3-polygon": "^3.0.2",
     "@types/d3-selection": "^3.0.12",
     "@types/d3-shape": "^3.2.0",
     "@types/d3-transition": "^3.0.9",
     "@types/d3-zoom": "^3.0.9",
     "@types/node": "^26.6.6",
+    "d3-force": "^3.0.0",
     "jsdom": "^29.1.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
