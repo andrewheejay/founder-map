@@ -127,14 +127,21 @@ describe('focus retention across re-renders', () => {
 })
 
 describe('table view', () => {
-  it('Enter on the Source link inside a row opens the link instead of selecting the row', () => {
+  it('a click on the Source link inside the selected row opens the link instead of toggling the row', () => {
     click('[data-view="table"]')
-    const link = q('#founder-table tbody tr.row a[href]')
-    const ev = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
-    link.dispatchEvent(ev)
-    expect(ev.defaultPrevented).toBe(false)
+    const id = q('#founder-table tbody tr.row').getAttribute('data-select')
+    q('#founder-table tbody tr.row').dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    expect(q('#founder-table tr.is-selected').getAttribute('data-select')).toBe(id)
+    const title = text('#detail h2')
+    expect(title).not.toBe('Pick any dot or station')
+    document.addEventListener('click', (e) => e.preventDefault(), { capture: true, once: true })
+    const ev = new MouseEvent('click', { bubbles: true, cancelable: true })
+    q('#founder-table tr.is-selected a[href]').dispatchEvent(ev)
+    expect(ev.defaultPrevented).toBe(true)
+    expect(q('#founder-table tr.is-selected').getAttribute('data-select')).toBe(id)
+    expect(text('#detail h2')).toBe(title)
+    click('#detail [data-close]')
     expect(document.querySelector('#founder-table tr.is-selected')).toBeNull()
-    expect(text('#detail h2')).toBe('Pick any dot or station')
   })
 
   it('renders the filtered rows, sorts on header click, selects and clears on row clicks, name button keeps focus', () => {
