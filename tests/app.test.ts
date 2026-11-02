@@ -262,4 +262,22 @@ describe('phone behaviors', () => {
     ;(window as unknown as { matchMedia: unknown }).matchMedia = mm
     history.replaceState(null, '', location.pathname)
   })
+  it('follows a prefers-reduced-motion change after boot', () => {
+    const listeners: ((e: { matches: boolean }) => void)[] = []
+    const mm = (window as unknown as { matchMedia: unknown }).matchMedia
+    ;(window as unknown as { matchMedia: unknown }).matchMedia = (query: string) => ({
+      matches: !query.includes('reduced-motion'),
+      media: query,
+      addEventListener: (_: string, fn: (e: { matches: boolean }) => void) => listeners.push(fn),
+    })
+    const doc3 = new DOMParser().parseFromString(indexHtml, 'text/html')
+    ;(doc3.getElementById('detail') as unknown as { scrollIntoView: () => void }).scrollIntoView = () => {}
+    boot(doc3)
+    expect(listeners).toHaveLength(1)
+    listeners[0]({ matches: true })
+    doc3.querySelector('[data-id="f:dan-lorenc"]')!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    expect(doc3.querySelector('#map g.viewport')!.getAttribute('transform')).toMatch(/scale\(2\.4\)/)
+    ;(window as unknown as { matchMedia: unknown }).matchMedia = mm
+    history.replaceState(null, '', location.pathname)
+  })
 })

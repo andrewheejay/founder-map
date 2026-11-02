@@ -123,6 +123,25 @@ describe('map', () => {
     expect(src).not.toMatch(/[?:] 0\.(32|07)\b/)
     expect(src).toContain('MAP_DIM_OPACITY')
   })
+  it('a one-off hub hidden by the layer is shown with its links and label while it is the focus', () => {
+    const { svg, map } = mount()
+    const h = graph.hubs.find((x) => x.oneOff)!
+    const display = (sel: string) => svg.querySelector(sel)?.getAttribute('display') ?? null
+    expect(display(`g.node[data-id="${h.id}"]`)).toBe('none')
+    map.update({ ...base(), focus: h, pinned: true })
+    expect(display(`g.node[data-id="${h.id}"]`)).toBeNull()
+    expect(display(`g.lbl[data-id="${h.id}"]`)).toBeNull()
+    const link = [...svg.querySelectorAll<SVGLineElement>('line.link')].find((l) => Number(l.getAttribute('x2')) === h.x && Number(l.getAttribute('y2')) === h.y)!
+    expect(link.getAttribute('display')).toBeNull()
+    map.update(base())
+    expect(display(`g.node[data-id="${h.id}"]`)).toBe('none')
+  })
+  it('setReduceMotion(true) makes later zooms synchronous', () => {
+    const { svg, map } = mount({ reduceMotion: false })
+    map.setReduceMotion(true)
+    map.zoomTo('f:dan-lorenc', 2)
+    expect(svg.querySelector('g.viewport')!.getAttribute('transform')).toMatch(/scale\(2\)/)
+  })
 })
 
 describe('zoomTo', () => {

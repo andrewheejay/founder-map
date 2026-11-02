@@ -83,7 +83,8 @@ export function boot(doc: Document): void {
     store.set(toggle ? toggleSelect(store.get(), id) : { focus: id, pinned: true })
   }
 
-  const reduceMotion = win?.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
+  const rm = win?.matchMedia?.('(prefers-reduced-motion: reduce)')
+  const reduceMotion = () => rm?.matches ?? false
   const phone = win?.matchMedia?.('(max-width: 640px)')
   const narrow = win?.matchMedia?.('(max-width: 980px)')
   const map = createMap(
@@ -101,10 +102,11 @@ export function boot(doc: Document): void {
       onCanvasClick: clear,
     },
     {
-      reduceMotion,
+      reduceMotion: reduceMotion(),
       fonts: doc.fonts,
     },
   )
+  rm?.addEventListener?.('change', (e) => map.setReduceMotion(e.matches))
 
   const drawer = doc.getElementById('filters-drawer')
   if (drawer) drawer.innerHTML = drawerHTML(graph)
@@ -148,7 +150,7 @@ export function boot(doc: Document): void {
       // Phone: zoom the map to the selection; narrow screens: bring the card (below the map) into view.
       if (phone?.matches) map.zoomTo(id)
       const detail = doc.getElementById('detail')
-      if (narrow?.matches && typeof detail?.scrollIntoView === 'function') detail.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' })
+      if (narrow?.matches && typeof detail?.scrollIntoView === 'function') detail.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'nearest' })
     }
     if (!win) return
     if (id) {

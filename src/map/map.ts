@@ -32,6 +32,8 @@ export interface MapView {
   fit(): void
   /** Center a node at `scale` (default 2.4): the phone layout zooms to the selection on select. */
   zoomTo(id: string, scale?: number): void
+  /** Follow a prefers-reduced-motion change after boot: true makes every later zoom instant. */
+  setReduceMotion(on: boolean): void
 }
 
 /** The subset of document.fonts the map needs; injectable for tests. */
@@ -202,6 +204,7 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     .data(graph.all, (d) => d.id)
     .join('g')
     .attr('class', (d) => `lbl ${d.kind}`)
+    .attr('data-id', (d) => d.id)
   lblSel.append('text').text(labelText)
 
   const clSel = gLbl
@@ -224,6 +227,8 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
   const hubLayerOn = (d: HubNode) => (d.htype === 'e' ? input.layers.employers : d.htype === 's' ? input.layers.schools : input.layers.projects)
   const shown = (d: AnyNode): boolean =>
     d.kind === 'company' ? input.layers.companies : d.kind === 'hub' ? hubLayerOn(d) && (!d.oneOff || input.layers.oneOff) : true
+  /** Layer-visible, or the focused node itself: a card link to a layer-hidden hub still shows that hub. */
+  const visible = (d: AnyNode): boolean => shown(d) || d === input.focus
 
   /* ---------- scale, measure, place ---------- */
   function applyScale() {
@@ -265,7 +270,7 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
 
   function place() {
     const s = 1 / Math.sqrt(k)
-    const items: LabelItem[] = graph.all.filter(shown).map((d) => ({
+    const items: LabelItem[] = graph.all.filter(visible).map((d) => ({
       id: d.id,
       kind: d.kind,
       x: d.x,
@@ -301,12 +306,12 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     const crowded = (d: AnyNode) => placements.get(d.id)?.crowded ?? true
 
     nodeSel
-      .attr('display', (d) => (shown(d) ? null : 'none'))
+      .attr('display', (d) => (visible(d) ? null : 'none'))
       .style('opacity', (d) => String(opacity(d)))
       .classed('pinned', (d) => pinned && focus === d)
-    lblSel.attr('display', (d) => (shown(d) && (!crowded(d) || (E?.has(d) ?? false)) ? null : 'none')).style('opacity', (d) => String(opacity(d)))
+    lblSel.attr('display', (d) => (visible(d) && (!crowded(d) || (E?.has(d) ?? false)) ? null : 'none')).style('opacity', (d) => String(opacity(d)))
     linkSel
-      .attr('display', (l) => (shown(l.target) ? null : 'none'))
+      .attr('display', (l) => (visible(l.target) ? null : 'none'))
       .style('opacity', (l) => {
         if (!matched.has(l.source)) return '0.03'
         if (focus) return l.source === focus || l.target === focus ? '0.95' : '0.03'
@@ -327,7 +332,8 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
   }
 
   /* ---------- zoom ---------- */
-  const duration = opts.reduceMotion ? 0 : 260
+  let reduce = !!opts.reduceMotion
+  const ms = (base: number) => (reduce ? 0 : base)
   const zoomBehavior = zoom<SVGSVGElement, unknown>()
     .scaleExtent([0.8, 5])
     .translateExtent([
@@ -347,7 +353,8 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     })
   svg.call(zoomBehavior).on('dblclick.zoom', null)
   // With reduced motion the transform is applied synchronously, so the end handler (place + render) runs at once.
-  const go = (t: ZoomTransform) => {
+  const go = (t: ZoomTransform, base = 260) => {
+    const duration = ms(base)
     if (duration) svg.transition().duration(duration).call(zoomBehavior.transform, t)
     else svg.call(zoomBehavior.transform, t)
   }
@@ -382,18 +389,22 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     update(next) {
       const layersChanged = next.layers !== input.layers
       input = next
-      if (layersChanged) place()
+      // A layer-hidden focus node has no label placement yet, so place again when one appears.
+      if (layersChanged || (next.focus && !shown(next.focus))) place()
       render()
     },
     relayout,
-    zoomIn: () => svg.transition().duration(duration).call(zoomBehavior.scaleBy, 1.5),
-    zoomOut: () => svg.transition().duration(duration).call(zoomBehavior.scaleBy, 1 / 1.5),
+    zoomIn: () => svg.transition().duration(ms(260)).call(zoomBehavior.scaleBy, 1.5),
+    zoomOut: () => svg.transition().duration(ms(260)).call(zoomBehavior.scaleBy, 1 / 1.5),
     fit: () => go(zoomIdentity),
     zoomTo(id, scale = 2.4) {
       const n = graph.byId.get(id)
       if (!n) return
       const k = Math.max(0.8, Math.min(5, scale))
       go(zoomIdentity.translate(W / 2 - n.x * k, H / 2 - n.y * k).scale(k))
+    },
+    setReduceMotion(on) {
+      reduce = on
     },
   }
 }
