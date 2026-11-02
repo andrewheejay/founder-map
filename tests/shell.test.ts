@@ -180,3 +180,11 @@ describe('badge bar target size', () => {
     expect(body('.bseg')).toMatch(/min-width: var\(--space-targetMin\)/)
   })
 })
+
+describe('README', () => {
+  it('documents the data model, adding a founder or fund, regenerating the layout, and has no em dashes', () => {
+    const md = read('README.md')
+    for (const s of ['npm run validate', 'npm run layout', 'npm run build', 'founders.json', 'companies.json', 'layout.json', 'Add a founder', 'Add a fund', 'docs/acceptance.md']) expect(md, s).toContain(s)
+    expect(md).not.toMatch(/—/)
+  })
+})
