@@ -14,8 +14,8 @@ const LAYER_LABEL: Record<keyof Layers, string> = {
 }
 const LAYER_ORDER: (keyof Layers)[] = ['companies', 'employers', 'schools', 'projects', 'oneOff', 'alt']
 
-const chip = (attr: string, value: string, label: string, count: number | null, dot?: string): string =>
-  `<button type="button" class="chip" ${attr}="${esc(value)}" aria-pressed="false"${dot ? ` style="--c: var(--path-${dot})"` : ''}>${dot ? '<span class="chip__dot"></span>' : ''}${esc(label)}${count === null ? '' : `<span class="chip__count num">${count}</span>`}</button>`
+const chip = (attr: string, value: string, label: string, count: number | null, dot?: string, pressed = false): string =>
+  `<button type="button" class="chip" ${attr}="${esc(value)}" aria-pressed="${pressed}"${dot ? ` style="--c: var(--path-${dot})"` : ''}>${dot ? '<span class="chip__dot"></span>' : ''}${esc(label)}${count === null ? '' : `<span class="chip__count num">${count}</span>`}</button>`
 
 const group = (title: string, body: string): string => `<div class="drawer__group"><h3 class="drawer__title">${title}</h3>${body}</div>`
 
@@ -35,7 +35,7 @@ export function drawerHTML(graph: Graph): string {
   const statuses = (Object.keys(STATUS_LABEL) as (keyof typeof STATUS_LABEL)[]).map((k): [string, string] => [k, STATUS_LABEL[k]])
   const oss = (Object.keys(OSS_LABEL) as (keyof typeof OSS_LABEL)[]).map((k): [string, string] => [k, OSS_LABEL[k]])
   const more = select('sel-school', 'School', schools) + select('sel-vertical', 'Vertical', verticals) + select('sel-status', 'Status', statuses) + select('sel-oss', 'Open source', oss)
-  const layers = LAYER_ORDER.map((k) => chip('data-layer', k, LAYER_LABEL[k], null).replace('aria-pressed="false"', `aria-pressed="${DEFAULT_LAYERS[k]}"`)).join('')
+  const layers = LAYER_ORDER.map((k) => chip('data-layer', k, LAYER_LABEL[k], null, undefined, DEFAULT_LAYERS[k])).join('')
   return `<div class="drawer">${group('Path', paths)}${group('Badges', badges)}${group('Big tech employer', employers)}${group('More', more)}${group('Map layers', layers)}</div>`
 }
 

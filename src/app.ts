@@ -76,6 +76,13 @@ export function boot(doc: Document): void {
     if (s.focus || s.pinned) store.set({ focus: null, pinned: false })
   }
 
+  const hasNode = (id: string) => graph.byId.has(id)
+  /** Pin a node by id (toggle: a second click on the pinned node clears it); ids not in the graph are ignored. */
+  const select = (id: string, toggle: boolean) => {
+    if (!hasNode(id)) return
+    store.set(toggle ? toggleSelect(store.get(), id) : { focus: id, pinned: true })
+  }
+
   const reduceMotion = win?.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
   const phone = win?.matchMedia?.('(max-width: 640px)')
   const narrow = win?.matchMedia?.('(max-width: 980px)')
@@ -126,7 +133,6 @@ export function boot(doc: Document): void {
     if (s.view === 'map' && lastView !== 'map') map.relayout()
     lastView = s.view
   }
-  const hasNode = (id: string) => graph.byId.has(id)
   const fromHash = hashToId(win?.location.hash ?? '', hasNode)
   if (fromHash) store.set({ focus: fromHash, pinned: true })
 
@@ -193,7 +199,7 @@ export function boot(doc: Document): void {
       downloadText(doc, 'founder-map.csv', csv(sortedRows()))
       return say('Downloaded founder-map.csv')
     }
-    if ((el = hit('[data-select]'))) return store.set({ focus: data(el, 'data-select'), pinned: true })
+    if ((el = hit('[data-select]'))) return select(data(el, 'data-select'), false)
     if ((el = hit('[data-remove]'))) return setFilters((f) => removeFilter(f, data(el!, 'data-remove')))
     if ((el = hit('[data-cluster]'))) return setFilters((f) => togglePath(f, data(el!, 'data-cluster') as PathKey))
     if ((el = hit('[data-path]'))) return setFilters((f) => togglePath(f, data(el!, 'data-path') as PathKey))
@@ -240,7 +246,7 @@ export function boot(doc: Document): void {
     const row = target?.closest?.('a[href], button') ? null : target?.closest?.<HTMLElement>('tr.row[data-select]')
     if (row && (ev.key === 'Enter' || ev.key === ' ')) {
       ev.preventDefault()
-      return store.set({ focus: row.getAttribute('data-select'), pinned: true })
+      return select(row.getAttribute('data-select') ?? '', false)
     }
     if (ev.key !== 'Escape') return
     const box = doc.getElementById('csv-box') as HTMLTextAreaElement | null

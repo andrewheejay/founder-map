@@ -214,6 +214,14 @@ describe('hash and keyboard', () => {
     expect(document.activeElement).toBe(tabs[0])
     expect(q('#tab-clusters').hasAttribute('hidden')).toBe(false)
   })
+  it('ignores a data-select whose id is not in the graph', () => {
+    const about = q('#tab-about')
+    about.insertAdjacentHTML('beforeend', '<button type="button" id="ghost" data-select="x:nobody">ghost</button>')
+    click('#ghost')
+    expect(location.hash).toBe('')
+    expect(text('#detail h2')).toBe('Pick any dot or station')
+    q('#ghost').remove()
+  })
 })
 
 describe('phone behaviors', () => {

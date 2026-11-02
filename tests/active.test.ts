@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest'
 import { activeRowHTML } from '../src/filters/active'
+import { CROSS_ICON } from '../src/html'
 
 describe('active filters row', () => {
   it('is empty without chips, otherwise chips with category, remove button, counts, and clear all', () => {
@@ -18,6 +19,7 @@ describe('active filters row', () => {
     expect(el.querySelectorAll('.achip')).toHaveLength(2)
     expect(el.querySelector('.achip .achip__cat')?.textContent).toBe('Badge')
     expect(el.querySelector('[data-remove="employer:Google"]')?.getAttribute('aria-label')).toBe('Remove filter Google')
+    expect(el.innerHTML).toContain(CROSS_ICON)
     expect(el.querySelector('.active__count')?.textContent).toBe('10 of 54 founders · 6 of 24 companies')
     expect(el.querySelector('#clear-filters')?.textContent).toBe('Clear all')
     el.innerHTML = activeRowHTML([{ category: 'Search', label: '“zzz”', remove: 'q' }], 0, 0, { founders: 54, companies: 24 })

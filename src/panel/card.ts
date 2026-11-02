@@ -1,4 +1,4 @@
-import { esc } from '../html'
+import { CROSS_ICON, esc } from '../html'
 import {
   BADGE_LABEL,
   BADGE_ORDER,
@@ -21,8 +21,7 @@ import {
 import type { State } from '../state'
 import type { Filters, PathKey } from '../types'
 
-const CROSS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>'
-const closeBtn = `<button type="button" class="card__close" data-close aria-label="Close details">${CROSS}</button>`
+const closeBtn = `<button type="button" class="card__close" data-close aria-label="Close details">${CROSS_ICON}</button>`
 
 /** An inline button that selects a node. */
 export const link = (n: AnyNode): string => `<button type="button" class="linkbtn linkbtn--ink" data-select="${esc(n.id)}">${esc(n.name)}</button>`

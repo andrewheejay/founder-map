@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest'
 import { graph } from '../src/data'
+import { CROSS_ICON } from '../src/html'
 import { BADGE_LABEL, BADGE_ORDER, OSS_LABEL, PATHS, STATUS_LABEL, type FounderNode, type HubNode } from '../src/model'
 import { clusterCardHTML, companyCardHTML, defaultCardHTML, detailHTML, founderCardHTML, hostOf, hubCardHTML, talentOverlaps } from '../src/panel/card'
 import { DEFAULT_FILTERS, DEFAULT_STATE } from '../src/state'
@@ -17,6 +18,7 @@ describe('detail card', () => {
     const d = el(founderCardHTML(lorenc))
     expect(d.querySelector('.eyebrow')?.textContent).toBe('Founder · Amplify')
     expect(d.querySelector('h2')?.textContent).toBe('Dan Lorenc')
+    expect(founderCardHTML(lorenc)).toContain(CROSS_ICON)
     expect(d.querySelector('.card__sub [data-select]')?.getAttribute('data-select')).toBe('c:chainguard')
     expect(d.querySelector('.chip--path')?.textContent).toBe('Big tech engineer')
     expect([...d.querySelectorAll('.chip--badge')].map((c) => c.textContent)).toEqual(BADGE_ORDER.filter((b) => lorenc.badges.includes(b)).map((b) => BADGE_LABEL[b]))
