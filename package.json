@@ -1,0 +1,33 @@
+{
+  "name": "founder-map",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run validate && npm run tokens && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "validate": "tsx scripts/validate.ts",
+    "tokens": "tsx scripts/tokens.ts"
+  },
+  "dependencies": {
+    "d3-polygon": "^3.0.1",
+    "d3-selection": "^3.0.0",
+    "d3-shape": "^3.2.0",
+    "d3-transition": "^3.0.1",
+    "d3-zoom": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/d3-polygon": "^3.0.2",
+    "@types/d3-selection": "^3.0.12",
+    "@types/d3-shape": "^3.2.0",
+    "@types/d3-transition": "^3.0.9",
+    "@types/d3-zoom": "^3.0.9",
+    "jsdom": "^29.1.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}
