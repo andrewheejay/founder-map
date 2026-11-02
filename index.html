@@ -86,16 +86,16 @@
       </section>
 
       <aside class="side">
-        <section class="card detail" id="detail" aria-live="polite">
+        <section class="card detail" id="detail">
           <p class="eyebrow">Start here</p>
           <h2 class="card-title">Pick any dot or station</h2>
           <p class="body">Colored dots are founders, placed by career path. Gray circles are the employers, schools, and projects they share. Hover or tap one to see its ties.</p>
         </section>
         <section class="card tabs-card" aria-label="Clusters, insights, and about">
           <div class="tabs" role="tablist" id="tabs">
-            <button type="button" class="tab" role="tab" data-tab="clusters" aria-selected="true" aria-controls="tab-clusters">Clusters</button>
-            <button type="button" class="tab" role="tab" data-tab="insights" aria-selected="false" aria-controls="tab-insights">Insights</button>
-            <button type="button" class="tab" role="tab" data-tab="about" aria-selected="false" aria-controls="tab-about">About</button>
+            <button type="button" class="tab" role="tab" data-tab="clusters" aria-selected="true" aria-controls="tab-clusters" tabindex="0">Clusters</button>
+            <button type="button" class="tab" role="tab" data-tab="insights" aria-selected="false" aria-controls="tab-insights" tabindex="-1">Insights</button>
+            <button type="button" class="tab" role="tab" data-tab="about" aria-selected="false" aria-controls="tab-about" tabindex="-1">About</button>
           </div>
           <div class="tabpanel" role="tabpanel" id="tab-clusters">
             <div class="tabpanel__head"><span>Path</span><span class="num">Amplify · Haystack</span></div>
@@ -116,6 +116,7 @@
           </div>
         </section>
       </aside>
+      <p class="sr-only" id="announce" aria-live="polite"></p>
     </main>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script type="module" src="/src/main.ts"></script>

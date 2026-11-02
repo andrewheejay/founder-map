@@ -77,6 +77,10 @@ export function syncControls(root: ParentNode, s: State): void {
   }
   setHidden(root, 'map-card', s.view !== 'map')
   setHidden(root, 'table-card', s.view !== 'table')
-  for (const t of root.querySelectorAll<HTMLElement>('[data-tab]')) t.setAttribute('aria-selected', String(t.getAttribute('data-tab') === s.tab))
+  for (const t of root.querySelectorAll<HTMLElement>('[data-tab]')) {
+    const on = t.getAttribute('data-tab') === s.tab
+    t.setAttribute('aria-selected', String(on))
+    t.setAttribute('tabindex', on ? '0' : '-1')
+  }
   for (const k of ['clusters', 'insights', 'about']) setHidden(root, `tab-${k}`, k !== s.tab)
 }

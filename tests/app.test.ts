@@ -167,3 +167,39 @@ describe('table view', () => {
     expect(text('#toast')).toBe(`Copied ${graph.founders.length} rows as CSV`)
   })
 })
+
+describe('hash and keyboard', () => {
+  it('mirrors the pinned selection in the hash and clears it on close', () => {
+    q('[data-id="c:temporal"]').dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    expect(location.hash).toBe('#c-temporal')
+    expect(text('#announce')).toBe('Temporal selected')
+    click('#detail [data-close]')
+    expect(location.hash).toBe('')
+    expect(text('#announce')).toBe('Selection cleared')
+  })
+  it('follows hashchange, ignores unknown hashes, and hover does not touch the hash', () => {
+    location.hash = '#f-dan-lorenc'
+    window.dispatchEvent(new HashChangeEvent('hashchange'))
+    expect(text('#detail h2')).toBe('Dan Lorenc')
+    location.hash = '#f-nobody'
+    window.dispatchEvent(new HashChangeEvent('hashchange'))
+    expect(text('#detail h2')).toBe('Pick any dot or station')
+    history.replaceState(null, '', location.pathname)
+    q('[data-id="c:temporal"]').dispatchEvent(new Event('pointerenter'))
+    expect(location.hash).toBe('')
+    q('[data-id="c:temporal"]').dispatchEvent(new Event('pointerleave'))
+  })
+  it('arrow keys move between tabs and select them', () => {
+    const tabs = [...document.querySelectorAll<HTMLElement>('#tabs [role="tab"]')]
+    tabs[0].focus()
+    tabs[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }))
+    expect(document.activeElement).toBe(tabs[1])
+    expect(tabs[1].getAttribute('aria-selected')).toBe('true')
+    expect(tabs.map((t) => t.getAttribute('tabindex'))).toEqual(['-1', '0', '-1'])
+    tabs[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }))
+    expect(document.activeElement).toBe(tabs[2])
+    tabs[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }))
+    expect(document.activeElement).toBe(tabs[0])
+    expect(q('#tab-clusters').hasAttribute('hidden')).toBe(false)
+  })
+})

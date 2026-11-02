@@ -2,8 +2,10 @@ import { graph } from './data'
 import { activeRowHTML } from './filters/active'
 import { drawerHTML, syncControls } from './filters/drawer'
 import { activeChips, activeFilterCount, matchedCompanies, matchedFounders } from './filters/match'
+import { hashToId, idToHash } from './hash'
 import { createMap } from './map/map'
 import { detailHTML } from './panel/card'
+import { announceText, tablistKey } from './panel/tablist'
 import { badgeRowsHTML, clustersHTML, insightsHTML } from './panel/tabs'
 import { copyText, downloadText, toast } from './table/clipboard'
 import { countText, csv, sortFounders, tableHTML } from './table/table'
@@ -121,8 +123,35 @@ export function boot(doc: Document): void {
     if (s.view === 'map' && lastView !== 'map') map.relayout()
     lastView = s.view
   }
+  const hasNode = (id: string) => graph.byId.has(id)
+  const fromHash = hashToId(win?.location.hash ?? '', hasNode)
+  if (fromHash) store.set({ focus: fromHash, pinned: true })
+
+  // Mirror the pinned selection in the hash and the live region; hover never touches either.
+  let lastPinned: string | null = null
+  const onPinChange = (s: State) => {
+    const id = s.pinned ? s.focus : null
+    if (id === lastPinned) return
+    lastPinned = id
+    const announce = doc.getElementById('announce')
+    if (announce) announce.textContent = announceText(id ? (graph.byId.get(id) ?? null) : null)
+    if (!win) return
+    if (id) {
+      const h = '#' + idToHash(id)
+      if (win.location.hash !== h) win.location.hash = h
+    } else if (win.location.hash) win.history.replaceState(null, '', win.location.pathname + win.location.search)
+  }
   store.subscribe(push)
+  store.subscribe(onPinChange)
   push(store.get())
+  onPinChange(store.get())
+  win?.addEventListener('hashchange', () => {
+    const id = hashToId(win.location.hash, hasNode)
+    const s = store.get()
+    if (id) {
+      if (s.focus !== id || !s.pinned) store.set({ focus: id, pinned: true })
+    } else if (s.pinned) store.set({ focus: null, pinned: false })
+  })
 
   const sortedRows = () => {
     const s = store.get()
@@ -188,6 +217,16 @@ export function boot(doc: Document): void {
 
   doc.addEventListener('keydown', (ev) => {
     const target = ev.target as Element | null
+    const tab = target?.closest?.<HTMLElement>('#tabs [role="tab"][data-tab]')
+    if (tab) {
+      const tabs = [...doc.querySelectorAll<HTMLElement>('#tabs [role="tab"]')]
+      const next = tablistKey(ev.key, tabs.indexOf(tab), tabs.length)
+      if (next !== null) {
+        ev.preventDefault()
+        tabs[next].focus()
+        return store.set({ tab: tabs[next].getAttribute('data-tab') as Tab })
+      }
+    }
     const row = target?.closest?.<HTMLElement>('tr.row[data-select]')
     if (row && (ev.key === 'Enter' || ev.key === ' ')) {
       ev.preventDefault()

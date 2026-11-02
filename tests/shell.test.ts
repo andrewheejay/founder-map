@@ -115,3 +115,11 @@ describe('table shell', () => {
     expect(rule?.body.replace(/\s+/g, ' ')).toMatch(/min-width: 1280px/)
   })
 })
+
+describe('announcer and tab order', () => {
+  it('announcer exists, detail is not live, and only the selected tab is in the tab order', () => {
+    expect(document.querySelector('main #announce')?.getAttribute('aria-live')).toBe('polite')
+    expect(document.querySelector('#detail')?.hasAttribute('aria-live')).toBe(false)
+    expect([...document.querySelectorAll('#tabs [role="tab"]')].map((t) => t.getAttribute('tabindex'))).toEqual(['0', '-1', '-1'])
+  })
+})
