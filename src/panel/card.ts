@@ -1,7 +1,7 @@
 import { CROSS_ICON, esc } from '../html'
 import {
-  BADGE_LABEL,
-  BADGE_ORDER,
+  BACKGROUND_LABEL,
+  BACKGROUND_ORDER,
   BIG_TECH,
   FUND_LABEL,
   HUB_TYPE_LABEL,
@@ -76,16 +76,12 @@ export function founderCardHTML(f: FounderNode): string {
   const cofounders = f.company.members.filter((m) => m !== f)
   const rows: [string, string][] = []
   const e = ties('e'), s = ties('s'), o = ties('o')
+  if (f.background.length) rows.push(['Background', BACKGROUND_ORDER.filter((b) => f.background.includes(b)).map((b) => esc(BACKGROUND_LABEL[b])).join(', ')])
   if (e.length) rows.push(['Worked at', e.join(', ')])
   if (s.length) rows.push(['School', s.join(', ')])
   if (o.length) rows.push(['Prior OSS', o.join(', ')])
   if (cofounders.length) rows.push(['Co-founders', cofounders.map(link).join(', ')])
-  const chips =
-    pathChip(f.path) +
-    (f.secondaryPath ? `<span class="chip chip--alt" style="--c: var(--path-${f.secondaryPath})">Also fits: ${esc(PATHS[f.secondaryPath].name)}</span>` : '') +
-    BADGE_ORDER.filter((b) => f.badges.includes(b))
-      .map((b) => `<span class="chip chip--badge">${esc(BADGE_LABEL[b])}</span>`)
-      .join('')
+  const chips = pathChip(f.path) + (f.secondaryPath ? `<span class="chip chip--alt" style="--c: var(--path-${f.secondaryPath})">Also fits: ${esc(PATHS[f.secondaryPath].name)}</span>` : '')
   const c = f.company
   return (
     head(`Founder · ${FUND_LABEL[f.fund]}`, f.name, `${esc(f.role)} · ${link(c)}`) +

@@ -1,5 +1,5 @@
 import { esc } from '../html'
-import { BADGE_LABEL, BADGE_ORDER, BIG_TECH, OSS_LABEL, STATUS_LABEL, type Graph } from '../model'
+import { BACKGROUND_LABEL, BACKGROUND_ORDER, BIG_TECH, OSS_LABEL, STATUS_LABEL, type Graph } from '../model'
 import { DEFAULT_LAYERS, type State } from '../state'
 import type { Layers } from '../types'
 import { activeFilterCount } from './match'
@@ -8,7 +8,7 @@ const LAYER_LABEL: Record<keyof Layers, string> = {
   companies: 'Companies',
   employers: 'Employers',
   schools: 'Schools',
-  projects: 'Prior open source',
+  projects: 'Open source projects',
   oneOff: 'One-off ties',
   alt: 'Also-fits stubs',
 }
@@ -22,10 +22,10 @@ const group = (title: string, body: string): string => `<div class="drawer__grou
 const select = (id: string, label: string, options: [string, string][]): string =>
   `<label class="select"><span>${label}</span><select id="${id}"><option value="">Any</option>${options.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>`
 
-/** The Filters drawer: path, badge, and big tech chips with counts, the four selects, and the map layer chips. */
+/** The Filters drawer: path, background, and big tech chips with counts, the four selects, and the map layer chips. */
 export function drawerHTML(graph: Graph): string {
   const paths = graph.clusters.map((c) => chip('data-path', c.key, c.name, c.founders.length, c.key)).join('')
-  const badges = BADGE_ORDER.map((b) => chip('data-badge', b, BADGE_LABEL[b], graph.founders.filter((f) => f.badges.includes(b)).length)).join('')
+  const background = BACKGROUND_ORDER.map((b) => chip('data-background', b, BACKGROUND_LABEL[b], graph.founders.filter((f) => f.background.includes(b)).length)).join('')
   const employers = BIG_TECH.map((e) => chip('data-employer', e, e, graph.founders.filter((f) => f.bigTech.includes(e)).length)).join('')
   const schools = graph.hubs
     .filter((h) => h.htype === 's')
@@ -36,7 +36,7 @@ export function drawerHTML(graph: Graph): string {
   const oss = (Object.keys(OSS_LABEL) as (keyof typeof OSS_LABEL)[]).map((k): [string, string] => [k, OSS_LABEL[k]])
   const more = select('sel-school', 'School', schools) + select('sel-vertical', 'Vertical', verticals) + select('sel-status', 'Status', statuses) + select('sel-oss', 'Open source', oss)
   const layers = LAYER_ORDER.map((k) => chip('data-layer', k, LAYER_LABEL[k], null, undefined, DEFAULT_LAYERS[k])).join('')
-  return `<div class="drawer">${group('Path', paths)}${group('Badges', badges)}${group('Big tech employer', employers)}${group('More', more)}${group('Map layers', layers)}</div>`
+  return `<div class="drawer">${group('Path', paths)}${group('Background', background)}${group('Big tech employer', employers)}${group('More', more)}${group('Map layers', layers)}</div>`
 }
 
 const has = (set: ReadonlySet<string>, v: string): boolean => set.has(v)
@@ -57,7 +57,7 @@ export function syncControls(root: ParentNode, s: State): void {
   const f = s.filters
   pressed(root, '[data-path]', 'data-path', (v) => has(f.paths, v))
   pressed(root, '[data-cluster]', 'data-cluster', (v) => has(f.paths, v))
-  pressed(root, '[data-badge]', 'data-badge', (v) => has(f.badges, v))
+  pressed(root, '[data-background]', 'data-background', (v) => has(f.background, v))
   pressed(root, '[data-employer]', 'data-employer', (v) => f.employers.has(v))
   pressed(root, '[data-layer]', 'data-layer', (v) => s.layers[v as keyof Layers])
   pressed(root, '[data-fund]', 'data-fund', (v) => v === f.fund)

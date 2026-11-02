@@ -1,7 +1,7 @@
 export type Fund = 'amplify' | 'haystack'
 export type PathKey = 'big_tech_engineer' | 'repeat_founder' | 'business_operator' | 'young_builder' | 'academic'
-export type StoredBadge = 'prior_open_source' | 'prior_exit' | 'grad_degree'
-export type BadgeKey = StoredBadge | 'big_tech_alum'
+/** Background facts stored per founder; big tech employment is not one of them (filter by employer instead). */
+export type BackgroundKey = 'prior_open_source' | 'prior_exit' | 'grad_degree'
 export type FounderStatus = 'active' | 'role_changed' | 'left'
 export type OssProduct = 'yes' | 'partial' | 'no'
 export type HubType = 'e' | 's' | 'o'
@@ -31,7 +31,7 @@ export interface FounderRecord {
   role: string
   status: FounderStatus
   statusNote: string | null
-  badges: StoredBadge[]
+  background: BackgroundKey[]
   employers: string[]
   schools: string[]
   taughtAt: string[]
@@ -66,7 +66,7 @@ export interface Filters {
   fund: Fund | 'all'
   q: string
   paths: ReadonlySet<PathKey>
-  badges: ReadonlySet<BadgeKey>
+  background: ReadonlySet<BackgroundKey>
   employers: ReadonlySet<string>
   school: string
   vertical: string
@@ -75,4 +75,4 @@ export interface Filters {
 }
 
 /** Table sort keys, one per column of src/table/table.ts TABLE_COLUMNS. */
-export type SortKey = 'name' | 'fund' | 'company' | 'path' | 'role' | 'status' | 'bigtech' | 'badges' | 'schools' | 'projects' | 'ossp' | 'last' | 'src'
+export type SortKey = 'name' | 'fund' | 'company' | 'path' | 'role' | 'status' | 'bigtech' | 'background' | 'schools' | 'projects' | 'ossp' | 'last' | 'src'

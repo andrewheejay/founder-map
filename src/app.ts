@@ -6,7 +6,7 @@ import { hashToId, idToHash } from './hash'
 import { createMap } from './map/map'
 import { detailHTML } from './panel/card'
 import { announceText, tablistKey } from './panel/tablist'
-import { badgeRowsHTML, clustersHTML, insightsHTML } from './panel/tabs'
+import { clustersHTML, insightsHTML } from './panel/tabs'
 import { copyText, downloadText, toast } from './table/clipboard'
 import { countText, csv, sortFounders, tableHTML } from './table/table'
 import {
@@ -16,16 +16,14 @@ import {
   escapeClears,
   hoverFocusAllowed,
   removeFilter,
-  toggleBadge,
-  toggleBadgePath,
+  toggleBackground,
   toggleEmployer,
-  toggleOss,
   togglePath,
   toggleSelect,
   toggleSort,
   type State,
 } from './state'
-import type { BadgeKey, Fund, Layers, OssProduct, PathKey, SortKey, Tab, View } from './types'
+import type { BackgroundKey, Fund, Layers, PathKey, SortKey, Tab, View } from './types'
 
 function renderStats(doc: Document) {
   const shared = graph.hubs.filter((h) => !h.oneOff && h.htype !== 'o').length
@@ -34,7 +32,7 @@ function renderStats(doc: Document) {
   if (stats) stats.textContent = `${graph.founders.length} founders · ${graph.companies.length} companies · ${shared} shared employers & schools · ${projects} open source projects`
 }
 
-const FOCUS_KEYS = ['data-select', 'data-row', 'data-remove', 'data-close', 'data-cluster', 'data-bp', 'data-oss', 'data-employer', 'data-path', 'data-badge', 'data-sort']
+const FOCUS_KEYS = ['data-select', 'data-row', 'data-remove', 'data-close', 'data-cluster', 'data-employer', 'data-path', 'data-background', 'data-sort']
 const FOCUSABLE = 'button:not([disabled]), a[href], input, select, [tabindex]:not([tabindex="-1"])'
 
 /** The attribute selector that identifies a control across re-renders, or null when it carries no data key. */
@@ -140,7 +138,6 @@ export function boot(doc: Document): void {
     if (row) row.hidden = !active
     swap(row, activeRowHTML(activeChips(s.filters), matched.size, matchedCompanies(graph, matched).length, totals), cache, doc.getElementById('filters-btn'))
     swap(doc.getElementById('clusters-list'), clustersHTML(graph, matched, active, s.filters), cache)
-    swap(doc.getElementById('badge-rows'), badgeRowsHTML(graph, s.filters), cache)
     const rows = sortFounders([...matched], s.sort)
     swap(doc.getElementById('founder-table'), tableHTML(rows, s.pinned ? s.focus : null, s.sort), cache)
     const count = doc.getElementById('table-count')
@@ -230,13 +227,8 @@ export function boot(doc: Document): void {
     if ((el = hit('[data-remove]'))) return setFilters((f) => removeFilter(f, data(el!, 'data-remove')))
     if ((el = hit('[data-cluster]'))) return setFilters((f) => togglePath(f, data(el!, 'data-cluster') as PathKey))
     if ((el = hit('[data-path]'))) return setFilters((f) => togglePath(f, data(el!, 'data-path') as PathKey))
-    if ((el = hit('[data-badge]'))) return setFilters((f) => toggleBadge(f, data(el!, 'data-badge') as BadgeKey))
+    if ((el = hit('[data-background]'))) return setFilters((f) => toggleBackground(f, data(el!, 'data-background') as BackgroundKey))
     if ((el = hit('[data-employer]'))) return setFilters((f) => toggleEmployer(f, data(el!, 'data-employer')))
-    if ((el = hit('[data-bp]'))) {
-      const [badge, path] = data(el, 'data-bp').split(':')
-      return setFilters((f) => toggleBadgePath(f, badge as BadgeKey, path as PathKey))
-    }
-    if ((el = hit('[data-oss]'))) return setFilters((f) => toggleOss(f, data(el!, 'data-oss') as OssProduct))
     if ((el = hit('[data-layer]'))) {
       const key = data(el, 'data-layer') as keyof Layers
       const layers = store.get().layers

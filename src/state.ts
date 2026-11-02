@@ -1,4 +1,4 @@
-import type { BadgeKey, Filters, Layers, OssProduct, PathKey, SortKey, Tab, View } from './types'
+import type { BackgroundKey, Filters, Layers, PathKey, SortKey, Tab, View } from './types'
 
 export interface State {
   /** id of the hovered or selected node */
@@ -27,7 +27,7 @@ export const DEFAULT_FILTERS: Filters = {
   fund: 'all',
   q: '',
   paths: new Set(),
-  badges: new Set(),
+  background: new Set(),
   employers: new Set(),
   school: '',
   vertical: '',
@@ -82,16 +82,8 @@ function toggled<T>(set: ReadonlySet<T>, v: T): Set<T> {
 }
 
 export const togglePath = (f: Filters, k: PathKey): Filters => ({ ...f, paths: toggled(f.paths, k) })
-export const toggleBadge = (f: Filters, k: BadgeKey): Filters => ({ ...f, badges: toggled(f.badges, k) })
+export const toggleBackground = (f: Filters, k: BackgroundKey): Filters => ({ ...f, background: toggled(f.background, k) })
 export const toggleEmployer = (f: Filters, name: string): Filters => ({ ...f, employers: toggled(f.employers, name) })
-
-/** A "Badges by path" segment: selects exactly that badge and path, or clears both when already exactly selected. */
-export function toggleBadgePath(f: Filters, badge: BadgeKey, path: PathKey): Filters {
-  const on = f.badges.has(badge) && f.paths.size === 1 && f.paths.has(path)
-  return { ...f, badges: new Set(on ? [] : [badge]), paths: new Set(on ? [] : [path]) }
-}
-
-export const toggleOss = (f: Filters, v: OssProduct): Filters => ({ ...f, oss: f.oss === v ? '' : v })
 
 /** Remove one active filter by its chip key (see the data-remove contract). */
 export function removeFilter(f: Filters, key: string): Filters {
@@ -105,8 +97,8 @@ export function removeFilter(f: Filters, key: string): Filters {
       return { ...f, q: '' }
     case 'path':
       return { ...f, paths: new Set([...f.paths].filter((p) => p !== value)) }
-    case 'badge':
-      return { ...f, badges: new Set([...f.badges].filter((b) => b !== value)) }
+    case 'background':
+      return { ...f, background: new Set([...f.background].filter((b) => b !== value)) }
     case 'employer':
       return { ...f, employers: new Set([...f.employers].filter((e) => e !== value)) }
     case 'school':

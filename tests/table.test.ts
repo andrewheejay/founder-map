@@ -12,7 +12,7 @@ const el = (html: string) => {
 
 describe('table', () => {
   it('13 columns in prototype order', () => {
-    expect(TABLE_COLUMNS.map((c) => c.label)).toEqual(['Founder', 'Fund', 'Company', 'Path', 'Role', 'Status', 'Big tech', 'Badges', 'Schools', 'Prior OSS', 'OSS product', 'Company latest', 'Source'])
+    expect(TABLE_COLUMNS.map((c) => c.label)).toEqual(['Founder', 'Fund', 'Company', 'Path', 'Role', 'Status', 'Big tech', 'Background', 'Schools', 'Prior OSS', 'OSS product', 'Company latest', 'Source'])
   })
   it('sorts case-insensitively, empty values first, ties by name, without mutating', () => {
     const rows = graph.founders
@@ -26,19 +26,21 @@ describe('table', () => {
     expect(rows).toBe(graph.founders)
     expect(rows[0]).toBe(graph.founders[0])
   })
-  it('csv: 23-column header, every cell quoted, quotes doubled, CRLF rows', () => {
-    expect(CSV_HEADER).toHaveLength(23)
+  it('csv: 22-column header (the prototype columns without Big tech alum), every cell quoted, quotes doubled, CRLF rows', () => {
+    expect(CSV_HEADER).toHaveLength(22)
     expect(CSV_HEADER[0]).toBe('Name')
-    expect(CSV_HEADER[22]).toBe('Source')
+    expect(CSV_HEADER[21]).toBe('Source')
+    expect(CSV_HEADER).not.toContain('Big tech alum')
+    expect(CSV_HEADER.slice(9, 13)).toEqual(['Prior open source', 'Prior exit', 'Grad degree', 'Big tech employers'])
     const f = { ...graph.founders[0], role: 'Co-founder; "CTO" until Dec 2025', schools: ['A, B'] }
     const text = csv([f])
     const lines = text.split('\r\n')
     expect(lines).toHaveLength(2)
-    expect(lines[0].split('","')).toHaveLength(23)
+    expect(lines[0].split('","')).toHaveLength(22)
     expect(lines[1]).toContain('"Co-founder; ""CTO"" until Dec 2025"')
     expect(lines[1]).toContain('"A, B"')
-    expect(csvRow(f)).toHaveLength(23)
-    expect(csvRow(f)[9]).toBe(f.badges.includes('prior_open_source') ? 'yes' : 'no')
+    expect(csvRow(f)).toHaveLength(22)
+    expect(csvRow(f)[9]).toBe(f.background.includes('prior_open_source') ? 'yes' : 'no')
     expect(csv(graph.founders).split('\r\n')).toHaveLength(graph.founders.length + 1)
     expect(text).not.toContain('undefined')
   })

@@ -12,12 +12,15 @@ root.innerHTML = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8').repl
 root.querySelector('#filters-drawer')!.innerHTML = drawerHTML(graph)
 
 describe('drawer', () => {
-  it('renders path, badge, employer chips with counts, selects, and layer chips', () => {
+  it('renders path, background, employer chips with counts, selects, and layer chips', () => {
     const paths = [...root.querySelectorAll('[data-path]')]
     expect(paths.map((b) => b.getAttribute('data-path'))).toEqual(PATH_ORDER)
     expect(paths.map((b) => b.querySelector('.chip__count')?.textContent)).toEqual(graph.clusters.map((c) => String(c.founders.length)))
-    expect(root.querySelectorAll('[data-badge]')).toHaveLength(4)
-    expect(root.querySelector('[data-badge="big_tech_alum"] .chip__count')?.textContent).toBe(String(graph.founders.filter((f) => f.badges.includes('big_tech_alum')).length))
+    expect([...root.querySelectorAll('.drawer__title')].map((t) => t.textContent)).toEqual(['Path', 'Background', 'Big tech employer', 'More', 'Map layers'])
+    expect([...root.querySelectorAll('[data-background]')].map((b) => b.getAttribute('data-background'))).toEqual(['prior_open_source', 'prior_exit', 'grad_degree'])
+    expect(root.querySelector('[data-background="prior_exit"] .chip__count')?.textContent).toBe(String(graph.founders.filter((f) => f.background.includes('prior_exit')).length))
+    expect(root.querySelector('[data-badge]')).toBeNull()
+    expect(root.querySelector('[data-layer="projects"]')?.textContent).toBe('Open source projects')
     expect([...root.querySelectorAll('[data-employer]')].map((b) => b.getAttribute('data-employer'))).toEqual([...BIG_TECH])
     const schools = root.querySelectorAll('#sel-school option')
     expect(schools).toHaveLength(graph.hubs.filter((h) => h.htype === 's').length + 1)
@@ -26,7 +29,7 @@ describe('drawer', () => {
     expect(root.querySelectorAll('#sel-oss option')).toHaveLength(4)
     expect(root.querySelectorAll('label.select > select')).toHaveLength(4)
     expect([...root.querySelectorAll('[data-layer]')].map((b) => b.getAttribute('aria-pressed'))).toEqual(['true', 'true', 'true', 'true', 'false', 'true'])
-    expect(root.querySelectorAll('[data-path], [data-badge], [data-employer], [data-layer]')).toHaveLength(24)
+    expect(root.querySelectorAll('[data-path], [data-background], [data-employer], [data-layer]')).toHaveLength(23)
     expect([...root.querySelectorAll('#filters-drawer button')].every((b) => b.getAttribute('type') === 'button')).toBe(true)
   })
   it('syncControls mirrors the state into every control', () => {

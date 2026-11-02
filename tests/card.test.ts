@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { graph } from '../src/data'
 import { CROSS_ICON } from '../src/html'
-import { BADGE_LABEL, BADGE_ORDER, OSS_LABEL, PATHS, STATUS_LABEL, type FounderNode, type HubNode } from '../src/model'
+import { OSS_LABEL, PATHS, STATUS_LABEL, type FounderNode, type HubNode } from '../src/model'
 import { clusterCardHTML, companyCardHTML, detailHTML, founderCardHTML, hostOf, hubCardHTML, talentOverlaps } from '../src/panel/card'
 import { DEFAULT_FILTERS, DEFAULT_STATE } from '../src/state'
 
@@ -21,11 +21,17 @@ describe('detail card', () => {
     expect(founderCardHTML(lorenc)).toContain(CROSS_ICON)
     expect(d.querySelector('.card__sub [data-select]')?.getAttribute('data-select')).toBe('c:chainguard')
     expect(d.querySelector('.chip--path')?.textContent).toBe('Big tech engineer')
-    expect([...d.querySelectorAll('.chip--badge')].map((c) => c.textContent)).toEqual(BADGE_ORDER.filter((b) => lorenc.badges.includes(b)).map((b) => BADGE_LABEL[b]))
-    expect([...d.querySelectorAll('dt')].map((t) => t.textContent)).toEqual(['Worked at', 'School', 'Prior OSS', 'Co-founders'])
+    expect(d.querySelectorAll('.chips .chip')).toHaveLength(1)
+    expect(d.querySelector('.chip--badge')).toBeNull()
+    expect([...d.querySelectorAll('dt')].map((t) => t.textContent)).toEqual(['Background', 'Worked at', 'School', 'Prior OSS', 'Co-founders'])
     const dd = [...d.querySelectorAll('dd')]
-    expect([...dd[2].querySelectorAll('[data-select]')].map((b) => b.getAttribute('data-select'))).toEqual(['o:kubernetes', 'o:sigstore', 'o:slsa', 'o:tekton', 'o:distroless'])
-    expect(dd[3].querySelectorAll('[data-select]')).toHaveLength(lorenc.company.members.length - 1)
+    expect(dd[0].textContent).toBe('Prior open source')
+    expect([...dd[3].querySelectorAll('[data-select]')].map((b) => b.getAttribute('data-select'))).toEqual(['o:kubernetes', 'o:sigstore', 'o:slsa', 'o:tekton', 'o:distroless'])
+    expect(dd[4].querySelectorAll('[data-select]')).toHaveLength(lorenc.company.members.length - 1)
+    const plain = graph.founders.find((f) => !f.background.length)!
+    expect([...el(founderCardHTML(plain)).querySelectorAll('dt')].map((t) => t.textContent)).not.toContain('Background')
+    const full = { ...lorenc, background: ['grad_degree', 'prior_exit', 'prior_open_source'] as FounderNode['background'] }
+    expect(el(founderCardHTML(full)).querySelector('dd')?.textContent).toBe('Prior open source, Prior exit, Grad degree')
     expect(d.querySelector('.card__company .mini')?.textContent).toBe(lorenc.company.vertical)
     expect(d.querySelector('.card__company')?.textContent).toContain(`Founded ${lorenc.company.founded} · ${lorenc.company.status} · ${OSS_LABEL[lorenc.company.openSourceProduct]}`)
     const a = d.querySelector('.card__source a')!

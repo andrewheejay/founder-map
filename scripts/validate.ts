@@ -6,7 +6,7 @@ const FUNDS = ['amplify', 'haystack']
 const VERTICALS = ['Developer Tools', 'AI & Cloud Infrastructure', 'Security & Observability', 'Data Infrastructure', 'Fintech Infrastructure', 'Digital Biology']
 const OSS = ['yes', 'partial', 'no']
 const STATUSES = ['active', 'role_changed', 'left']
-const STORED_BADGES = ['prior_open_source', 'prior_exit', 'grad_degree']
+const BACKGROUND = ['prior_open_source', 'prior_exit', 'grad_degree']
 const VIEWBOX = [0, 0, 1100, 840]
 
 const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v)
@@ -82,12 +82,8 @@ export function validateData(founders: unknown, companies: unknown, layout: unkn
     checkText(id, 'role', f.role)
     checkEnum(id, 'status', f.status, STATUSES)
     if (f.statusNote !== null && typeof f.statusNote !== 'string') err(`${id}: statusNote must be a string or null`)
-    if (!Array.isArray(f.badges)) err(`${id}: badges must be an array`)
-    else
-      for (const b of f.badges) {
-        if (b === 'big_tech_alum') err(`${id}: badges contains "big_tech_alum", which is derived from employers and never stored`)
-        else if (!STORED_BADGES.includes(b as string)) err(`${id}: badge ${JSON.stringify(b)} is not one of ${list(STORED_BADGES)}`)
-      }
+    if (!Array.isArray(f.background)) err(`${id}: background must be an array`)
+    else for (const b of f.background) if (!BACKGROUND.includes(b as string)) err(`${id}: background ${JSON.stringify(b)} is not one of ${list(BACKGROUND)}`)
     for (const field of ['employers', 'schools', 'taughtAt', 'priorOpenSource']) {
       const xs = f[field]
       if (!isTextArray(xs)) err(`${id}: ${field} must be an array of non-empty strings`)

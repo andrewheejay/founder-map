@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { DEFAULT_FILTERS, DEFAULT_STATE, clearFilters, createStore, escapeClears, hoverFocusAllowed, removeFilter, toggleBadge, toggleBadgePath, toggleEmployer, toggleOss, togglePath, toggleSelect } from '../src/state'
-import type { BadgeKey, PathKey } from '../src/types'
+import { DEFAULT_FILTERS, DEFAULT_STATE, clearFilters, createStore, escapeClears, hoverFocusAllowed, removeFilter, toggleBackground, toggleEmployer, togglePath, toggleSelect } from '../src/state'
+import type { BackgroundKey, PathKey } from '../src/types'
 import { DEFAULT_SORT, toggleSort } from '../src/state'
 
 describe('state', () => {
@@ -28,18 +28,18 @@ describe('state', () => {
     expect(toggleSelect({ ...DEFAULT_STATE, focus: 'a', pinned: true }, 'a')).toEqual({ focus: null, pinned: false })
     expect(toggleSelect({ ...DEFAULT_STATE, focus: 'a', pinned: true }, 'b')).toEqual({ focus: 'b', pinned: true })
   })
-  it('path, badge+path segment, oss, remove, clear', () => {
+  it('path, background, remove, clear', () => {
     const f0 = DEFAULT_FILTERS
     const f1 = togglePath(f0, 'academic')
     expect([...f1.paths]).toEqual(['academic'])
     expect(togglePath(f1, 'academic').paths.size).toBe(0)
-    const seg = toggleBadgePath({ ...f1, fund: 'amplify', paths: new Set(['academic', 'repeat_founder']) }, 'prior_exit', 'repeat_founder')
-    expect([...seg.badges]).toEqual(['prior_exit'])
-    expect([...seg.paths]).toEqual(['repeat_founder'])
-    expect(seg.fund).toBe('amplify')
-    const off = toggleBadgePath(seg, 'prior_exit', 'repeat_founder')
-    expect(off.badges.size + off.paths.size).toBe(0)
-    expect(toggleOss(toggleOss(f0, 'yes'), 'yes').oss).toBe('')
+    const b = toggleBackground({ ...f1, fund: 'amplify' }, 'prior_exit')
+    expect([...b.background]).toEqual(['prior_exit'])
+    expect([...b.paths]).toEqual(['academic'])
+    expect(b.fund).toBe('amplify')
+    expect(toggleBackground(b, 'prior_exit').background.size).toBe(0)
+    expect(removeFilter(b, 'background:prior_exit').background.size).toBe(0)
+    expect(removeFilter(b, 'background:grad_degree').background.has('prior_exit')).toBe(true)
     const many = { ...f0, fund: 'haystack' as const, q: 'a', employers: new Set(['Google', 'Uber']), school: 'MIT' }
     expect(removeFilter(many, 'employer:Google').employers.has('Uber')).toBe(true)
     expect(removeFilter(many, 'fund').fund).toBe('all')
@@ -48,18 +48,17 @@ describe('state', () => {
   })
   it('reducers never mutate their input sets', () => {
     const paths = new Set<PathKey>(['academic'])
-    const badges = new Set<BadgeKey>(['prior_exit'])
+    const background = new Set<BackgroundKey>(['prior_exit'])
     const employers = new Set(['Google'])
-    const f = { ...DEFAULT_FILTERS, paths, badges, employers }
+    const f = { ...DEFAULT_FILTERS, paths, background, employers }
     togglePath(f, 'academic')
-    toggleBadge(f, 'prior_exit')
+    toggleBackground(f, 'prior_exit')
     toggleEmployer(f, 'Google')
-    toggleBadgePath(f, 'prior_exit', 'repeat_founder')
     removeFilter(f, 'path:academic')
-    removeFilter(f, 'badge:prior_exit')
+    removeFilter(f, 'background:prior_exit')
     removeFilter(f, 'employer:Google')
     expect([...paths]).toEqual(['academic'])
-    expect([...badges]).toEqual(['prior_exit'])
+    expect([...background]).toEqual(['prior_exit'])
     expect([...employers]).toEqual(['Google'])
     expect(f.paths).toBe(paths)
     expect(DEFAULT_FILTERS.paths.size).toBe(0)

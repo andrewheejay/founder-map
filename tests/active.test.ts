@@ -9,7 +9,7 @@ describe('active filters row', () => {
     const el = document.createElement('div')
     el.innerHTML = activeRowHTML(
       [
-        { category: 'Badge', label: 'Big tech alum', remove: 'badge:big_tech_alum' },
+        { category: 'Background', label: 'Prior exit', remove: 'background:prior_exit' },
         { category: 'Employer', label: 'Google', remove: 'employer:Google' },
       ],
       10,
@@ -17,7 +17,7 @@ describe('active filters row', () => {
       { founders: 54, companies: 24 },
     )
     expect(el.querySelectorAll('.achip')).toHaveLength(2)
-    expect(el.querySelector('.achip .achip__cat')?.textContent).toBe('Badge')
+    expect(el.querySelector('.achip .achip__cat')?.textContent).toBe('Background')
     expect(el.querySelector('[data-remove="employer:Google"]')?.getAttribute('aria-label')).toBe('Remove filter Google')
     expect(el.innerHTML).toContain(CROSS_ICON)
     expect(el.querySelector('.active__count')?.textContent).toBe('10 of 54 founders · 6 of 24 companies')

@@ -43,7 +43,7 @@ founder-map/
     validate.ts             schema + referential checks on the JSON (run in CI and before commits)
   src/
     main.ts                 boot, state, render loop
-    model.ts                load JSON, build graph (hubs, links, neighbors), derive badges
+    model.ts                load JSON, build graph (hubs, links, neighbors), derive big tech employers and haystacks
     state.ts                filter/focus state and URL hash sync
     map/                    svg map: hulls, links, nodes, labels, zoom
     table/                  sortable table + CSV export
@@ -82,7 +82,7 @@ founder-map/
 | role | string | |
 | status | `active` \| `role_changed` \| `left` | relative to the founding role |
 | statusNote | string \| null | shown when status is not active |
-| badges | array | subset of `prior_open_source`, `prior_exit`, `grad_degree`. `big_tech_alum` is derived, never stored. |
+| background | array | subset of `prior_open_source`, `prior_exit`, `grad_degree`. Big tech employment is never stored here: it is read from employers (see 5.2). |
 | employers, schools, taughtAt, priorOpenSource | string[] | these become hub nodes |
 | edgeCase | boolean | true when no clean path fits; show the "placement is tentative" note |
 | bio | string | two sentences max |
@@ -96,12 +96,12 @@ founder-map/
 
 - **Hubs**: one node per distinct employer / school / project name. `degree` = number of founders tied to it. `oneOff` = degree < 2 and type is not `o` (every open source project is always shown).
 - **Links**: founder to company (`co`), founder to each hub (`e`, `s`, `o`).
-- **big_tech_alum badge**: true when any employer is in BIG_TECH = Google, Facebook, Microsoft, Amazon, Apple, Twitter, Uber, Lyft, Palantir.
-- **Search haystack** per founder: name, company, vertical, role, path name, secondary path name, badge names, employers, schools, projects, bio, statusNote, status label, fund, open source product label, all lowercased and joined.
+- **bigTech** per founder: the employers that are in BIG_TECH = Google, Facebook, Microsoft, Amazon, Apple, Twitter, Uber, Lyft, Palantir. Drives the Big tech employer filter and the table's Big tech column; there is no separate "alum" flag.
+- **Search haystack** per founder: name, company, vertical, role, path name, secondary path name, background names, employers, schools, projects, bio, statusNote, status label, fund, open source product label, all lowercased and joined.
 
 ### validate.ts must check
 
-Unique ids; every founder's company exists; path enums; every node id has a layout entry and vice versa; status enum; badges enum; no empty bio or source. Fail the build on any error.
+Unique ids; every founder's company exists; path enums; every node id has a layout entry and vice versa; status enum; background enum; no empty bio or source. Fail the build on any error.
 
 ## 5. The model behind the map (do not change without updating the About tab)
 
@@ -117,9 +117,9 @@ Unique ids; every founder's company exists; path enums; every node id has a layo
 
 Display order is the table order above. Current counts (Amplify · Haystack): Big tech engineer 13 · 16, Young builder 7 · 13, Repeat founder 6 · 17, Business operator 2 · 4, Academic 5 · 1. Total 84 founders, 37 companies. Keep these numbers computed from data, never typed in.
 
-### 5.2 Badges (zero or more per founder, shown as neutral chips)
+### 5.2 Background (zero or more facts per founder)
 
-Prior open source, Prior exit, Grad degree, Big tech alum (derived). Open source is a badge on top of a path, not a path.
+Prior open source, Prior exit, Grad degree. These are plain yes/no facts on top of a path, filtered like any other attribute and shown as a "Background" row in the founder card and a "Background" column in the table. Prior open source is a background fact, not a path. Big tech employment is not a background fact: the Big tech employer group filters by the nine employers directly (the 2026-11-02 "background" change removed the derived Big tech alum chip, the card chips, and the "Badges by path" bars).
 
 ### 5.3 Company attribute
 
@@ -135,9 +135,9 @@ Employers and schools shared by two or more founders, plus every prior open sour
 1. Search input. Tokenized: every whitespace-separated token must appear in the founder's haystack.
 2. Fund segmented control: Both funds / Amplify / Haystack.
 3. View segmented control: Map / Table.
-4. Filters button with a count badge of active filters; toggles a drawer that is open on load.
+4. Filters button with a count pill of active filters; toggles a drawer that is open on load.
 
-**Filter drawer** (grid of groups): Path (5 chips with counts), Badges (4 chips with counts), Big tech employer (9 chips with counts), More (selects: School, Vertical, Status, Open source product), Map layers (Companies, Employers, Schools, Prior open source, One-off ties, Also-fits stubs).
+**Filter drawer** (grid of groups): Path (5 chips with counts), Background (3 chips with counts), Big tech employer (9 chips with counts), More (selects: School, Vertical, Status, Open source product), Map layers (Companies, Employers, Schools, Open source projects, One-off ties, Also-fits stubs).
 
 **Active filters row**: one removable chip per active filter, then "N of 84 founders · M of 37 companies", then Clear all. Hidden when nothing is active.
 
@@ -154,15 +154,15 @@ Employers and schools shared by two or more founders, plus every prior open sour
 - Legend row under the map: five path colors, Amplify (circle), Haystack (square), Employer, School, Open source project, Also fits another path.
 
 **Detail card** (right column on desktop, below the map on phones), one of:
-- Founder: eyebrow `FOUNDER · AMPLIFY`, name, role · company (link), path chip (tinted, with color dot) + also-fits chip (dashed) + badge chips, bio, status note when not active, edge-case note, definition list: Worked at, School, Prior OSS, Co-founders (all clickable), Company block (latest round, status, open source product), Source (hostname, opens in new tab).
+- Founder: eyebrow `FOUNDER · AMPLIFY`, name, role · company (link), path chip (tinted, with color dot) + also-fits chip (dashed), bio, status note when not active, edge-case note, definition list: Background (only when the founder has any), Worked at, School, Prior OSS, Co-founders (the ties clickable), Company block (latest round, status, open source product), Source (hostname, opens in new tab).
 - Company: eyebrow with fund and vertical, name, "Founded YYYY · founders about N at founding", description, Status / Latest / Open source / Team (paths present) / Shares talent pools with (top 6 companies sharing hubs, with the hub names), then member list sorted by path.
 - Hub: type (and "big tech" when applicable), name, "N founders across P paths and C companies · Amplify a, Haystack h", a "Filter to <Employer> alumni" chip for big tech employers, member list.
 - Cluster (when exactly one path filter is active and nothing is focused): name, definition, counts, shared ties, also-fits-here list, members.
 - Otherwise the card is hidden (no placeholder); the side column starts with the tabs.
 
-**Tabs under the card**: Clusters (five rows with color, name, Amplify · Haystack counts, definition, and a two-tone bar; clicking toggles that path filter), Badges by path (stacked bars, clicking a segment filters to badge + path), Insights (six computed bullets: fund lean, busiest stations, shared by both funds, most mixed stations, mixed teams, founder turnover), About (methodology text from the prototype).
+**Tabs under the card**: Clusters (five rows with color, name, Amplify · Haystack counts, definition, and a two-tone bar; clicking toggles that path filter), Insights (six computed bullets: fund lean, busiest stations, shared by both funds, most mixed stations, mixed teams, founder turnover), About (methodology text from the prototype).
 
-**Table view**: columns Founder, Fund, Company (+vertical), Path (+also fits), Role, Status (+note), Big tech, Badges, Schools, Prior OSS, OSS product, Company latest (+status), Source. Sortable by any column (click header toggles direction). Row click selects the founder. "Copy table as CSV" copies the filtered rows with the 23-column header used in the prototype's `csv()`; fall back to a visible textarea when the clipboard API is unavailable. Wide table scrolls horizontally inside its card.
+**Table view**: columns Founder, Fund, Company (+vertical), Path (+also fits), Role, Status (+note), Big tech, Background, Schools, Prior OSS, OSS product, Company latest (+status), Source. Sortable by any column (click header toggles direction). Row click selects the founder. "Copy table as CSV" copies the filtered rows with the prototype's `csv()` header minus its Big tech alum column (22 columns); fall back to a visible textarea when the clipboard API is unavailable. Wide table scrolls horizontally inside its card.
 
 **URL**: selection is mirrored in the hash (`#f-dan-lorenc`, `#c-temporal`, `#e-google`); loading a hash selects that node. (Optional v1.1: encode filters in the query string.)
 
@@ -214,9 +214,9 @@ Cards radius 12, controls radius 8, inner segmented buttons 6, chips 999. 1px ha
 ### 7.4 Components (match the artboards)
 
 - Segmented control: white, hairline, 3px padding; active button = ink background, white text.
-- Filters button: white with hairline; count badge = ink pill with white 11px text.
-- Active filter chips: white pill with hairline, muted category prefix ("Badge", "Employer"), an × button inside.
-- Path chip in the card: accentTint background, 8px color dot, ink text. Badge chips: white with hairline.
+- Filters button: white with hairline; count pill = ink pill with white 11px text.
+- Active filter chips: white pill with hairline, muted category prefix ("Background", "Employer"), an × button inside.
+- Path chip in the card: accentTint background, 8px color dot, ink text.
 - Clusters list: rows separated by hairlines, color dot + name left, `13 · 7` right in muted tabular numerals.
 - Zoom controls: three 36px buttons stacked, white, hairline, bottom-right of the map card.
 - Legend: 12px muted row under the map inside the card, separated by a hairline.
@@ -236,7 +236,7 @@ Real `<button>`, `<a>`, `<input>` + `<label>`; `aria-pressed` on toggles, `aria-
 ## 8. Build order
 
 1. Scaffold Vite + TS. Copy `data/` and write `scripts/validate.ts`; wire it to `npm run validate` and the build.
-2. `model.ts`: load JSON, build hubs/links/neighbors, derive badges and haystacks. Unit-test the derived counts against section 5.1.
+2. `model.ts`: load JSON, build hubs/links/neighbors, derive big tech employers and haystacks. Unit-test the derived counts against section 5.1.
 3. Tokens: `design/tokens.json` to `tokens.css`. Base layout: header, toolbar, two-column main, phone stacking.
 4. Map with static positions, hulls, links, nodes, labels (port the placement algorithm from the prototype's `placeLabels()`), zoom, focus/pin behavior.
 5. Detail card variants and tabs.
@@ -252,7 +252,7 @@ Real `<button>`, `<a>`, `<input>` + `<label>`; `aria-pressed` on toggles, `aria-
 - [ ] Map loads with identical positions on every refresh; no simulation at runtime.
 - [ ] Every feature in section 6 works on desktop and at 390px.
 - [ ] Selecting Dan Lorenc reproduces `reference/design/Main.dc.html`: ring on his node, neighbors (Chainguard, MIT, Google, Microsoft, Kubernetes, Sigstore, SLSA, Tekton, Distroless) at full opacity, rest dimmed.
-- [ ] Filtering Big tech alum + Google shows 12 of 84 founders, 8 of 37 companies (10 of 54 and 6 of 24 in the prototype's `Table.dc.html`; the Astro, Okteto, and Achira founders added two Google alumni).
+- [ ] Filtering Google shows 12 of 84 founders, 8 of 37 companies (10 of 54 and 6 of 24 in the prototype's `Table.dc.html`, where the pin was Big tech alum + Google; the Astro, Okteto, and Achira founders added two Google alumni).
 - [ ] Lighthouse accessibility 100; keyboard-only walkthrough works; dark theme passes contrast.
 - [ ] Production build under 300 KB JS gzipped (D3 imported selectively).
 

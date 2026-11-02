@@ -1,6 +1,6 @@
 import { esc } from '../html'
-import { BADGE_LABEL, BADGE_ORDER, OSS_LABEL, PATHS, PATH_ORDER, type FounderNode, type Graph, type HubNode } from '../model'
-import type { Filters, OssProduct, PathKey } from '../types'
+import { PATHS, PATH_ORDER, type FounderNode, type Graph, type HubNode } from '../model'
+import type { Filters, PathKey } from '../types'
 import { link } from './card'
 
 /** The Clusters list: one row per path with Amplify · Haystack counts (or matched counts while filtering) and a two-tone bar. */
@@ -22,33 +22,6 @@ export function clustersHTML(graph: Graph, matched: Set<FounderNode>, filtersAct
 }
 
 const lowerPlural = (k: PathKey): string => PATHS[k].name.toLowerCase() + 's'
-
-/** Stacked bars: founders per path for each badge, then the company-level open source product row, then a note. */
-export function badgeRowsHTML(graph: Graph, filters: Filters): string {
-  const rows = BADGE_ORDER.map((b) => {
-    const fs = graph.founders.filter((f) => f.badges.includes(b))
-    const segs = PATH_ORDER.map((p) => ({ p, n: fs.filter((f) => f.path === p).length })).filter((s) => s.n)
-    const bar = segs
-      .map((s) => {
-        const on = filters.badges.has(b) && filters.paths.size === 1 && filters.paths.has(s.p)
-        const dim = filters.badges.has(b) && filters.paths.size > 0 && !filters.paths.has(s.p)
-        const name = `${BADGE_LABEL[b]}, ${PATHS[s.p].name}: ${s.n} of ${fs.length} founders`
-        return `<button type="button" class="bseg${dim ? ' is-dim' : ''}" data-bp="${b}:${s.p}" aria-pressed="${on}" aria-label="${esc(name)}" style="--c: var(--path-${s.p}); flex: ${s.n}" title="${esc(PATHS[s.p].name)}: ${s.n}">${s.n}</button>`
-      })
-      .join('')
-    return `<div class="brow"><div class="brow__label">${esc(BADGE_LABEL[b])}<small>${fs.length} founders</small></div><div class="bbar">${bar}</div></div>`
-  })
-  const ossKeys: OssProduct[] = ['yes', 'partial', 'no']
-  const count = (k: OssProduct) => graph.companies.filter((c) => c.openSourceProduct === k).length
-  const ossBar = ossKeys
-    .map((k, i) => `<button type="button" class="bseg${['', ' bseg--light', ' bseg--faint'][i]}" data-oss="${k}" aria-pressed="${filters.oss === k}" aria-label="${OSS_LABEL[k]}: ${count(k)} of ${graph.companies.length} companies" style="--c: var(--path-repeat_founder); flex: ${count(k)}" title="${OSS_LABEL[k]}: ${count(k)} companies">${count(k)}</button>`)
-    .join('')
-  rows.push(`<div class="brow"><div class="brow__label">Open source product<small>company level</small></div><div class="bbar">${ossBar}</div></div>`)
-  const oss = graph.founders.filter((f) => f.badges.includes('prior_open_source'))
-  const top = PATH_ORDER.map((p) => ({ p, n: oss.filter((f) => f.path === p).length })).sort((a, b) => b.n - a.n)[0]
-  const note = `<p class="bnote">Open source is a badge on top of a path. <b>${top.n} of the ${oss.length}</b> founders with prior open source work are ${lowerPlural(top.p)}. Separately, ${count('yes')} of ${graph.companies.length} companies sell an open source product and ${count('partial')} are partially open.</p>`
-  return rows.join('') + note
-}
 
 /** Six computed observations with links into the map. */
 export function insightsHTML(graph: Graph): string {

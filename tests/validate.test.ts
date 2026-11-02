@@ -27,10 +27,16 @@ describe('validateData', () => {
     d.f[0].path = 'hacker'
     expect(validateData(d.f, d.c, d.l).join()).toMatch(/f:will-wilson.*path/)
   })
-  it('stored big_tech_alum badge', () => {
+  it('unknown background value', () => {
     const d = clone()
-    d.f[0].badges = ['big_tech_alum']
-    expect(validateData(d.f, d.c, d.l).join()).toMatch(/big_tech_alum/)
+    d.f[0].background = ['big_tech_alum']
+    expect(validateData(d.f, d.c, d.l).join()).toMatch(/f:will-wilson: background "big_tech_alum" is not one of/)
+  })
+  it('background must be an array (the old badges key is rejected)', () => {
+    const d = clone()
+    d.f[0].badges = d.f[0].background
+    delete d.f[0].background
+    expect(validateData(d.f, d.c, d.l).join()).toMatch(/f:will-wilson: background must be an array/)
   })
   it('empty bio and source', () => {
     const d = clone()

@@ -1,4 +1,4 @@
-import type { BadgeKey, CompanyRecord, FounderRecord, FounderStatus, Fund, HubType, Layout, OssProduct, PathKey, StoredBadge } from './types'
+import type { BackgroundKey, CompanyRecord, FounderRecord, FounderStatus, Fund, HubType, Layout, OssProduct, PathKey } from './types'
 
 export const PATHS: Record<PathKey, { name: string; def: string }> = {
   big_tech_engineer: { name: 'Big tech engineer', def: 'Years building infrastructure inside a large tech company or agency.' },
@@ -9,13 +9,12 @@ export const PATHS: Record<PathKey, { name: string; def: string }> = {
 }
 export const PATH_ORDER: PathKey[] = ['big_tech_engineer', 'repeat_founder', 'business_operator', 'young_builder', 'academic']
 
-export const BADGE_LABEL: Record<BadgeKey, string> = {
+export const BACKGROUND_LABEL: Record<BackgroundKey, string> = {
   prior_open_source: 'Prior open source',
   prior_exit: 'Prior exit',
   grad_degree: 'Grad degree',
-  big_tech_alum: 'Big tech alum',
 }
-export const BADGE_ORDER: BadgeKey[] = ['prior_open_source', 'prior_exit', 'grad_degree', 'big_tech_alum']
+export const BACKGROUND_ORDER: BackgroundKey[] = ['prior_open_source', 'prior_exit', 'grad_degree']
 export const BIG_TECH: readonly string[] = ['Google', 'Facebook', 'Microsoft', 'Amazon', 'Apple', 'Twitter', 'Uber', 'Lyft', 'Palantir']
 export const FUND_LABEL: Record<Fund, string> = { amplify: 'Amplify', haystack: 'Haystack' }
 export const STATUS_LABEL: Record<FounderStatus, string> = { active: 'Still in founding role', role_changed: 'Role changed', left: 'Left the company' }
@@ -97,8 +96,7 @@ export interface FounderNode {
   role: string
   status: FounderStatus
   statusNote: string | null
-  storedBadges: StoredBadge[]
-  badges: BadgeKey[]
+  background: BackgroundKey[]
   employers: string[]
   schools: string[]
   taughtAt: string[]
@@ -166,7 +164,6 @@ export function buildGraph(founders: FounderRecord[], companies: CompanyRecord[]
       return { hub, rel: ref.rel }
     })
     const bigTech = f.employers.filter((e) => BIG_TECH.includes(e))
-    const badges: BadgeKey[] = bigTech.length ? [...f.badges, 'big_tech_alum'] : [...f.badges]
     const node: FounderNode = {
       kind: 'founder',
       id: f.id,
@@ -179,8 +176,7 @@ export function buildGraph(founders: FounderRecord[], companies: CompanyRecord[]
       role: f.role,
       status: f.status,
       statusNote: f.statusNote,
-      storedBadges: [...f.badges],
-      badges,
+      background: [...f.background],
       employers: [...f.employers],
       schools: [...f.schools],
       taughtAt: [...f.taughtAt],
@@ -200,7 +196,7 @@ export function buildGraph(founders: FounderRecord[], companies: CompanyRecord[]
       node.role,
       PATHS[node.path].name,
       node.secondaryPath ? PATHS[node.secondaryPath].name : '',
-      badges.map((b) => BADGE_LABEL[b]).join(' '),
+      node.background.map((b) => BACKGROUND_LABEL[b]).join(' '),
       node.employers.join(' '),
       [...node.schools, ...node.taughtAt].join(' '),
       node.priorOpenSource.join(' '),

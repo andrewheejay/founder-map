@@ -1,6 +1,6 @@
 # Founder Map
 
-An interactive network map of the founders behind the Amplify Partners and Haystack portfolios, grouped by the career path that led them to start a company and linked through shared employers, schools, and open source projects. Built for VC-style due diligence: hover or tap a founder to see their ties, filter by path, badge, employer, school, vertical, status, or open source product, switch to a sortable table, and copy the filtered rows as CSV.
+An interactive network map of the founders behind the Amplify Partners and Haystack portfolios, grouped by the career path that led them to start a company and linked through shared employers, schools, and open source projects. Built for VC-style due diligence: hover or tap a founder to see their ties, filter by path, background, employer, school, vertical, status, or open source product, switch to a sortable table, and copy the filtered rows as CSV.
 
 The full specification lives in [CLAUDE.md](CLAUDE.md). The working prototype and the approved design artboards are in `reference/` (not shipped).
 
@@ -25,7 +25,7 @@ design/      tokens.json (colors, type, radii, spacing, dark overrides)
 scripts/     validate.ts, tokens.ts, layout.ts
 src/
   app.ts       boot: store, renderers, every event handler
-  model.ts     graph: hubs, links, neighbors, derived badges, search haystacks
+  model.ts     graph: hubs, links, neighbors, big tech employers, search haystacks
   state.ts     filter, selection, view, tab, and sort state (pure reducers)
   hash.ts      selection <-> URL hash
   map/         svg map: hulls, links, nodes, labels, zoom
@@ -68,7 +68,7 @@ Three JSON files under `data/`. Ids are slugs: lowercase, accents stripped, ever
 | role | string | |
 | status | `active`, `role_changed`, or `left` | relative to the founding role |
 | statusNote | string or null | shown on the card and in the table when present |
-| badges | array | subset of `prior_open_source`, `prior_exit`, `grad_degree`; `big_tech_alum` is derived, never stored |
+| background | array | subset of `prior_open_source`, `prior_exit`, `grad_degree` (big tech employment is read from employers, never stored here) |
 | employers, schools, taughtAt, priorOpenSource | string[] | each distinct name becomes a hub node |
 | edgeCase | boolean | true when no clean path fits; the card shows a "placement is tentative" note |
 | bio | string | two sentences at most |
@@ -82,8 +82,8 @@ Three JSON files under `data/`. Ids are slugs: lowercase, accents stripped, ever
 
 - Hubs: one node per distinct employer, school, or project name; `degree` is the number of founders tied to it; a hub is one-off when its degree is below 2 and it is not a project. One-off hubs are hidden unless the "One-off ties" layer is on.
 - Links: founder to company, founder to each hub.
-- `big_tech_alum`: any employer in Google, Facebook, Microsoft, Amazon, Apple, Twitter, Uber, Lyft, or Palantir.
-- Search haystack per founder: name, company, vertical, role, path names, badge names, employers, schools, projects, bio, status note, status label, fund, and open source product label, lowercased.
+- Big tech employers per founder: any employer in Google, Facebook, Microsoft, Amazon, Apple, Twitter, Uber, Lyft, or Palantir (the Big tech employer filter and table column).
+- Search haystack per founder: name, company, vertical, role, path names, background names, employers, schools, projects, bio, status note, status label, fund, and open source product label, lowercased.
 - Every count in the UI (cluster sizes, drawer chip counts, the Insights bullets, the active row totals) is computed from these files.
 
 ## Add a founder

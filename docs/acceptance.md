@@ -24,7 +24,7 @@ Both columns come from the same scripted walkthrough (`.superpowers` workspace, 
 | Fund segmented control | PASS | PASS | Amplify: `aria-pressed=true`, 30 of 54 founders · 12 of 24 companies. |
 | View segmented control | PASS | PASS | Table: `#table-card` shown, `#map-card` hidden, 54 rows. |
 | Filters button with count badge, drawer toggle | PASS | PASS | Drawer open on load since the 2026-11-02 UI tweaks (`aria-expanded="true"`, the button closes and reopens it); `aria-expanded` flips, drawer shown; badge reads 1 after one filter and 2 after a badge-by-path segment. |
-| Drawer groups and chips | PASS | PASS | Groups Path, Badges, Big tech employer, More, Map layers; 5 path chips (19/11/4/16/4), 4 badge chips, 9 big tech chips, 4 selects, 6 layer chips. |
+| Drawer groups and chips | PASS | PASS | Groups Path, Badges, Big tech employer, More, Map layers; 5 path chips (19/11/4/16/4), 4 badge chips, 9 big tech chips, 4 selects, 6 layer chips. Since the background change: the group is Background with 3 chips (no Big tech alum) and the projects layer reads Open source projects. |
 | Active filters row and Clear all | PASS | PASS | One removable chip per filter; `Path Academic · 4 of 54 founders · 1 of 24 companies`; removing the chip hides the row; Clear all hides the row and the badge. |
 | Selects (School, Vertical, Status, Open source) | PASS | PASS | Status = Left the company: 4 of 54 founders · 3 of 24 companies. |
 | Map layer chips | PASS | PASS | Employers off: visible employer hubs 57 to 0 and the chip's `aria-pressed` false. |
@@ -43,7 +43,7 @@ Both columns come from the same scripted walkthrough (`.superpowers` workspace, 
 | Cluster card | PASS | PASS | With only the Academic path filter active and nothing focused the card shows the Academic definition and members. |
 | Default card example chips | PASS | PASS | Uber, Harvard, Temporal, Matt Klein chips select their nodes. |
 | Clusters tab | PASS | PASS | 5 rows; clicking Repeat founder toggles that path filter (11 of 54 founders · 9 of 24 companies). |
-| Badges by path | PASS | PASS | 13 segments; clicking `prior_open_source:big_tech_engineer` sets badge + path (badge count 2). |
+| Badges by path | PASS | REMOVED | 13 segments; clicking `prior_open_source:big_tech_engineer` sets badge + path (badge count 2). Removed in the background change (see below). |
 | Insights tab | PASS | PASS | 6 computed bullets (fund lean, busiest stations, shared by both funds, most mixed, mixed teams, turnover). |
 | About tab | PASS | PASS | Panel shown with the methodology text. |
 | Table columns and sorting | PASS | PASS | 13 headers Founder through Source; clicking Founder flips to descending (Alexander Gallego to Will Wilson, `aria-sort=descending`); clicking Company sorts by company (Antithesis first, `aria-sort=ascending` on Company only). |
@@ -107,3 +107,15 @@ Counts after the expansion: Big tech engineer 13 · 16, Young builder 7 · 13, R
 
 Two user requests, done test-first: the Filters drawer is open on load (`DEFAULT_STATE.drawer` true, `index.html` ships the drawer visible with `aria-expanded="true"`; the button still closes and reopens it), and the "Start here / Pick any dot or station" placeholder card is gone. With nothing focused and no single-path filter, `detailHTML` returns an empty string and the card section carries `hidden`, so the side column starts with the Clusters, Insights, and About tabs; a hover, keyboard focus, click, hash, or cluster filter still shows the card. When the card closes while focus is inside it (the close button), focus moves to the Filters button, the same landing spot Clear all uses; sending it back to the map node would re-preview that node and reopen the card. Spec lines updated: section 6 item 4 and the detail card list. Browser check on the dev server: drawer visible and expanded on load, `#detail` hidden and empty; clicking Dan Lorenc shows his card, closing it hides the card and leaves focus on the Filters button. Suite 22 files, 142 tests, green; `tsc --noEmit` clean.
 
+## Background (2026-11-02, branch background)
+
+User call: the "badge" concept was confusing (the same four facts appeared as a drawer group, card chips, a "Badges by path" chart, a table column, and an active-chip prefix), Big tech alum duplicated the Big tech employer group, and the stacked bars were not readable.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Three background facts, one name everywhere | PASS | Drawer group "Background" with Prior open source 26, Prior exit 17, Grad degree 21; active chips read `Background Prior exit`; table column "Background"; founder card shows a "Background" definition row (first row, only when the founder has any fact) instead of white chips. Internal names follow: `background` key in `data/founders.json` (84 records, ids unchanged so no layout rerun), `BackgroundKey`, `BACKGROUND_LABEL`, `toggleBackground`, `data-background`, remove key `background:<key>`. |
+| Big tech alum removed | PASS | No derived flag, no chip, no haystack text; the Big tech employer group (nine chips) is the only big tech filter. The section 9 pin becomes Google alone: `12 of 84 founders · 8 of 37 companies` (the same founders, since every Google alum was a big tech alum). CSV header drops the `Big tech alum` column (22 columns; `Big tech employers` still lists the employers). |
+| Badges by path chart removed | PASS | `#badge-rows`, `badgeRowsHTML`, `toggleBadgePath`, `toggleOss`, the `data-bp` and `data-oss` handlers, and the `.brow/.bbar/.bseg/.bnote` styles are gone; the Clusters tab is the path list only. The company-level Open source product bar went with it; the Open source select in More still filters by it. |
+| No duplicate labels in the drawer | PASS | The map layer formerly labelled "Prior open source" is now "Open source projects", so the Background chip is the only "Prior open source" control. |
+| Copy | PASS | About tab: "Background facts sit on top of a path" and "the Big tech employer filter finds everyone who worked at one of the nine"; `tests/shell.test.ts` fails if index.html, the stylesheet, README, or CLAUDE.md mention badges or Big tech alum again. |
+| Suite | PASS | 22 files, 139 tests; `tsc --noEmit` clean for both configs; `npm run validate` reports 84 founders, 37 companies, 198 hubs, 319 positioned nodes. |

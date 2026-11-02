@@ -29,12 +29,13 @@ describe('model', () => {
   it('every node carries a finite position from layout.json', () => {
     for (const n of graph.all) expect(Number.isFinite(n.x) && Number.isFinite(n.y), n.id).toBe(true)
   })
-  it('derives big_tech_alum and never reads it from the data', () => {
+  it('reads background from the data and derives the big tech employers', () => {
     const lorenc = graph.byId.get('f:dan-lorenc') as any
     expect(lorenc.bigTech).toEqual(['Microsoft', 'Google'])
-    expect(lorenc.badges).toContain('big_tech_alum')
-    expect(lorenc.storedBadges).not.toContain('big_tech_alum')
-    expect((graph.byId.get('f:will-bryk') as any).badges).not.toContain('big_tech_alum')
+    expect(lorenc.background).toEqual(['prior_open_source'])
+    expect(lorenc).not.toHaveProperty('badges')
+    expect(lorenc).not.toHaveProperty('storedBadges')
+    expect((graph.byId.get('f:will-bryk') as any).bigTech).toEqual([])
   })
   it('links and neighbor sets', () => {
     const lorenc = graph.byId.get('f:dan-lorenc')!
@@ -45,7 +46,7 @@ describe('model', () => {
   })
   it('search haystack is lowercase and covers every field group', () => {
     const h = (graph.byId.get('f:dan-lorenc') as any).haystack as string
-    for (const s of ['dan lorenc', 'chainguard', 'security & observability', 'co-founder, ceo', 'big tech engineer', 'big tech alum', 'sigstore', 'mit', 'still in founding role', 'amplify', 'partially open']) expect(h).toContain(s)
+    for (const s of ['dan lorenc', 'chainguard', 'security & observability', 'co-founder, ceo', 'big tech engineer', 'prior open source', 'sigstore', 'mit', 'still in founding role', 'amplify', 'partially open']) expect(h).toContain(s)
     expect(h).toBe(h.toLowerCase())
   })
   it('slug matches the ids in the data', () => {

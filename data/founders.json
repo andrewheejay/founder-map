@@ -9,7 +9,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "FoundationDB",
       "Apple",
@@ -32,7 +32,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_exit",
       "prior_open_source"
     ],
@@ -61,7 +61,7 @@
     "role": "Co-founder; CEO 2019 to 2024",
     "status": "role_changed",
     "statusNote": "Stepped down as CEO in July 2024 when Keerti Melkote took over; now leads product strategy.",
-    "badges": [
+    "background": [
       "prior_open_source",
       "grad_degree"
     ],
@@ -88,7 +88,7 @@
     "role": "Co-founder, CTO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source",
       "grad_degree"
     ],
@@ -116,7 +116,7 @@
     "role": "Co-founder, executive chairman",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source",
       "grad_degree"
     ],
@@ -148,7 +148,7 @@
     "role": "Co-founder, advisor",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [],
@@ -176,7 +176,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Salesforce",
       "Twitter",
@@ -201,7 +201,7 @@
     "role": "Co-founder, CTO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source",
       "grad_degree"
     ],
@@ -233,7 +233,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Kicksend",
       "Lyft"
@@ -255,7 +255,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -287,7 +287,7 @@
     "role": "Co-founder, CTO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -316,7 +316,7 @@
     "role": "Co-founder, product",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source",
       "prior_exit"
     ],
@@ -346,7 +346,7 @@
     "role": "Co-founder, distinguished engineer",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -375,7 +375,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -401,7 +401,7 @@
     "role": "Founder; CEO, now CTO and chairman",
     "status": "role_changed",
     "statusNote": "Handed the CEO role to Pete Hunt in November 2022 and moved to CTO and chairman.",
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -430,7 +430,7 @@
     "role": "Founder; CEO until 2026",
     "status": "role_changed",
     "statusNote": "President of Fivetran + dbt Labs since the June 2026 merger; George Fraser is CEO.",
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -459,7 +459,7 @@
     "role": "Co-founder; former CPO",
     "status": "role_changed",
     "statusNote": "Stepped back from the Chief Product Officer role; still works with the dbt open source community.",
-    "badges": [],
+    "background": [],
     "employers": [
       "8tracks",
       "RJMetrics"
@@ -483,7 +483,7 @@
     "role": "Co-founder, first CTO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "RJMetrics",
       "Stitch"
@@ -507,7 +507,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -536,7 +536,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source",
       "prior_exit"
     ],
@@ -566,7 +566,7 @@
     "role": "Co-founder, co-CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -591,7 +591,7 @@
     "role": "Co-founder, co-CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Segment"
     ],
@@ -612,7 +612,7 @@
     "role": "Co-founder, CTO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Rancher Labs",
       "Segment"
@@ -634,7 +634,7 @@
     "role": "Co-founder; CTO, now CEO",
     "status": "role_changed",
     "statusNote": "Started as CTO and took over as CEO.",
-    "badges": [],
+    "background": [],
     "employers": [
       "Trustpilot"
     ],
@@ -655,7 +655,7 @@
     "role": "Co-founder, original CEO",
     "status": "left",
     "statusNote": "Left Prisma; later built Overtone and LiveStore.",
-    "badges": [],
+    "background": [],
     "employers": [
       "Optonaut"
     ],
@@ -676,7 +676,7 @@
     "role": "Co-founder; CEO until Dec 2025",
     "status": "left",
     "statusNote": "Now CEO of Amp Inc., the spinout; remains on Sourcegraph's board. Dan Adler is Sourcegraph CEO.",
-    "badges": [],
+    "background": [],
     "employers": [
       "Bleacher Report",
       "Palantir",
@@ -701,7 +701,7 @@
     "role": "Co-founder; CTO until Dec 2025",
     "status": "left",
     "statusNote": "Co-founded Amp Inc. with Slack; remains on Sourcegraph's board.",
-    "badges": [],
+    "background": [],
     "employers": [
       "Google",
       "Palantir"
@@ -725,7 +725,7 @@
     "role": "Co-founder; CEO 2019 to 2024, now CTO",
     "status": "role_changed",
     "statusNote": "Swapped roles with Abbas in April 2024.",
-    "badges": [
+    "background": [
       "prior_open_source",
       "grad_degree"
     ],
@@ -757,7 +757,7 @@
     "role": "Co-founder; CTO 2019 to 2024, now CEO",
     "status": "role_changed",
     "statusNote": "Swapped roles with Fateev in April 2024.",
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -786,7 +786,7 @@
     "role": "Founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -813,7 +813,7 @@
     "role": "Co-founder, co-CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -840,7 +840,7 @@
     "role": "Co-founder, co-CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Bloomberg",
       "BitTorrent",
@@ -863,7 +863,7 @@
     "role": "Co-founder, CTO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Microsoft",
       "Uber"
@@ -885,7 +885,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Uber"
     ],
@@ -906,7 +906,7 @@
     "role": "Founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Uber"
     ],
@@ -929,7 +929,7 @@
     "role": "Co-founder; CEO, then CTO, then engineer",
     "status": "left",
     "statusNote": "Left HashiCorp in December 2023; built the Ghostty terminal, joined Vercel's board in March 2026, and started Superlogical in July 2026.",
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -957,7 +957,7 @@
     "role": "Co-founder, CTO",
     "status": "active",
     "statusNote": "Stayed CTO through the IBM acquisition.",
-    "badges": [],
+    "background": [],
     "employers": [
       "Kiip"
     ],
@@ -980,7 +980,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Zoox",
       "Cresta"
@@ -1004,7 +1004,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Plaid"
     ],
@@ -1027,7 +1027,7 @@
     "role": "Founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -1054,7 +1054,7 @@
     "role": "Co-founder; CEO until 2025",
     "status": "role_changed",
     "statusNote": "Stepped back from daily leadership in August 2025; on the board and now founding AgentScore. Ben Eisenberg is CEO.",
-    "badges": [],
+    "background": [],
     "employers": [],
     "schools": [
       "Univ. of Oregon"
@@ -1075,7 +1075,7 @@
     "role": "Co-founder; President until 2025",
     "status": "role_changed",
     "statusNote": "Stepped back from daily leadership in August 2025.",
-    "badges": [],
+    "background": [],
     "employers": [],
     "schools": [],
     "taughtAt": [],
@@ -1094,7 +1094,7 @@
     "role": "Founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -1117,7 +1117,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -1145,7 +1145,7 @@
     "role": "Co-founder, CTO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -1170,7 +1170,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -1198,7 +1198,7 @@
     "role": "Co-founder, CPO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -1226,7 +1226,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -1254,7 +1254,7 @@
     "role": "Co-founder, chairman",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "K9 Ventures"
     ],
@@ -1275,7 +1275,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Facebook",
       "Atrium"
@@ -1299,7 +1299,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [],
     "schools": [],
     "taughtAt": [],
@@ -1318,7 +1318,7 @@
     "role": "Co-founder, CEO",
     "status": "role_changed",
     "statusNote": "Joined Concord as Managing Director, Capital Markets after the March 2026 acquisition.",
-    "badges": [],
+    "background": [],
     "employers": [
       "Goldman Sachs"
     ],
@@ -1339,7 +1339,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Palantir",
       "Ironclad"
@@ -1361,7 +1361,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Nova Credit"
     ],
@@ -1382,7 +1382,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -1409,7 +1409,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [],
     "schools": [
       "Harvard"
@@ -1430,7 +1430,7 @@
     "role": "Co-founder (2015 to 2017)",
     "status": "left",
     "statusNote": "Left in 2017 and held a board seat until 2019; VP Engineering at Plectica, then Frameable since 2021.",
-    "badges": [],
+    "background": [],
     "employers": [
       "Plus Three",
       "Shutterstock",
@@ -1453,7 +1453,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_exit",
       "grad_degree"
     ],
@@ -1481,7 +1481,7 @@
     "role": "Co-founder; Head of Product 2015 to 2021, now Product Architect",
     "status": "role_changed",
     "statusNote": "Stepped back from Head of Product in July 2021 and remains as co-founder and product architect, still shipping Video.js and Mux work in 2026.",
-    "badges": [
+    "background": [
       "prior_exit",
       "prior_open_source",
       "grad_degree"
@@ -1512,7 +1512,7 @@
     "role": "Co-founder, Head of Developer Experience",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -1537,7 +1537,7 @@
     "role": "Co-founder, Head of Technology and Architecture",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Brightcove",
       "Otoy"
@@ -1559,7 +1559,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -1586,7 +1586,7 @@
     "role": "Co-founder; COO, now Chief Business Operator",
     "status": "role_changed",
     "statusNote": "Esper's leadership page now lists him as Co-Founder and Chief Business Operator, with David Barclay as COO.",
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -1616,7 +1616,7 @@
     "role": "Founder; Astro Project Steward until Aug 2026",
     "status": "role_changed",
     "statusNote": "Sold the company to Cloudflare in January 2026 and handed the Astro Project Steward role to Matthew Phillips in August 2026; his Cloudflare title is not stated publicly.",
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -1646,7 +1646,7 @@
     "role": "Co-creator of Astro; Project Steward since Aug 2026",
     "status": "role_changed",
     "statusNote": "Moved to Cloudflare with the January 2026 acquisition and became Astro's Project Steward in August 2026, taking over from Schott.",
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -1673,7 +1673,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "Microsoft",
       "ElasticBox",
@@ -1696,7 +1696,7 @@
     "role": "Co-founder, CTO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -1722,7 +1722,7 @@
     "role": "Co-founder, CPO",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "eyeOS",
       "ElasticBox",
@@ -1745,7 +1745,7 @@
     "role": "Co-founder, CEO",
     "status": "role_changed",
     "statusNote": "CloudQuery merged into env zero in March 2026 and Pats became CTO of the combined company.",
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -1770,7 +1770,7 @@
     "role": "Co-founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -1793,7 +1793,7 @@
     "role": "Co-founder, CTO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_exit",
       "grad_degree"
     ],
@@ -1817,7 +1817,7 @@
     "role": "Founder, CEO",
     "status": "role_changed",
     "statusNote": "Dash0 acquired Polar Signals in August 2026; Branczyk is now VP of Data Engineering at Dash0.",
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -1845,7 +1845,7 @@
     "role": "Co-founder, President and CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree",
       "prior_open_source"
     ],
@@ -1879,7 +1879,7 @@
     "role": "Co-founder",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [
@@ -1908,7 +1908,7 @@
     "role": "Co-founder, Board member",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -1936,7 +1936,7 @@
     "role": "Co-founder, CEO 2014 to 2018",
     "status": "left",
     "statusNote": "Handed the CEO role to Rahul Kashyap in July 2018 and moved to a technical role and board seat; Awake was sold to Arista in October 2020. He remains a Datadog director (on that board since 2011).",
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -1965,7 +1965,7 @@
     "role": "Co-founder, VP Networking",
     "status": "left",
     "statusNote": "Awake was sold to Arista Networks in October 2020; his current role is not confirmed on any page that loaded.",
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -1991,7 +1991,7 @@
     "role": "Co-founder, VP Analytics",
     "status": "left",
     "statusNote": "Awake was sold to Arista Networks in October 2020; his later role at Arista could not be confirmed from a page that loaded.",
-    "badges": [
+    "background": [
       "grad_degree"
     ],
     "employers": [
@@ -2021,7 +2021,7 @@
     "role": "Co-founder, Chief Research Officer",
     "status": "left",
     "statusNote": "Awake was sold to Arista in October 2020; he is now Chief Research Officer at Quantum Offense, a quantum computing threat research venture.",
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -2048,7 +2048,7 @@
     "role": "Founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -2071,7 +2071,7 @@
     "role": "Co-founder, CTO",
     "status": "role_changed",
     "statusNote": "Cape's 2026 About page lists him as co-founder and board member without the CTO title he held through at least 2021.",
-    "badges": [
+    "background": [
       "prior_exit"
     ],
     "employers": [
@@ -2096,7 +2096,7 @@
     "role": "Co-founder, engineering",
     "status": "active",
     "statusNote": null,
-    "badges": [],
+    "background": [],
     "employers": [
       "GoInstant",
       "Sidestory"
@@ -2118,7 +2118,7 @@
     "role": "Co-founder",
     "status": "left",
     "statusNote": "Left Cape Privacy in summer 2020, according to Entrevestor's April 2021 report.",
-    "badges": [],
+    "background": [],
     "employers": [
       "GoInstant",
       "Salesforce",
@@ -2143,7 +2143,7 @@
     "role": "Founder, CEO",
     "status": "active",
     "statusNote": null,
-    "badges": [
+    "background": [
       "prior_open_source"
     ],
     "employers": [

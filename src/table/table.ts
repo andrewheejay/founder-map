@@ -1,5 +1,5 @@
 import { esc } from '../html'
-import { BADGE_LABEL, BADGE_ORDER, FUND_LABEL, OSS_LABEL, PATHS, STATUS_LABEL, type FounderNode } from '../model'
+import { BACKGROUND_LABEL, BACKGROUND_ORDER, FUND_LABEL, OSS_LABEL, PATHS, STATUS_LABEL, type FounderNode } from '../model'
 import { hostOf } from '../panel/card'
 import type { Sort } from '../state'
 import type { SortKey } from '../types'
@@ -11,7 +11,7 @@ export interface Column {
 }
 
 const join = (xs: readonly string[]) => xs.join(', ')
-const badgeLabels = (f: FounderNode) => BADGE_ORDER.filter((b) => f.badges.includes(b)).map((b) => BADGE_LABEL[b])
+const backgroundLabels = (f: FounderNode) => BACKGROUND_ORDER.filter((b) => f.background.includes(b)).map((b) => BACKGROUND_LABEL[b])
 
 /** The 13 table columns in the prototype's order; `get` is the sort value and the plain-text cell. */
 export const TABLE_COLUMNS: Column[] = [
@@ -22,7 +22,7 @@ export const TABLE_COLUMNS: Column[] = [
   { key: 'role', label: 'Role', get: (f) => f.role },
   { key: 'status', label: 'Status', get: (f) => STATUS_LABEL[f.status] },
   { key: 'bigtech', label: 'Big tech', get: (f) => join(f.bigTech) },
-  { key: 'badges', label: 'Badges', get: (f) => join(badgeLabels(f)) },
+  { key: 'background', label: 'Background', get: (f) => join(backgroundLabels(f)) },
   { key: 'schools', label: 'Schools', get: (f) => join(f.schools) },
   { key: 'projects', label: 'Prior OSS', get: (f) => join(f.priorOpenSource) },
   { key: 'ossp', label: 'OSS product', get: (f) => OSS_LABEL[f.company.openSourceProduct] },
@@ -40,10 +40,10 @@ export function sortFounders(rows: FounderNode[], sort: Sort): FounderNode[] {
   return [...rows].sort((a, b) => (collator.compare(col.get(a), col.get(b)) || collator.compare(a.name, b.name)) * sort.dir)
 }
 
-/** The prototype's 23 CSV columns, verbatim. */
+/** The prototype's CSV columns minus Big tech alum (22): the Big tech employers column already names the employers. */
 export const CSV_HEADER: readonly string[] = [
   'Name', 'Fund', 'Company', 'Vertical', 'Role', 'Status', 'Status note', 'Path', 'Also fits',
-  'Prior open source', 'Prior exit', 'Grad degree', 'Big tech alum', 'Big tech employers', 'All employers',
+  'Prior open source', 'Prior exit', 'Grad degree', 'Big tech employers', 'All employers',
   'Schools', 'Prior OSS projects', 'Company founded', 'Company latest round', 'Company status', 'Company open source',
   'Est. founder age at founding', 'Source',
 ]
@@ -55,7 +55,7 @@ export function csvRow(f: FounderNode): (string | number)[] {
   return [
     f.name, FUND_LABEL[f.fund], c.name, c.vertical, f.role, STATUS_LABEL[f.status], f.statusNote ?? '',
     PATHS[f.path].name, f.secondaryPath ? PATHS[f.secondaryPath].name : '',
-    yn(f.badges.includes('prior_open_source')), yn(f.badges.includes('prior_exit')), yn(f.badges.includes('grad_degree')), yn(f.badges.includes('big_tech_alum')),
+    yn(f.background.includes('prior_open_source')), yn(f.background.includes('prior_exit')), yn(f.background.includes('grad_degree')),
     f.bigTech.join('; '), f.employers.join('; '), f.schools.join('; '), f.priorOpenSource.join('; '),
     c.founded, c.latest, c.status, OSS_LABEL[c.openSourceProduct], c.avgFounderAgeAtFounding ?? '', f.source,
   ]
@@ -79,7 +79,7 @@ function cells(f: FounderNode, selected: boolean): string {
     `<td>${esc(f.role)}</td>`,
     `<td><span class="status status--${f.status}">${STATUS_LABEL[f.status]}</span>${f.statusNote ? mini(f.statusNote) : ''}</td>`,
     `<td>${orNone(join(f.bigTech))}</td>`,
-    `<td>${orNone(join(badgeLabels(f)))}</td>`,
+    `<td>${orNone(join(backgroundLabels(f)))}</td>`,
     `<td>${orNone(join(f.schools), 'n/a')}</td>`,
     `<td>${orNone(join(f.priorOpenSource))}</td>`,
     `<td>${OSS_LABEL[c.openSourceProduct]}</td>`,

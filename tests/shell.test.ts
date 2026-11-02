@@ -178,12 +178,12 @@ describe('phone layout', () => {
   })
 })
 
-describe('badge bar target size', () => {
-  it('badge bar segments are at least 24px tall and wide (WCAG 2.5.8, Lighthouse target-size)', () => {
-    const css = read('src/styles/components.css')
-    const body = (selector: string) => rules(css).find((r) => r.selector === selector)?.body.replace(/\s+/g, ' ') ?? ''
-    expect(body('.bbar')).toMatch(/height: var\(--space-targetMin\)/)
-    expect(body('.bseg')).toMatch(/min-width: var\(--space-targetMin\)/)
+describe('no badge leftovers', () => {
+  it('the page, styles, and copy no longer mention badges or the Big tech alum chip', () => {
+    for (const file of ['index.html', 'src/styles/components.css', 'README.md']) expect(read(file), file).not.toMatch(/badge|big tech alum|big_tech_alum/i)
+    expect(read('CLAUDE.md')).not.toMatch(/### 5\.2 Badges|Badges \(4 chips|badge chips|Badges by path \(stacked|big_tech_alum badge/)
+    expect(read('src/styles/components.css')).not.toMatch(/\.bseg|\.bbar|\.brow|\.bnote/)
+    expect(read('index.html')).toContain('Background')
   })
 })
 

@@ -19,7 +19,7 @@ beforeAll(() => {
 })
 
 describe('app', () => {
-  it('the drawer is open on load, the button closes and reopens it, filters Big tech alum + Google to 12 of 84 and 8 of 37, removes and clears', () => {
+  it('the drawer is open on load, the button closes and reopens it, filters Google to 12 of 84 and 8 of 37, adds Prior open source, removes and clears', () => {
     expect(q('#filters-drawer').hasAttribute('hidden')).toBe(false)
     expect(q('#filters-btn').getAttribute('aria-expanded')).toBe('true')
     click('#filters-btn')
@@ -27,19 +27,21 @@ describe('app', () => {
     expect(q('#filters-btn').getAttribute('aria-expanded')).toBe('false')
     click('#filters-btn')
     expect(q('#filters-drawer').hasAttribute('hidden')).toBe(false)
-    click('[data-badge="big_tech_alum"]')
     click('[data-employer="Google"]')
     expect(text('#active-row .active__count')).toBe('12 of 84 founders · 8 of 37 companies')
+    click('[data-background="prior_open_source"]')
+    const both = graph.founders.filter((f) => f.bigTech.includes('Google') && f.background.includes('prior_open_source')).length
+    expect(text('#active-row .active__count')).toMatch(new RegExp(`^${both} of 84 founders`))
     expect(text('#filters-count')).toBe('2')
     expect([...document.querySelectorAll('#map g.lbl.cluster text')].some((t) => /· \d+\/\d+$/.test(t.textContent ?? ''))).toBe(true)
     expect([...document.querySelectorAll('#map g.node.founder')].some((n) => (n as HTMLElement).style.opacity === '0.07')).toBe(true)
     expect(q('#clusters-list [data-cluster="big_tech_engineer"] .cluster-row__count').textContent).toMatch(new RegExp(` of ${graph.clusters[0].founders.length}$`))
     click('[data-remove="employer:Google"]')
-    expect(text('#active-row .active__count')).toMatch(new RegExp(`^${graph.founders.filter((f) => f.badges.includes('big_tech_alum')).length} of 84 founders`))
+    expect(text('#active-row .active__count')).toMatch(new RegExp(`^${graph.founders.filter((f) => f.background.includes('prior_open_source')).length} of 84 founders`))
     click('#clear-filters')
     expect(q('#active-row').hasAttribute('hidden')).toBe(true)
     expect(q('#filters-count').hasAttribute('hidden')).toBe(true)
-    expect(q('[data-badge="big_tech_alum"]').getAttribute('aria-pressed')).toBe('false')
+    expect(q('[data-background="prior_open_source"]').getAttribute('aria-pressed')).toBe('false')
   })
   it('selects Dan Lorenc from the map, closes from the card', () => {
     q('[data-id="f:dan-lorenc"]').dispatchEvent(new MouseEvent('click', { bubbles: true }))
@@ -82,9 +84,11 @@ describe('app', () => {
     expect(text('#detail h2')).toBe('Academic')
     expect(q('[data-cluster="academic"]').getAttribute('aria-pressed')).toBe('true')
     expect(q('[data-path="academic"]').getAttribute('aria-pressed')).toBe('true')
-    click('[data-bp="prior_open_source:big_tech_engineer"]')
-    expect([...document.querySelectorAll('#active-row .achip__cat')].map((c) => c.textContent)).toEqual(['Path', 'Badge'])
-    click('[data-bp="prior_open_source:big_tech_engineer"]')
+    click('[data-background="prior_open_source"]')
+    expect([...document.querySelectorAll('#active-row .achip__cat')].map((c) => c.textContent)).toEqual(['Path', 'Background'])
+    click('[data-background="prior_open_source"]')
+    expect([...document.querySelectorAll('#active-row .achip__cat')].map((c) => c.textContent)).toEqual(['Path'])
+    click('[data-cluster="academic"]')
     expect(q('#active-row').hasAttribute('hidden')).toBe(true)
     const oneOff = graph.hubs.find((h) => h.oneOff)!
     q('#detail').innerHTML = `<button type="button" data-select="${oneOff.id}"></button>`
@@ -110,13 +114,15 @@ describe('focus retention across re-renders', () => {
     q(sel).focus()
     click(sel)
   }
-  it('keeps focus on a cluster row and on a badge segment after toggling them', () => {
+  it('keeps focus on a cluster row and on a background chip after toggling them', () => {
     focusClick('#clusters-list [data-cluster="academic"]')
     expect(q('#clusters-list [data-cluster="academic"]').getAttribute('aria-pressed')).toBe('true')
     expect(document.activeElement).toBe(q('#clusters-list [data-cluster="academic"]'))
-    focusClick('#badge-rows [data-bp="prior_exit:repeat_founder"]')
-    expect(q('#badge-rows [data-bp="prior_exit:repeat_founder"]').getAttribute('aria-pressed')).toBe('true')
-    expect(document.activeElement).toBe(q('#badge-rows [data-bp="prior_exit:repeat_founder"]'))
+    focusClick('#filters-drawer [data-background="prior_exit"]')
+    expect(q('#filters-drawer [data-background="prior_exit"]').getAttribute('aria-pressed')).toBe('true')
+    expect(document.activeElement).toBe(q('#filters-drawer [data-background="prior_exit"]'))
+    expect(document.querySelector('#badge-rows')).toBeNull()
+    expect(document.querySelector('[data-bp]')).toBeNull()
   })
   it('sends focus to the Filters button when Clear all empties the row, and into the new card after a member link', () => {
     focusClick('#clear-filters')
@@ -171,8 +177,8 @@ describe('table view', () => {
     expect(document.activeElement?.getAttribute('data-row')).toBe(btn.getAttribute('data-row'))
     expect(document.activeElement?.getAttribute('aria-pressed')).toBe('true')
     click('#detail [data-close]')
-    click('[data-badge="big_tech_alum"]')
-    expect(document.querySelectorAll('#founder-table tbody tr.row')).toHaveLength(graph.founders.filter((f) => f.badges.includes('big_tech_alum')).length)
+    click('[data-background="prior_open_source"]')
+    expect(document.querySelectorAll('#founder-table tbody tr.row')).toHaveLength(graph.founders.filter((f) => f.background.includes('prior_open_source')).length)
     click('#clear-filters')
     click('[data-view="map"]')
   })
