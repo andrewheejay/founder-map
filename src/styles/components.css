@@ -1021,3 +1021,8 @@ button.chip:hover {
 .about a {
   color: var(--color-ink);
 }
+
+/* Filters button shows an ink border while filters are active (Table artboard) */
+.btn:has(.btn__count:not([hidden])) {
+  border-color: var(--color-ink);
+}

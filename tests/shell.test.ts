@@ -84,3 +84,18 @@ describe('page shell', () => {
     expect(document.querySelector('#tab-about')?.hasAttribute('hidden')).toBe(true)
   })
 })
+
+describe('filters button', () => {
+  it('gets an ink border while the count badge is showing', () => {
+    // Table.dc.html draws the Filters button with an ink border once filters are active.
+    const btn = document.querySelector('#filters-btn')!
+    const count = document.querySelector('#filters-count')!
+    const inkBorder = rules(read('src/styles/components.css')).filter((r) => /border-color:\s*var\(--color-ink\)/.test(r.body))
+    const matching = () => inkBorder.filter((r) => btn.matches(r.selector)).map((r) => r.selector)
+    expect(count.hasAttribute('hidden')).toBe(true)
+    expect(matching()).toEqual([])
+    count.removeAttribute('hidden')
+    expect(matching().length).toBeGreaterThan(0)
+    count.setAttribute('hidden', '')
+  })
+})
