@@ -150,18 +150,7 @@ export function clusterCardHTML(c: Cluster, matched: Set<FounderNode>, graph: Gr
   return head('Cluster', c.name, esc(c.def), false) + dl(rows) + members(sorted.map((m) => memberRow(m, m.company.name)))
 }
 
-const EXAMPLES = ['e:uber', 's:harvard', 'c:temporal', 'f:matt-klein']
-
-export function defaultCardHTML(graph: Graph): string {
-  const tries = EXAMPLES.map((id) => graph.byId.get(id)).filter((n): n is AnyNode => !!n)
-  return (
-    '<p class="eyebrow">Start here</p><h2 class="card-title">Pick any dot or station</h2>' +
-    '<p class="body">Colored dots are founders, placed by career path. Gray circles are the employers, schools, and projects they share. Hover or tap one to see its ties.</p>' +
-    `<div class="chips">${tries.map((n) => `<button type="button" class="chip" data-select="${esc(n.id)}">${esc(n.name)}</button>`).join('')}</div>`
-  )
-}
-
-/** The card for the focused node; with no focus, the cluster card when exactly one path is filtered, else the default card. */
+/** The card for the focused node; with no focus, the cluster card when exactly one path is filtered, else empty (the card is hidden). */
 export function detailHTML(node: AnyNode | null, s: State, graph: Graph, matched: Set<FounderNode>): string {
   if (node) return node.kind === 'founder' ? founderCardHTML(node) : node.kind === 'company' ? companyCardHTML(node) : hubCardHTML(node, s.filters)
   if (s.filters.paths.size === 1) {
@@ -169,5 +158,5 @@ export function detailHTML(node: AnyNode | null, s: State, graph: Graph, matched
     const cluster = graph.clusters.find((c) => c.key === key)
     if (cluster) return clusterCardHTML(cluster, matched, graph)
   }
-  return defaultCardHTML(graph)
+  return ''
 }

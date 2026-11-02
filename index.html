@@ -39,14 +39,14 @@
         <button type="button" data-view="table" aria-pressed="false">Table</button>
       </div>
       <span class="toolbar__spacer"></span>
-      <button type="button" class="btn" id="filters-btn" aria-expanded="false" aria-controls="filters-drawer">
+      <button type="button" class="btn" id="filters-btn" aria-expanded="true" aria-controls="filters-drawer">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"></path></svg>
         Filters
         <span class="btn__count num" id="filters-count" hidden></span>
       </button>
     </div>
 
-    <section class="wrap" id="filters-drawer" aria-label="Filters" hidden></section>
+    <section class="wrap" id="filters-drawer" aria-label="Filters"></section>
     <div class="wrap active" id="active-row" hidden></div>
 
     <main class="wrap main">
@@ -89,11 +89,7 @@
       </section>
 
       <aside class="side">
-        <section class="card detail" id="detail">
-          <p class="eyebrow">Start here</p>
-          <h2 class="card-title">Pick any dot or station</h2>
-          <p class="body">Colored dots are founders, placed by career path. Gray circles are the employers, schools, and projects they share. Hover or tap one to see its ties.</p>
-        </section>
+        <section class="card detail" id="detail" hidden></section>
         <section class="card tabs-card" aria-label="Clusters, insights, and about">
           <div class="tabs" role="tablist" id="tabs">
             <button type="button" class="tab" role="tab" data-tab="clusters" aria-selected="true" aria-controls="tab-clusters" tabindex="0">Clusters</button>

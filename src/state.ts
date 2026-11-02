@@ -35,7 +35,7 @@ export const DEFAULT_FILTERS: Filters = {
   oss: '',
 }
 
-export const DEFAULT_STATE: State = { focus: null, pinned: false, layers: DEFAULT_LAYERS, filters: DEFAULT_FILTERS, view: 'map', tab: 'clusters', drawer: false, sort: DEFAULT_SORT }
+export const DEFAULT_STATE: State = { focus: null, pinned: false, layers: DEFAULT_LAYERS, filters: DEFAULT_FILTERS, view: 'map', tab: 'clusters', drawer: true, sort: DEFAULT_SORT }
 
 export interface Store {
   get(): State

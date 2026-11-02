@@ -44,7 +44,8 @@ describe('page shell', () => {
     expect(document.querySelector('main #map-card svg#map')?.getAttribute('aria-label')).toBe('Founder network map')
     expect(['Zoom in', 'Zoom out', 'Fit map to view'].map((l) => document.querySelector(`#map-card button[aria-label="${l}"]`))).not.toContain(null)
     expect(document.querySelectorAll('#map-card .legend li')).toHaveLength(11)
-    expect(document.querySelector('aside #detail h2')?.textContent).toBe('Pick any dot or station')
+    expect(document.querySelector('aside #detail')?.hasAttribute('hidden')).toBe(true)
+    expect(document.querySelector('aside #detail')?.textContent?.trim()).toBe('')
   })
   it('no em dashes in copy', () => expect(document.body.textContent).not.toMatch(/—/))
   it('stacks under 980px', () => {
@@ -73,7 +74,8 @@ describe('page shell', () => {
   })
   it('drawer, active row, table shell, and tabs are in the shell', () => {
     expect(document.querySelector('#filters-btn')?.getAttribute('aria-controls')).toBe('filters-drawer')
-    expect(document.querySelector('#filters-drawer')?.hasAttribute('hidden')).toBe(true)
+    expect(document.querySelector('#filters-btn')?.getAttribute('aria-expanded')).toBe('true')
+    expect(document.querySelector('#filters-drawer')?.hasAttribute('hidden')).toBe(false)
     expect(document.querySelector('#active-row')?.hasAttribute('hidden')).toBe(true)
     expect(document.querySelector('main #table-card')?.hasAttribute('hidden')).toBe(true)
     const tabs = [...document.querySelectorAll('#tabs [role="tab"]')]

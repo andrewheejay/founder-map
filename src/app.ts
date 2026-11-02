@@ -131,7 +131,11 @@ export function boot(doc: Document): void {
     }
     const focusNode = s.focus ? (graph.byId.get(s.focus) ?? null) : null
     map.update({ focus: focusNode, pinned: s.pinned, matched, layers: s.layers, filtersActive: active, pathFilter: s.filters.paths })
-    swap(doc.getElementById('detail'), detailHTML(focusNode, s, graph, matched), cache)
+    // An empty card hides; focus that was inside it (the close button) moves to the Filters button, as Clear all does.
+    const detailEl = doc.getElementById('detail')
+    const detailMarkup = detailHTML(focusNode, s, graph, matched)
+    if (detailEl) detailEl.hidden = !detailMarkup
+    swap(detailEl, detailMarkup, cache, doc.getElementById('filters-btn'))
     const row = doc.getElementById('active-row')
     if (row) row.hidden = !active
     swap(row, activeRowHTML(activeChips(s.filters), matched.size, matchedCompanies(graph, matched).length, totals), cache, doc.getElementById('filters-btn'))

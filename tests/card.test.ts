@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { graph } from '../src/data'
 import { CROSS_ICON } from '../src/html'
 import { BADGE_LABEL, BADGE_ORDER, OSS_LABEL, PATHS, STATUS_LABEL, type FounderNode, type HubNode } from '../src/model'
-import { clusterCardHTML, companyCardHTML, defaultCardHTML, detailHTML, founderCardHTML, hostOf, hubCardHTML, talentOverlaps } from '../src/panel/card'
+import { clusterCardHTML, companyCardHTML, detailHTML, founderCardHTML, hostOf, hubCardHTML, talentOverlaps } from '../src/panel/card'
 import { DEFAULT_FILTERS, DEFAULT_STATE } from '../src/state'
 
 const el = (html: string) => {
@@ -77,7 +77,7 @@ describe('detail card', () => {
     const one = graph.hubs.find((h) => h.oneOff)!
     expect(el(hubCardHTML(one, DEFAULT_FILTERS)).querySelector('.eyebrow')?.textContent).toContain('one-off tie')
   })
-  it('cluster card and default card', () => {
+  it('cluster card', () => {
     const c = graph.clusters[0]
     const d = el(clusterCardHTML(c, new Set(graph.founders), graph))
     expect(d.querySelector('h2')?.textContent).toBe(c.name)
@@ -88,15 +88,12 @@ describe('detail card', () => {
     const half = new Set(c.founders.slice(0, 3))
     expect(el(clusterCardHTML(c, half, graph)).querySelector('dd')?.textContent).toContain('3 match the current filters')
     expect(el(clusterCardHTML(c, half, graph)).querySelectorAll('.member')).toHaveLength(3)
-    const def = el(defaultCardHTML(graph))
-    expect(def.querySelector('h2')?.textContent).toBe('Pick any dot or station')
-    expect(def.querySelectorAll('.chips [data-select]')).toHaveLength(['e:uber', 's:harvard', 'c:temporal', 'f:matt-klein'].filter((id) => graph.byId.has(id)).length)
   })
-  it('detailHTML dispatches by node, single path filter, or default', () => {
+  it('detailHTML dispatches by node or single path filter, and is empty otherwise', () => {
     expect(detailHTML(lorenc, DEFAULT_STATE, graph, new Set(graph.founders))).toContain('Dan Lorenc')
     const one = { ...DEFAULT_STATE, filters: { ...DEFAULT_FILTERS, paths: new Set(['academic' as const]) } }
     expect(detailHTML(null, one, graph, new Set(graph.founders))).toContain('Academic')
-    expect(detailHTML(null, DEFAULT_STATE, graph, new Set(graph.founders))).toContain('Pick any dot or station')
+    expect(detailHTML(null, DEFAULT_STATE, graph, new Set(graph.founders))).toBe('')
   })
 })
 

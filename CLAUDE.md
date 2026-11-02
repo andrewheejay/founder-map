@@ -135,7 +135,7 @@ Employers and schools shared by two or more founders, plus every prior open sour
 1. Search input. Tokenized: every whitespace-separated token must appear in the founder's haystack.
 2. Fund segmented control: Both funds / Amplify / Haystack.
 3. View segmented control: Map / Table.
-4. Filters button with a count badge of active filters; toggles a drawer.
+4. Filters button with a count badge of active filters; toggles a drawer that is open on load.
 
 **Filter drawer** (grid of groups): Path (5 chips with counts), Badges (4 chips with counts), Big tech employer (9 chips with counts), More (selects: School, Vertical, Status, Open source product), Map layers (Companies, Employers, Schools, Prior open source, One-off ties, Also-fits stubs).
 
@@ -158,7 +158,7 @@ Employers and schools shared by two or more founders, plus every prior open sour
 - Company: eyebrow with fund and vertical, name, "Founded YYYY · founders about N at founding", description, Status / Latest / Open source / Team (paths present) / Shares talent pools with (top 6 companies sharing hubs, with the hub names), then member list sorted by path.
 - Hub: type (and "big tech" when applicable), name, "N founders across P paths and C companies · Amplify a, Haystack h", a "Filter to <Employer> alumni" chip for big tech employers, member list.
 - Cluster (when exactly one path filter is active and nothing is focused): name, definition, counts, shared ties, also-fits-here list, members.
-- Default: "Pick any dot or station" with four example chips (Uber, Harvard, Temporal, Matt Klein).
+- Otherwise the card is hidden (no placeholder); the side column starts with the tabs.
 
 **Tabs under the card**: Clusters (five rows with color, name, Amplify · Haystack counts, definition, and a two-tone bar; clicking toggles that path filter), Badges by path (stacked bars, clicking a segment filters to badge + path), Insights (six computed bullets: fund lean, busiest stations, shared by both funds, most mixed stations, mixed teams, founder turnover), About (methodology text from the prototype).
 
