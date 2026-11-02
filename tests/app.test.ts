@@ -4,6 +4,7 @@ import { resolve } from 'node:path'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { boot } from '../src/app'
 import { graph } from '../src/data'
+import { fitTransform } from '../src/map/geometry'
 
 const q = <T extends Element = HTMLElement>(sel: string) => document.querySelector(sel) as T
 const click = (sel: string) => q(sel).dispatchEvent(new MouseEvent('click', { bubbles: true }))
@@ -287,5 +288,33 @@ describe('phone behaviors', () => {
     expect(doc3.querySelector('#map g.viewport')!.getAttribute('transform')).toMatch(/scale\(2\.4\)/)
     ;(window as unknown as { matchMedia: unknown }).matchMedia = mm
     history.replaceState(null, '', location.pathname)
+  })
+})
+
+describe('search zoom', () => {
+  it('fits the matched founders when the match set changes, not on hover, and zooms back out when filters clear', () => {
+    const mm = (window as unknown as { matchMedia: unknown }).matchMedia
+    ;(window as unknown as { matchMedia: unknown }).matchMedia = (query: string) => ({ matches: query.includes('reduced-motion'), media: query, addEventListener() {} })
+    const doc4 = new DOMParser().parseFromString(indexHtml, 'text/html')
+    boot(doc4)
+    const tf = () => doc4.querySelector('#map g.viewport')!.getAttribute('transform')
+    expect(tf()).toBeNull()
+    const input = doc4.getElementById('map-search') as HTMLInputElement
+    const type = (v: string) => {
+      input.value = v
+      input.dispatchEvent(new Event('input', { bubbles: true }))
+    }
+    type('microsoft')
+    const matched = graph.founders.filter((f) => f.haystack.includes('microsoft'))
+    expect(matched.length).toBeGreaterThan(1)
+    const want = fitTransform(matched, graph.W, graph.H)!
+    expect(tf()).toBe(`translate(${want.x},${want.y}) scale(${want.k})`)
+    doc4.querySelector('[data-id="c:temporal"]')!.dispatchEvent(new Event('pointerenter'))
+    expect(tf()).toBe(`translate(${want.x},${want.y}) scale(${want.k})`)
+    type('zzzz no one')
+    expect(tf()).toBe(`translate(${want.x},${want.y}) scale(${want.k})`)
+    type('')
+    expect(tf()).toBe('translate(0,0) scale(1)')
+    ;(window as unknown as { matchMedia: unknown }).matchMedia = mm
   })
 })

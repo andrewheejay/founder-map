@@ -1,6 +1,6 @@
 import { polygonContains } from 'd3-polygon'
 import { describe, expect, it } from 'vitest'
-import { altStub, clusterGeometry, hubRadius, nodeRadius } from '../src/map/geometry'
+import { altStub, clusterGeometry, fitTransform, hubRadius, nodeRadius } from '../src/map/geometry'
 
 describe('geometry', () => {
   it('radii', () => {
@@ -39,5 +39,20 @@ describe('geometry', () => {
     near(altStub({ x: 0, y: 0 }, { x: 300, y: 0 }), 70, 0)
     near(altStub({ x: 0, y: 0 }, { x: 100, y: 0 }), 55, 0)
     near(altStub({ x: 5, y: 5 }, { x: 5, y: 5 }), 5, 5)
+  })
+  it('fitTransform centers one point at the max scale, fits a spread at the min, and pads a cluster', () => {
+    expect(fitTransform([], 1100, 840)).toBeNull()
+    const one = fitTransform([{ x: 100, y: 700 }], 1100, 840)!
+    expect(one.k).toBe(2.4)
+    expect(one.x).toBeCloseTo(550 - 100 * 2.4)
+    expect(one.y).toBeCloseTo(420 - 700 * 2.4)
+    const wide = fitTransform([{ x: 0, y: 0 }, { x: 1100, y: 840 }], 1100, 840)!
+    expect(wide.k).toBeCloseTo(Math.min(1100 / 1220, 840 / 960))
+    expect(wide.x).toBeCloseTo(550 - 550 * wide.k)
+    const cluster = fitTransform([{ x: 200, y: 300 }, { x: 400, y: 300 }, { x: 300, y: 400 }], 1100, 840)!
+    expect(cluster.k).toBe(2.4)
+    expect(cluster.x).toBeCloseTo(550 - 300 * 2.4)
+    expect(cluster.y).toBeCloseTo(420 - 350 * 2.4)
+    expect(fitTransform([{ x: 0, y: 0 }, { x: 5000, y: 0 }], 1100, 840)!.k).toBe(0.8)
   })
 })

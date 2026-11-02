@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { graph } from '../src/data'
+import { fitTransform } from '../src/map/geometry'
 import { createMap, type MapInput } from '../src/map/map'
 import { MAP_DIM_OPACITY, MAP_FILTERED_OPACITY } from '../src/tokens'
 
@@ -144,7 +145,7 @@ describe('map', () => {
   })
 })
 
-describe('zoomTo', () => {
+describe('zoomTo and fitTo', () => {
   it('centers a node at the given scale', () => {
     const { svg, map } = mount({ reduceMotion: true })
     map.zoomTo('f:dan-lorenc', 2)
@@ -155,6 +156,19 @@ describe('zoomTo', () => {
     expect(Number(m[1])).toBeCloseTo(550 - n.x * 2, 3)
     expect(Number(m[2])).toBeCloseTo(420 - n.y * 2, 3)
     expect(() => map.zoomTo('f:nobody')).not.toThrow()
+  })
+  it('fitTo fits the given points, including one near the left edge, and ignores an empty list', () => {
+    const { svg, map } = mount({ reduceMotion: true })
+    const edge = graph.all.reduce((p, f) => (f.x < p.x ? f : p))
+    expect(edge.x).toBeLessThan(200)
+    map.fitTo([edge])
+    const tf = () => svg.querySelector('g.viewport')!.getAttribute('transform')!
+    const want = fitTransform([edge], graph.W, graph.H)!
+    expect(tf()).toBe(`translate(${want.x},${want.y}) scale(${want.k})`)
+    map.fitTo([])
+    expect(tf()).toBe(`translate(${want.x},${want.y}) scale(${want.k})`)
+    map.fit()
+    expect(tf()).toBe('translate(0,0) scale(1)')
   })
 })
 

@@ -64,3 +64,22 @@ export function altStub(from: Pt, to: Pt): Pt {
   const len = Math.min(L * 0.55, 70)
   return { x: from.x + (dx / L) * len, y: from.y + (dy / L) * len }
 }
+
+/**
+ * The zoom transform that fits `points` in a W x H viewBox with `pad` units around their bounding box,
+ * scale clamped to [minK, maxK] (one point sits at maxK). Null for an empty list.
+ */
+export function fitTransform(points: readonly Pt[], W: number, H: number, pad = 60, minK = 0.8, maxK = 2.4): { k: number; x: number; y: number } | null {
+  if (!points.length) return null
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+  for (const p of points) {
+    x0 = Math.min(x0, p.x)
+    y0 = Math.min(y0, p.y)
+    x1 = Math.max(x1, p.x)
+    y1 = Math.max(y1, p.y)
+  }
+  const k = Math.min(maxK, Math.max(minK, Math.min(W / (x1 - x0 + 2 * pad), H / (y1 - y0 + 2 * pad))))
+  const cx = (x0 + x1) / 2
+  const cy = (y0 + y1) / 2
+  return { k, x: W / 2 - cx * k, y: H / 2 - cy * k }
+}

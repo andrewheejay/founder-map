@@ -116,9 +116,19 @@ export function boot(doc: Document): void {
   const cache = new Map<HTMLElement, string>()
   const totals = { founders: graph.founders.length, companies: graph.companies.length }
   let lastView: View = store.get().view
+  // The map zooms to fit the matched founders when the match set changes (not on hover or selection),
+  // and back to the whole map when the filters clear.
+  let lastMatchKey = ''
   const push = (s: State) => {
     const matched = matchedFounders(graph, s.filters)
     const active = activeFilterCount(s.filters) > 0
+    // 'on:' keeps an active filter with zero matches distinct from no filter at all.
+    const matchKey = active ? 'on:' + [...matched].map((f) => f.id).sort().join() : ''
+    if (matchKey !== lastMatchKey) {
+      lastMatchKey = matchKey
+      if (!active) map.fit(420)
+      else if (matched.size) map.fitTo([...matched])
+    }
     const focusNode = s.focus ? (graph.byId.get(s.focus) ?? null) : null
     map.update({ focus: focusNode, pinned: s.pinned, matched, layers: s.layers, filtersActive: active, pathFilter: s.filters.paths })
     swap(doc.getElementById('detail'), detailHTML(focusNode, s, graph, matched), cache)

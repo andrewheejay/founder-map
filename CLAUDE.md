@@ -150,6 +150,7 @@ Employers and schools shared by two or more founders, plus every prior open sour
 - Filtered-out nodes drop to 0.07 opacity; their links to 0.03.
 - Labels: founders show shortLabel; companies show name (bold); hubs show NAME in uppercase, small, muted. Labels use a white paint-order stroke (3.4px). Greedy placement that avoids node and label overlaps (4 candidate positions per founder label, 4 per company/hub); crowded labels are hidden unless they are neighbors of the focused node. Scale labels and node sizes by `1/sqrt(zoom)` so they stay readable when zoomed.
 - Zoom and pan with d3-zoom (scale 0.8 to 5), buttons for +, −, Fit, stacked bottom-right.
+- Searching or filtering zooms the map (420 ms, none under reduced motion) to fit the matched founders, at most 2.4x; clearing every filter zooms back to the whole map. Hover and selection never move the viewport on desktop.
 - Legend row under the map: five path colors, Amplify (circle), Haystack (square), Employer, School, Open source project, Also fits another path.
 
 **Detail card** (right column on desktop, below the map on phones), one of:

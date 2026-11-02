@@ -5,7 +5,7 @@ import { zoom, zoomIdentity, type D3ZoomEvent, type ZoomTransform } from 'd3-zoo
 import { FUND_LABEL, HUB_TYPE_LABEL, PATHS, type AnyNode, type Cluster, type FounderNode, type Graph, type HubNode } from '../model'
 import { MAP_DIM_OPACITY, MAP_FILTERED_OPACITY } from '../tokens'
 import type { Layers, PathKey } from '../types'
-import { altStub, clusterGeometry, hubRadius, nodeRadius, type ClusterGeometry, type Pt } from './geometry'
+import { altStub, clusterGeometry, fitTransform, hubRadius, nodeRadius, type ClusterGeometry, type Pt } from './geometry'
 import { placeLabels, type LabelItem, type Placement, type Rect } from './labels'
 import { mapNavKey } from './nav'
 
@@ -30,7 +30,10 @@ export interface MapView {
   relayout(): void
   zoomIn(): void
   zoomOut(): void
-  fit(): void
+  /** Zoom back to the whole map (the Fit button at 260 ms; the automatic return after filters clear passes 420). */
+  fit(ms?: number): void
+  /** Zoom (420 ms) to fit `points` with room for labels, at most 2.4x; a no-op for an empty list. */
+  fitTo(points: readonly Pt[]): void
   /** Center a node at `scale` (default 2.4): the phone layout zooms to the selection on select. */
   zoomTo(id: string, scale?: number): void
   /** Follow a prefers-reduced-motion change after boot: true makes every later zoom instant. */
@@ -431,7 +434,11 @@ export function createMap(svgEl: SVGSVGElement, graph: Graph, handlers: MapHandl
     relayout,
     zoomIn: () => svg.transition().duration(ms(260)).call(zoomBehavior.scaleBy, 1.5),
     zoomOut: () => svg.transition().duration(ms(260)).call(zoomBehavior.scaleBy, 1 / 1.5),
-    fit: () => go(zoomIdentity),
+    fit: (ms = 260) => go(zoomIdentity, ms),
+    fitTo(points) {
+      const t = fitTransform(points, W, H)
+      if (t) go(zoomIdentity.translate(t.x, t.y).scale(t.k), 420)
+    },
     zoomTo(id, scale = 2.4) {
       const n = graph.byId.get(id)
       if (!n) return
