@@ -207,6 +207,17 @@ describe('partner names', () => {
   })
 })
 
+describe('About tab', () => {
+  it('has no Stations paragraph or briefs link (cut 2026-11-02)', () => {
+    const d = document.createElement('div')
+    d.innerHTML = html
+    const about = d.querySelector('#tab-about')!
+    expect(about.textContent).not.toMatch(/Stations|Founder Briefs|latest public figures/)
+    expect(about.querySelector('a[href*="claude.ai"]')).toBeNull()
+    expect([...about.querySelectorAll('p > b')].map((b) => b.textContent)).toEqual(['Scope.', 'Paths.', 'Background facts sit on top of a path.', 'Big tech'])
+  })
+})
+
 describe('no badge leftovers', () => {
   it('the page, styles, and copy no longer mention badges or the Big tech alum chip', () => {
     for (const file of ['index.html', 'src/styles/components.css', 'README.md']) expect(read(file), file).not.toMatch(/badge|big tech alum|big_tech_alum/i)

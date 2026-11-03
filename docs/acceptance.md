@@ -138,3 +138,7 @@ User call: say on the page that the Amplify side is Lenny Pruss's deals. The one
 |---|---|---|
 | Fund control | PASS | Buttons read `Amplify Lenny Pruss` and `Haystack Semil Shah` with the partner in a muted `.seg__sub` span (same size as the fund name, surface-coloured at 0.78 when pressed); "Both funds" has no sub-label; the sub-label is hidden under 640px so the phone toolbar keeps its two-column grid. |
 | Copy | PASS | Subtitle "Lenny Pruss's Amplify deals and Semil Shah's Haystack portfolio, grouped by founder path"; meta description matches; About tab opens with "Scope. Amplify here means the twelve companies Lenny Pruss led for Amplify Partners, not the whole portfolio. Haystack is Semil Shah's portfolio."; README first paragraph and CLAUDE.md section 6 updated. `tests/shell.test.ts` "partner names" pins all of it. |
+
+## About tab trim (2026-11-02, branch about-trim)
+
+User call: cut the Stations paragraph ("Stations are employers and schools shared by two or more founders ... Full bios and sources live in Amplify Portfolio: Founder Briefs") from the About tab. The tab now has four paragraphs: Scope, Paths, Background, Big tech. The One-off ties layer and the research doc link in CLAUDE.md section 1 are unchanged. Pinned by the "About tab" test in `tests/shell.test.ts`.

@@ -160,7 +160,7 @@ Employers and schools shared by two or more founders, plus every prior open sour
 - Cluster (when exactly one path filter is active and nothing is focused): name, definition, counts, shared ties, also-fits-here list, members.
 - Otherwise the card is hidden (no placeholder); the side column starts with the tabs.
 
-**Tabs under the card**: Clusters (five rows with color, name, Amplify · Haystack counts, definition, and a two-tone bar; clicking toggles that path filter), Insights (six computed bullets: fund lean, busiest stations, shared by both funds, most mixed stations, mixed teams, founder turnover), About (methodology text from the prototype).
+**Tabs under the card**: Clusters (five rows with color, name, Amplify · Haystack counts, definition, and a two-tone bar; clicking toggles that path filter), Insights (six computed bullets: fund lean, busiest stations, shared by both funds, most mixed stations, mixed teams, founder turnover), About (Scope, Paths, Background, Big tech; the prototype's Stations paragraph and briefs link were cut on 2026-11-02 at the user's request).
 
 **Table view**: columns Founder, Fund, Company (+vertical), Path (+also fits), Role, Status (+note), Big tech, Background, Schools, Prior OSS, OSS product, Company latest (+status), Source. Sortable by any column (click header toggles direction). Row click selects the founder. "Copy table as CSV" copies the filtered rows with the prototype's `csv()` header minus its Big tech alum column (22 columns); fall back to a visible textarea when the clipboard API is unavailable. Wide table scrolls horizontally inside its card.
 
