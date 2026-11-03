@@ -30,7 +30,7 @@ describe('filters', () => {
     expect(matchFounder(lorenc, F({ status: 'left' }))).toBe(lorenc.status === 'left')
     expect(matchFounder(lorenc, F({ oss: lorenc.company.openSourceProduct }))).toBe(true)
   })
-  it('Google shows 12 of 84 founders and 8 of 37 companies', () => {
+  it('Google shows 12 of 81 founders and 8 of 36 companies', () => {
     const m = matchedFounders(graph, F({ employers: new Set(['Google']) }))
     expect(m.size).toBe(12)
     expect(matchedCompanies(graph, m)).toHaveLength(8)

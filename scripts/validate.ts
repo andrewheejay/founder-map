@@ -3,7 +3,7 @@ import { PATH_ORDER, hubRefs, slug } from '../src/model'
 import type { CompanyRecord, FounderRecord } from '../src/types'
 
 const FUNDS = ['amplify', 'haystack']
-const VERTICALS = ['Developer Tools', 'AI & Cloud Infrastructure', 'Security & Observability', 'Data Infrastructure', 'Fintech Infrastructure', 'Digital Biology']
+const VERTICALS = ['Developer Tools', 'AI & Cloud Infrastructure', 'Security & Observability', 'Data Infrastructure', 'Fintech Infrastructure']
 const OSS = ['yes', 'partial', 'no']
 const STATUSES = ['active', 'role_changed', 'left']
 const BACKGROUND = ['prior_open_source', 'prior_exit', 'grad_degree']

@@ -119,3 +119,13 @@ User call: the "badge" concept was confusing (the same four facts appeared as a 
 | No duplicate labels in the drawer | PASS | The map layer formerly labelled "Prior open source" is now "Open source projects", so the Background chip is the only "Prior open source" control. |
 | Copy | PASS | About tab: "Background facts sit on top of a path" and "the Big tech employer filter finds everyone who worked at one of the nine"; `tests/shell.test.ts` fails if index.html, the stylesheet, README, or CLAUDE.md mention badges or Big tech alum again. |
 | Suite | PASS | 22 files, 139 tests; `tsc --noEmit` clean for both configs; `npm run validate` reports 84 founders, 37 companies, 198 hubs, 319 positioned nodes. |
+
+## Achira removed (2026-11-02, branch drop-achira)
+
+User call: the Amplify side of the map is Lenny Pruss's deals. Raylea's sheet names Lenny as lead investor for the twelve prototype Amplify companies and leaves Achira's lead blank (its $33M seed was led by Dimension with Amplify participating), so Achira and its three founders (John Chodera, Theofanis Karaletsos, Zavain Dar) are dropped. The Digital Biology vertical, added only for Achira, goes with it.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Data | PASS | `npm run validate`: 81 founders, 36 companies, 182 hubs, 299 positioned nodes (layout regenerated; the 16 one-off hubs that only Achira's founders carried are gone, Uber, Facebook, and Stanford stay). |
+| Count pins | PASS | Per-path counts (Amplify · Haystack): Big tech engineer 12 · 16, Young builder 7 · 13, Repeat founder 6 · 17, Business operator 1 · 4, Academic 4 · 1. Google alone still gives 12 of 81 founders · 8 of 36 companies; Haystack gives 24 of 36 companies; "lorenc" gives 1 of 81 · 1 of 36. Updated in `tests/model.test.ts`, `tests/app.test.ts`, `tests/filters.test.ts`, and CLAUDE.md sections 3, 4, 5.1, 6, and 9. |
+| Vertical enum | PASS | `scripts/validate.ts` is back to five verticals; `tests/validate.test.ts` now rejects "Digital Biology". |

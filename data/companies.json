@@ -384,18 +384,6 @@
     "description": "Continuous profiling for cloud-native and GPU workloads, built on the open source Parca project the company created."
   },
   {
-    "id": "c:achira",
-    "name": "Achira",
-    "fund": "amplify",
-    "vertical": "Digital Biology",
-    "founded": 2024,
-    "avgFounderAgeAtFounding": null,
-    "openSourceProduct": "no",
-    "status": "Active",
-    "latest": "$33M seed led by Dimension, Feb 2025 (Amplify Partners, Compound, NVentures participated)",
-    "description": "Builds atomistic foundation simulation models that combine physics and AI to predict molecular behavior for drug discovery."
-  },
-  {
     "id": "c:awake-security",
     "name": "Awake Security",
     "fund": "haystack",

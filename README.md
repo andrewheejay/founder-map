@@ -48,7 +48,7 @@ Three JSON files under `data/`. Ids are slugs: lowercase, accents stripped, ever
 | id | `c:<slug>` | slug of the name |
 | name | string | |
 | fund | `amplify` or `haystack` | |
-| vertical | string | Developer Tools, AI & Cloud Infrastructure, Security & Observability, Data Infrastructure, Fintech Infrastructure, or Digital Biology |
+| vertical | string | Developer Tools, AI & Cloud Infrastructure, Security & Observability, Data Infrastructure, or Fintech Infrastructure |
 | founded | number | year |
 | avgFounderAgeAtFounding | number or null | estimate; null when unknown |
 | openSourceProduct | `yes`, `partial`, or `no` | open product, open tooling or standard with a commercial core, or closed |

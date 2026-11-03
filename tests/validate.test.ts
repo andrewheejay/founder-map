@@ -17,10 +17,10 @@ describe('validateData', () => {
     d.f[0].company = 'Nope'
     expect(validateData(d.f, d.c, d.l).join()).toMatch(/f:will-wilson.*Nope/)
   })
-  it('accepts the Digital Biology vertical', () => {
+  it('rejects a vertical outside the five (Digital Biology left with Achira)', () => {
     const d = clone()
     d.c[0].vertical = 'Digital Biology'
-    expect(validateData(d.f, d.c, d.l)).toEqual([])
+    expect(validateData(d.f, d.c, d.l).join()).toMatch(/vertical "Digital Biology" is not one of/)
   })
   it('bad path enum', () => {
     const d = clone()
