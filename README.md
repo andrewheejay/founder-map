@@ -1,6 +1,6 @@
 # Founder Map
 
-An interactive network map of the founders behind the Amplify Partners and Haystack portfolios, grouped by the career path that led them to start a company and linked through shared employers, schools, and open source projects. Built for VC-style due diligence: hover or tap a founder to see their ties, filter by path, background, employer, school, vertical, status, or open source product, switch to a sortable table, and copy the filtered rows as CSV.
+An interactive network map of the founders behind Lenny Pruss's Amplify deals and Semil Shah's Haystack portfolio, grouped by the career path that led them to start a company and linked through shared employers, schools, and open source projects. Built for VC-style due diligence: hover or tap a founder to see their ties, filter by path, background, employer, school, vertical, status, or open source product, switch to a sortable table, and copy the filtered rows as CSV.
 
 The full specification lives in [CLAUDE.md](CLAUDE.md). The working prototype and the approved design artboards are in `reference/` (not shipped).
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Founder Map</title>
-    <meta name="description" content="An interactive network map of the founders behind the Amplify Partners and Haystack portfolios, grouped by the career path that led them to start a company." />
+    <meta name="description" content="An interactive network map of the founders behind Lenny Pruss's Amplify deals and Semil Shah's Haystack portfolio, grouped by the career path that led them to start a company." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
@@ -16,7 +16,7 @@
           <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect class="brand__bg" width="28" height="28" rx="7"></rect><path class="brand__line" d="M9 18.5 18.5 9.5M10 18l8 1.6"></path><circle class="brand__node" cx="9" cy="18.5" r="3"></circle><circle class="brand__node" cx="19" cy="9" r="3"></circle><circle class="brand__dot" cx="19.5" cy="20" r="2.4"></circle></svg>
           <div>
             <h1 class="site-title">Founder Map</h1>
-            <p class="site-subtitle">Amplify Partners and Haystack portfolios, grouped by founder path</p>
+            <p class="site-subtitle">Lenny Pruss's Amplify deals and Semil Shah's Haystack portfolio, grouped by founder path</p>
           </div>
         </div>
         <p class="site-stats num" id="stats"></p>
@@ -31,8 +31,8 @@
       </div>
       <div class="seg" role="group" aria-label="Fund" id="fund-seg">
         <button type="button" data-fund="all" aria-pressed="true">Both funds</button>
-        <button type="button" data-fund="amplify" aria-pressed="false">Amplify</button>
-        <button type="button" data-fund="haystack" aria-pressed="false">Haystack</button>
+        <button type="button" data-fund="amplify" aria-pressed="false">Amplify <span class="seg__sub">Lenny Pruss</span></button>
+        <button type="button" data-fund="haystack" aria-pressed="false">Haystack <span class="seg__sub">Semil Shah</span></button>
       </div>
       <div class="seg" role="group" aria-label="View" id="view-seg">
         <button type="button" data-view="map" aria-pressed="true">Map</button>
@@ -106,6 +106,7 @@
           </div>
           <div class="tabpanel about" role="tabpanel" id="tab-about" hidden>
             <div class="tabpanel__head"><span>How it is built</span></div>
+            <p><b>Scope.</b> Amplify here means the twelve companies Lenny Pruss led for Amplify Partners, not the whole portfolio. Haystack is Semil Shah's portfolio.</p>
             <p><b>Paths.</b> Each founder sits in one cluster for the main career path that led to this company, from public bios as of October 2026. A dashed stub points toward a second path that also fits.</p>
             <p><b>Background facts sit on top of a path.</b> Prior open source means the founder created or co-created a notable project before this company (Envoy, Ray, Vagrant); Prior exit and Grad degree work the same way. Open source product is a company attribute: whether the core product is open, partial (open tooling or standard, commercial core), or closed.</p>
             <p><b>Big tech</b> means Google, Facebook (Meta), Microsoft, Amazon, Apple, Twitter, Uber, Lyft, or Palantir. Big tech engineer is a path (years building inside a large company or agency, such as the NSA); the Big tech employer filter finds everyone who worked at one of the nine, whatever their path.</p>

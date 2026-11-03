@@ -161,6 +161,18 @@
   color: var(--color-surface);
 }
 
+/* The partner behind each fund, same size as the fund name so it stays readable, muted until pressed. */
+.seg__sub {
+  margin-left: 2px;
+  font-weight: var(--weight-regular);
+  color: var(--color-muted);
+}
+
+.seg button[aria-pressed="true"] .seg__sub {
+  color: var(--color-surface);
+  opacity: 0.78;
+}
+
 .btn {
   height: var(--space-controlH);
   padding: 0 14px;
@@ -1258,6 +1270,10 @@ button.chip:hover {
   .seg button {
     flex: 1 1 0;
     padding: 0 8px;
+  }
+
+  .seg__sub {
+    display: none;
   }
 
   .toolbar__spacer {

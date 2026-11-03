@@ -133,7 +133,7 @@ Employers and schools shared by two or more founders, plus every prior open sour
 
 **Toolbar (one row, wraps on narrow screens)**
 1. Search input. Tokenized: every whitespace-separated token must appear in the founder's haystack.
-2. Fund segmented control: Both funds / Amplify / Haystack.
+2. Fund segmented control: Both funds / Amplify / Haystack, with the partner under each fund as a muted sub-label ("Lenny Pruss", "Semil Shah"; hidden under 640px). The header subtitle reads "Lenny Pruss's Amplify deals and Semil Shah's Haystack portfolio, grouped by founder path" and the About tab opens with a Scope paragraph saying Amplify means the twelve companies Lenny led, not the whole portfolio.
 3. View segmented control: Map / Table.
 4. Filters button with a count pill of active filters; toggles a drawer that is open on load.
 

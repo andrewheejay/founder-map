@@ -178,6 +178,35 @@ describe('phone layout', () => {
   })
 })
 
+describe('partner names', () => {
+  const css = read('src/styles/components.css')
+  const body = (block: string, selector: string) => rules(block).find((r) => r.selector.split(',').map((x) => x.trim()).includes(selector))?.body.replace(/\s+/g, ' ') ?? ''
+  it('the fund control names the partner under each fund, the Both funds button does not', () => {
+    const d = document.createElement('div')
+    d.innerHTML = html
+    const sub = (fund: string) => d.querySelector(`#fund-seg [data-fund="${fund}"] .seg__sub`)?.textContent ?? null
+    expect(sub('amplify')).toBe('Lenny Pruss')
+    expect(sub('haystack')).toBe('Semil Shah')
+    expect(sub('all')).toBeNull()
+    expect(d.querySelector('#fund-seg [data-fund="amplify"]')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Amplify Lenny Pruss')
+  })
+  it('the subtitle, meta description, About tab, README, and spec say the Amplify side is Lenny Pruss\'s deals', () => {
+    const d = document.createElement('div')
+    d.innerHTML = html
+    expect(d.querySelector('.site-subtitle')?.textContent).toBe("Lenny Pruss's Amplify deals and Semil Shah's Haystack portfolio, grouped by founder path")
+    expect(html).toMatch(/<meta name="description" content="[^"]*Lenny Pruss's Amplify deals[^"]*"/)
+    expect(d.querySelector('#tab-about')?.textContent).toContain('the twelve companies Lenny Pruss led')
+    expect(read('README.md').split('\n')[2]).toContain("Lenny Pruss's Amplify deals")
+    expect(read('CLAUDE.md')).toContain('Lenny Pruss')
+  })
+  it('the partner sub-label is muted, keeps the control text size, and hides under 640px', () => {
+    expect(body(css, '.seg__sub')).toMatch(/color: var\(--color-muted\)/)
+    expect(body(css, '.seg__sub')).not.toMatch(/font-size/)
+    expect(body(css, '.seg button[aria-pressed="true"] .seg__sub')).toMatch(/color: var\(--color-surface\)/)
+    expect(body(mediaBlock(css, '(max-width: 640px)'), '.seg__sub')).toMatch(/display: none/)
+  })
+})
+
 describe('no badge leftovers', () => {
   it('the page, styles, and copy no longer mention badges or the Big tech alum chip', () => {
     for (const file of ['index.html', 'src/styles/components.css', 'README.md']) expect(read(file), file).not.toMatch(/badge|big tech alum|big_tech_alum/i)

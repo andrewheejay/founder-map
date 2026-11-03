@@ -129,3 +129,12 @@ User call: the Amplify side of the map is Lenny Pruss's deals. Raylea's sheet na
 | Data | PASS | `npm run validate`: 81 founders, 36 companies, 182 hubs, 299 positioned nodes (layout regenerated; the 16 one-off hubs that only Achira's founders carried are gone, Uber, Facebook, and Stanford stay). |
 | Count pins | PASS | Per-path counts (Amplify · Haystack): Big tech engineer 12 · 16, Young builder 7 · 13, Repeat founder 6 · 17, Business operator 1 · 4, Academic 4 · 1. Google alone still gives 12 of 81 founders · 8 of 36 companies; Haystack gives 24 of 36 companies; "lorenc" gives 1 of 81 · 1 of 36. Updated in `tests/model.test.ts`, `tests/app.test.ts`, `tests/filters.test.ts`, and CLAUDE.md sections 3, 4, 5.1, 6, and 9. |
 | Vertical enum | PASS | `scripts/validate.ts` is back to five verticals; `tests/validate.test.ts` now rejects "Digital Biology". |
+
+## Partner names (2026-11-02, branch partner-labels)
+
+User call: say on the page that the Amplify side is Lenny Pruss's deals. The one-word fund label stays wherever a label is needed (legend, card eyebrow, table, cluster header); the places that describe the dataset change.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Fund control | PASS | Buttons read `Amplify Lenny Pruss` and `Haystack Semil Shah` with the partner in a muted `.seg__sub` span (same size as the fund name, surface-coloured at 0.78 when pressed); "Both funds" has no sub-label; the sub-label is hidden under 640px so the phone toolbar keeps its two-column grid. |
+| Copy | PASS | Subtitle "Lenny Pruss's Amplify deals and Semil Shah's Haystack portfolio, grouped by founder path"; meta description matches; About tab opens with "Scope. Amplify here means the twelve companies Lenny Pruss led for Amplify Partners, not the whole portfolio. Haystack is Semil Shah's portfolio."; README first paragraph and CLAUDE.md section 6 updated. `tests/shell.test.ts` "partner names" pins all of it. |
